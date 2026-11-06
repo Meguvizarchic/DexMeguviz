@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "generator": "Python stdlib zipfile/zlib plus explicit documented ZIP64 records",
+  "source_dex_sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+  "dex_bytes": 448,
+  "files": {
+    "stored.apk": {
+      "bytes": 568,
+      "sha256": "efa0ba9202a7ac290ec958749e649b8dfad31a448ef9c2ed618f07c25e9c712b"
+    },
+    "deflated.apk": {
+      "bytes": 382,
+      "sha256": "936a7f2fcba3e4a2b85985f0512756d839f6d85a3db07b716146bcb3ba1652a0"
+    },
+    "multidex.apk": {
+      "bytes": 744,
+      "sha256": "d62cee9741c30b1dcf7c5090826c17c5386a6f8a24eb7c7234682958f30fbcac"
+    },
+    "descriptor.apk": {
+      "bytes": 398,
+      "sha256": "d162ab03a48069e1e348c04154680088cf626b1b97e91565360c273ab227ede6"
+    },
+    "local-zip64.apk": {
+      "bytes": 588,
+      "sha256": "30bed330dbcf87b8d43f1d30fc08a6338a87dae730a0c106017c20bb843ba4fb"
+    },
+    "zip64.apk": {
+      "bytes": 692,
+      "sha256": "be3f7c5b244d705024529978762f33f06ae5782add2e18e140803e73615802df"
+    },
+    "zip64-descriptor.apk": {
+      "bytes": 716,
+      "sha256": "116bd08fad5dd057322ff5ac22c1597e0f9991e1988eb5bd655f6794e5d9c05e"
+    },
+    "long-name.zip": {
+      "bytes": 2616,
+      "sha256": "4947576571ccc299672dcf2d3c7065a42a691494fdeef8e20d2d79a52cce53c0"
+    },
+    "empty.zip": {
+      "bytes": 22,
+      "sha256": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85"
+    },
+    "zero-entry.zip": {
+      "bytes": 116,
+      "sha256": "4c461b4ddbb72a75cf25b439babf2ea5f674af683854962f327dd7b67ec53ce6"
+    },
+    "many.apk": {
+      "bytes": 5242,
+      "sha256": "be6988fb4d6515ffaeb718e84e0a7565c43b1eab0a17c8de42dd9d8ed1947cab"
+    },
+    "duplicate.apk": {
+      "bytes": 1114,
+      "sha256": "99d878babd08cf204360577b0af7258d1ec91505187ff16db1290c6bc7640e6f"
+    },
+    "duplicate-long.zip": {
+      "bytes": 2604,
+      "sha256": "2697769b578ad05063caed0e89020a6c498b30014b2c468c6de8a6f938b37eff"
+    },
+    "crc-mismatch.apk": {
+      "bytes": 382,
+      "sha256": "2e29a29b91ac720de5970ce582b289ecf8f0c828679fdd91d57a8afce8f733ba"
+    },
+    "unsupported-method.apk": {
+      "bytes": 568,
+      "sha256": "b6bd89491c6c8e64af97ec9162fcfd00968989ee814cd67429ce67e54190bd49"
+    },
+    "encrypted.apk": {
+      "bytes": 568,
+      "sha256": "8424455ab8a2ac69ce6c6c964d24f7bb7eba76bf10926637b9ae25baa393e200"
+    },
+    "size-too-large.apk": {
+      "bytes": 382,
+      "sha256": "c5902a3e0ebb9fe42c635fd0819607e67829a3ad0f670573e1261629f1077ab2"
+    },
+    "size-too-small.apk": {
+      "bytes": 382,
+      "sha256": "2fab31e473e851db22367c4c0a27cebb7dd1f0e12260fca8380fe3129bc5bae3"
+    },
+    "local-name-mismatch.apk": {
+      "bytes": 568,
+      "sha256": "940caa94408ced74a2d0e2212fbf39028a0494e79cad8c84b3e3c1d21c52386a"
+    },
+    "embedded-nul.apk": {
+      "bytes": 568,
+      "sha256": "4a507a62e73c9243fea5b13097daed0b4c309334313dbd17e6e1ae36b9806e69"
+    },
+    "truncated.apk": {
+      "bytes": 557,
+      "sha256": "b915ddece05bc20452045092473767fc9d1a9de5bcc6e39ca388f7ffb0a88987"
+    },
+    "directory-offset-overflow.apk": {
+      "bytes": 568,
+      "sha256": "08a338c871deaa97a544ada0f0866e67412175c68fd3b1875f82aa8980e2c18c"
+    },
+    "zip64-size-overflow.apk": {
+      "bytes": 692,
+      "sha256": "70b2feb16888d28499465e9fd46b75760df5e4f7a3799e471c85ddb85e1e8852"
+    },
+    "zipalign-padding-1.apk": {
+      "bytes": 569,
+      "sha256": "cae3c1e0a87b08a20db27492114f5ca585a9ec99df636db32897661522ce425c"
+    },
+    "zipalign-padding-3.apk": {
+      "bytes": 571,
+      "sha256": "058485e6368dc2e79984eed900abfe333e9d7e1e9599f5c97151e9cbb8858d8b"
+    },
+    "zipalign-padding-7.apk": {
+      "bytes": 575,
+      "sha256": "05cb25490dc385effd9fcf71babb6bb495c09b5f22fb3e468caf925a8bdc08bd"
+    },
+    "zipalign-after-extra.apk": {
+      "bytes": 576,
+      "sha256": "8ab7095e31ea201bad0688d985de7de39b1baaec4d7d7e9df581c5bb8459dcf9"
+    },
+    "zipalign-after-zip64.apk": {
+      "bytes": 591,
+      "sha256": "b61736e07fbc70834f47daa3f2fa644cc980489759590ad8e0c96050abdfc185"
+    },
+    "local-extra-nonzero-tail.apk": {
+      "bytes": 571,
+      "sha256": "dd70e7170ce987eef5f8e7b2fb56ddd3e7e427f168ff54819567e0f82a446268"
+    },
+    "central-extra-zero-tail.apk": {
+      "bytes": 571,
+      "sha256": "79ac1e22496ee52e1582f281f7c5e86bc37fe31c774e66808f8550981c85a041"
+    },
+    "zip64-required-field-missing.apk": {
+      "bytes": 571,
+      "sha256": "2cd770a64aaa17c66db613714879a44a1c037b108b870ec6292ca53447899d72"
+    }
+  }
+}

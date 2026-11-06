@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "source_sha256": "0b909c2a4a48ea52da4e40dc693ef5ca5ee49ea6291bd8a30da87bed4972e953",
+  "dex_sha256": "f82038328136fbf86547e8ae7185b27b05cbc202eafaec45ffe2d79467b6c6d8",
+  "scope": "self-authored D8 many-class fixture; host aggregate bounds, not ART"
+}

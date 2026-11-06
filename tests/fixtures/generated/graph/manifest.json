@@ -1,0 +1,53 @@
+{
+  "fixtures": {
+    "amb-a.dex": {
+      "sha256": "10d0ea04da45c7c021ba902ce90ea8f24415d44fd396916088ed55dc6518213b",
+      "bytes": 424
+    },
+    "amb-b1.dex": {
+      "sha256": "c811692d62f01e48bb23d83edb7c642501be7d7e6f1c7bceb6abacb80558371f",
+      "bytes": 416
+    },
+    "amb-b2.dex": {
+      "sha256": "c605e9132c416a210acc409890c6003ac3228e7b03553397834c057f170e45a4",
+      "bytes": 416
+    },
+    "amb-c1.dex": {
+      "sha256": "97a56d6392561486cf27ce7270362cc1b23b8481468c5a2e1522bb03808dd8b6",
+      "bytes": 380
+    },
+    "amb-c2.dex": {
+      "sha256": "9e132bb4c1ab74db8a6802c0ed364adc534e32982adbb0c68071a6fbb211bee9",
+      "bytes": 380
+    },
+    "amb-overload.dex": {
+      "sha256": "c0fab422a2f5706321bf77eab534c0da353705a3e260663a0829be23f09d7d0e",
+      "bytes": 416
+    },
+    "cycle-a.dex": {
+      "sha256": "79d75f4435aa890de3e3942615b8be80b09836b55d85d5ad29fafd70fdc584df",
+      "bytes": 420
+    },
+    "cycle-b.dex": {
+      "sha256": "005f5ccea3544eb6c2759a3ab0bff5e20df12efac7c28536173cf09f5f2921be",
+      "bytes": 420
+    },
+    "diamond-a.dex": {
+      "sha256": "1da956c8aed19f47711c1a5d2e8e885d98769872b57cd78ffd134a103e8f609a",
+      "bytes": 468
+    },
+    "diamond-b.dex": {
+      "sha256": "71f26ad76c71a7ffa3cce7a6d4649bf85c70874cbd6daa4313fc3e09d9726f79",
+      "bytes": 424
+    },
+    "diamond-c.dex": {
+      "sha256": "319ceb42ae8d25077d8991147dcbdda6add577868c8df9951a545f356dde1975",
+      "bytes": 424
+    },
+    "diamond-d.dex": {
+      "sha256": "11f93469220a30a85519c6b48d3a2b2f8f11b54ddadb4ce26a0b8402a33b04c0",
+      "bytes": 384
+    }
+  },
+  "scope": "Project-original raw DEX, static references only"
+}

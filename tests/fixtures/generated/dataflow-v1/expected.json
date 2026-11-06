@@ -1,0 +1,24 @@
+{
+  "sha256": "2b6c84cfaa0dd491128b9a87ff10d10db60ccf07bc365821fdce6fc0725c1931",
+  "source_sha256": "87c9340db46e00cad9573951d6e39ccdb1514993adc6d10626e22890e41f5cf1",
+  "code_offset": 244,
+  "uses": [
+    [
+      1,
+      1,
+      0,
+      false,
+      0,
+      4294967295
+    ],
+    [
+      6,
+      0,
+      0,
+      true,
+      1,
+      4294967295
+    ]
+  ],
+  "scope": "32-bit structural join; neither ART verification nor path feasibility"
+}

@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "relation": "method_defs",
+  "where": {"name": {"op": "exact", "value": "locate"}},
+  "intent": "unique",
+  "max_results": 16
+}

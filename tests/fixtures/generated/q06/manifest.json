@@ -1,0 +1,9 @@
+{
+  "fixtures": {
+    "q06.dex": {
+      "sha256": "d0641987a3ba58396dbf2ece5608b6979bcea46ed12a3d8edcd353fc82dec6e7",
+      "bytes": 560
+    }
+  },
+  "scope": "Project-original raw DEX, static references only"
+}

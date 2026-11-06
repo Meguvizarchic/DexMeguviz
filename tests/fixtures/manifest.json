@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "generator": "generators/generate_dex.py",
+  "suite_catalog": "catalog.json",
+  "specification": "https://source.android.com/docs/core/runtime/dex-format",
+  "license": "Project-original; distribution license pending owner decision",
+  "scope": "Metadata-only deterministic synthetic fixtures; no ART runtime or APK evidence",
+  "entries": [
+    {
+      "path": "generated/metadata-035.dex",
+      "sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+      "bytes": 448,
+      "expected": "valid",
+      "reason": "Two definitions and one external reference; no instruction capability required",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "generated/metadata-037.dex",
+      "sha256": "f0598ae1758ace8b1345d01bdb1ac237d271d431b1f633b6b65fc7835ceb9543",
+      "bytes": 448,
+      "expected": "valid",
+      "reason": "Two definitions and one external reference; no instruction capability required",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "generated/metadata-038.dex",
+      "sha256": "a104df71a0078adbd0b6589e99e517ff01f0345c2dfbd3eea1310039dbeb4cc7",
+      "bytes": 448,
+      "expected": "valid",
+      "reason": "Two definitions and one external reference; no instruction capability required",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "generated/metadata-039.dex",
+      "sha256": "a4e6867b6691bb272d25fd62bed193b06317d347dec94f381dc584b75feeb7ba",
+      "bytes": 448,
+      "expected": "valid",
+      "reason": "Two definitions and one external reference; no instruction capability required",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "generated/metadata-040.dex",
+      "sha256": "ba670ff08a87906ba2ca5528fd96b4dcc3c99ca314d070757d2ab12705a6c1cf",
+      "bytes": 448,
+      "expected": "valid",
+      "reason": "Two definitions and one external reference; no instruction capability required",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "generated/minimal.dex",
+      "sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+      "bytes": 448,
+      "expected": "valid",
+      "reason": "Stable smoke-test alias of metadata-035.dex",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "malformed/truncated-header.dex",
+      "sha256": "5776229ef074fef9cb50fffed33e84c45a6dda4210a540179bc4330ccf0ce93d",
+      "bytes": 80,
+      "expected": "InvalidDex",
+      "reason": "Header is shorter than 112 bytes",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "malformed/truncated-tail.dex",
+      "sha256": "b3f90b4ba9a267d2ca6f8132d953b4dbbdfd0611b774b2c372ad40e7cccdfd65",
+      "bytes": 441,
+      "expected": "InvalidDex",
+      "reason": "Declared file_size exceeds input length",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "malformed/string-offset-oob.dex",
+      "sha256": "ee2963fc6354c86e4abe741e4dfc5a497f6ada66f859e1c091ea8546df23cf12",
+      "bytes": 448,
+      "expected": "InvalidDex",
+      "reason": "string_data offset lies outside input",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "malformed/method-name-index-oob.dex",
+      "sha256": "b29ee7abf9404921ca09cf12f105ec7608ec33d78a1a42a71a514f9333dfedc3",
+      "bytes": 448,
+      "expected": "InvalidDex",
+      "reason": "method name string index is out of range",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "malformed/uleb-overflow.dex",
+      "sha256": "f4b4659013e7c9e34ec73c1b5c78fc1bddc6897db2872014253e3629b5c34b44",
+      "bytes": 448,
+      "expected": "InvalidDex",
+      "reason": "class_data ULEB exceeds uint32 and five bytes",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "malformed/mutf-length-mismatch.dex",
+      "sha256": "bd44a1a7ce3fd05a3878a77ad35a47606c6c8321888cd776bacc584df95a6982",
+      "bytes": 448,
+      "expected": "InvalidDex",
+      "reason": "string declares incorrect UTF-16 length",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "malformed/mutf-invalid-leading-byte.dex",
+      "sha256": "e06be05f3b0a3888d98da1c0086b7c090c5f32b8c4caa9a4ecf3aeada0c22195",
+      "bytes": 448,
+      "expected": "InvalidDex",
+      "reason": "MUTF-8 rejects four-byte leading byte",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "malformed/method-delta-oob.dex",
+      "sha256": "e4bd30038e154b442c6f09541bdc6739acb1779884ad952be947aaef8765e132",
+      "bytes": 448,
+      "expected": "InvalidDex",
+      "reason": "method delta resolves beyond method_ids",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "malformed/duplicate-definition.dex",
+      "sha256": "1fd6bfd8c466ff80478e13375159c8ee0df8be19fe94f5b12f8821d2492613c2",
+      "bytes": 448,
+      "expected": "InvalidDex",
+      "reason": "direct and virtual entries define same method reference",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "malformed/class-data-interior.dex",
+      "sha256": "bb3b984c45652592954ecfe93a69fa4fd03697d288122e55a345c3191378dfe8",
+      "bytes": 448,
+      "expected": "InvalidDex",
+      "reason": "class_def references a zero-count interior item instead of the map-declared class_data start",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "malformed/string-data-interior.dex",
+      "sha256": "c95c0f6a3cbc42280d3b8e39e708af23a9c422cb66fc77aecfca9482496b4dfb",
+      "bytes": 448,
+      "expected": "InvalidDex",
+      "reason": "first string_id references a valid empty interior string instead of the map-declared string_data start",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "malformed/reverse-endian.dex",
+      "sha256": "30bcaf9a2bcb42cfd9fb62a58e4baaa5b9703dd684eb32b449a22ada974ec500",
+      "bytes": 448,
+      "expected": "Unsupported",
+      "reason": "Reverse endian capability is not enabled",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    },
+    {
+      "path": "malformed/version-041.dex",
+      "sha256": "471fbe134b24fb5a61dcf0fe41103c4e3fd91ac6a49bd126ac8c04224e9dd471",
+      "bytes": 448,
+      "expected": "Unsupported",
+      "reason": "041 container capability is not enabled; version rejection precedes old-header parsing",
+      "source": "generated locally; no APK or third-party bytecode",
+      "license": "Project-original; distribution license pending owner decision"
+    }
+  ]
+}

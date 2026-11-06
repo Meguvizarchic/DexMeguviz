@@ -1,0 +1,4 @@
+SQLite 3.54.1 deliverable library code is dedicated to the public domain.
+Upstream copyright explanation: https://sqlite.org/copyright.html
+The original dedication and blessing are preserved in sqlite3.c/sqlite3.h.
+Only the library amalgamation and public headers are included here; shell.c is excluded.

@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "source_sha256": "8262d2b338e54a7965111b4cec1ef9e628ada9795ad2f6a555d717a2ba9546bc",
+  "quiet": {
+    "ordinal": 1,
+    "method_ref": 2,
+    "code_offset": 396,
+    "invoke_pc": 0,
+    "target": 4
+  },
+  "uses": {
+    "ordinal": 2,
+    "method_ref": 3,
+    "code_offset": 420,
+    "invoke_pc": 2,
+    "target": 4
+  },
+  "files": [
+    {
+      "path": "two-methods.dex",
+      "sha256": "cb9020777da008d67b856862068a7a23fd6483b599a18ead5f01a3b94ecde00b",
+      "corrupt": false
+    },
+    {
+      "path": "later-corrupt.dex",
+      "sha256": "9c86f51bfa689764b9d38e984e6c0ef80cf49122e8a209010477ccf2226b66f6",
+      "corrupt": true
+    }
+  ],
+  "scope": "static checked method ordering; no ART or runtime validation"
+}

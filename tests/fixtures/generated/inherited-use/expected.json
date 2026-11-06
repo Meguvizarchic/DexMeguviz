@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "source_sha256": "04656bbfe03c8b04e6f77d29b8cae8e7e06f18a038f85300658f8c691435648b",
+  "sha256": "ef33098510d9768bd17f2ace28d77138235b499d1f5f84907f814c1a6fe0d7fb",
+  "caller_ordinal": 2,
+  "caller_method_ref": 3,
+  "code_offset": 416,
+  "target_method_ref": 3,
+  "invoke_pcs": [0, 3],
+  "scope": "Original checked DEX derived from two-invokes; static callsites only, not runtime dispatch"
+}

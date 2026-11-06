@@ -1,0 +1,12 @@
+#include "dexmeguviz/dexmeguviz.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define CHECK(x) do{if(!(x)){fprintf(stderr,"type array C line %d: %s\n",__LINE__,#x);return 1;}}while(0)
+int main(int argc,char**argv){
+ const char* q="{\"schema_version\":1,\"required_capabilities\":[\"type_uses\"],\"relation\":{\"op\":\"scan\",\"relation\":\"type_uses\",\"where\":{\"target_descriptor\":\"[Ljava/lang/Object;\"}},\"max_results\":100}";
+ dmg_engine* e=NULL;dmg_snapshot* snap=NULL;dmg_query* query=NULL;dmg_result* r=NULL;dmg_error error={0};dmg_relation_info_v3 info;dmg_source_spec spec={0};dmg_source_set_options opts={sizeof(opts),DMG_ABI_VERSION,"array-c",1,8,1u<<20};FILE* f;long size;unsigned char* bytes;unsigned i,mask=0;uint64_t bad_at=0;
+ CHECK(argc==2);f=fopen(argv[1],"rb");CHECK(f&&fseek(f,0,SEEK_END)==0);size=ftell(f);CHECK(size>0&&fseek(f,0,SEEK_SET)==0);bytes=(unsigned char*)malloc((size_t)size);CHECK(bytes&&fread(bytes,1,(size_t)size,f)==(size_t)size);fclose(f);CHECK(dmg_engine_create(NULL,&e,&error)==DMG_OK);spec.struct_size=sizeof(spec);spec.abi_version=DMG_ABI_VERSION;spec.format=DMG_INPUT_RAW_DEX;spec.data=bytes;spec.size=(uint64_t)size;spec.slot_key="base";spec.role="base";CHECK(dmg_snapshot_open_sources(e,&spec,1,&opts,&snap,&error)==DMG_OK);CHECK(dmg_query_compile_json(e,(const uint8_t*)q,strlen(q),&query,&error)==DMG_OK);CHECK(dmg_query_execute(snap,query,&r,&error)==DMG_OK);CHECK(dmg_result_get_relation_info_v3(r,&info,sizeof(info))==DMG_OK&&info.candidates_count==2);
+ for(i=0;i<2;++i){dmg_value_row_v3 v;CHECK(dmg_result_get_value_v3(r,i,&v,sizeof(v))==DMG_OK);CHECK(v.value.kind==DMG_VALUE_USE&&v.value.use.relation==DMG_TYPE_USES&&v.value.use.target_domain==DMG_TARGET_TYPE_REF&&v.value.use.dex_pc==0&&v.value.use.target_index==3&&v.target_descriptor_length==19);if(v.value.use.opcode==0x24)mask|=1;else if(v.value.use.opcode==0x25){mask|=2;bad_at=(uint64_t)v.value.use.code_offset+18;}else CHECK(0);}
+ CHECK(mask==3&&bad_at+1<(uint64_t)size);dmg_result_release(r);r=NULL;dmg_snapshot_release(snap);snap=NULL;bytes[bad_at]=0xff;bytes[bad_at+1]=0xff;CHECK(dmg_snapshot_open_sources(e,&spec,1,&opts,&snap,&error)==DMG_OK);CHECK(dmg_query_execute(snap,query,&r,&error)==DMG_CORRUPT_INPUT&&r==NULL);dmg_query_release(query);dmg_snapshot_release(snap);dmg_engine_release(e);free(bytes);puts("PASS C D8 35c/3rc type uses and invalid type index rejected");return 0;
+}

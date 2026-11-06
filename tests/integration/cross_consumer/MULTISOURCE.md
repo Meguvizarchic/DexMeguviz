@@ -1,0 +1,9 @@
+# Cross-consumer SourceSet verification
+
+`verify_multi_cross.py` builds a C consumer against the supplied host core libraries and a Kotlin consumer against the actual AAR `classes.jar`. Both run the same typed method-v1 queries over the same ordered raw DEX inputs; the CLI runs the generated JSON separately with incomplete and complete caller-declared scopes. One dataset repeats identical DEX bytes in two slots; the other uses two distinct DEX files.
+
+For 14 dataset/query combinations, the runner compares complete QueryID, status, coverage, decision, reason, counters, method fields and source-local identities across C, Kotlin and incomplete-scope CLI. It independently derives the content, occurrence and snapshot identities for C/Kotlin from the actual DEX bytes and JNI namespace/slot/role, and checks both CLI scopes with `tools/evidence_verifier/multisource.py`. Duplicate-occurrence and source-swap forgeries must be rejected. Complete scope is an explicit CLI caller assertion; the Kotlin bridge remains incomplete.
+
+The runner accepts the toolchain, AAR, JNI, core library and source-manifest arguments used by `verify_cross_consumer.py` plus `--core-bindings`, the recorded same-run core artifact and log hashes; its output directory must not exist. It verifies the CLI and both static libraries against that record, checks the record's source and log hashes, and records command logs and SHA-256 for inputs, individual generated queries, C executable, test classes and class-load log. Production classes must load from the AAR.
+
+The independent Python oracle does not call the native engine but shares the DEX specification and authored query expectations; C and JNI share the same core. These fixed raw DEX samples do not prove APK/ZIP, all QueryIR, dynamic class loading, ART, or complete P2-08 acceptance.

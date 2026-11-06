@@ -1,0 +1,9 @@
+# 通用静态注解编码 v1
+
+`dmg_snapshot_collect_annotations_v1` 面向任意已打开Snapshot，按source_index、目标类别及本DEX局部索引读取已定义类、字段、方法或方法参数的注解；与BIL业务及DexKit无依赖。类目标使用type_id，字段/方法使用field_id/method_id，参数额外给prototype参数序号。非参数目标必须传 `UINT32_MAX`。不存在的索引为InvalidArgument，外部引用无本地定义为Unsupported，不当成无注解。当前仅标准035–040，041明确Unsupported。
+
+成功结果按DEX annotation_set的类型顺序保存visibility、type_id、复制的UTF16 descriptor、element_count、annotation_item起点、encoded_annotation起点及其原始编码。元素按编码顺序提供name_id、复制UTF16名称、value_kind/value_arg、value起点及完整原始encoded_value字节；包含header的嵌套数组/注解编码原样保留。调用者必须依据DEX编码解释数值、引用与嵌套值；此接口不声称已提供DexKit类型化value或完整matcher兼容。原始字节由返回handle持有的Dataset保活，借用buffer仍须遵守原不可变lease合同。句柄释放前指针有效，结果在外层snapshot/engine句柄释放后仍可读。
+
+没有annotation目录/集合时可返回已定义目标的空列表，不能推断ClassLoader或全应用不存在；参数序号超出prototype拒绝，存在的参数注解集合长度与prototype不符报CorruptInput。options要求精确size/ABI、max_records 1..100000（注解与顶层元素累计）、max_work 1..100000000、max_encoded_bytes 1..64MiB、deadline 0..86400000ms。嵌套深度最多64，嵌套元素另受工作上限；预算或错误不交付半个结果。work是读取/复制计费，不是CPU/RSS；结果文本计Engine账本，deadline协作式。getter错误size/索引不写out。
+
+静态数据不认证APK签名、安装/loader来源、ART解析或业务结果；原生使用方应在后台读取。Android Java/Kotlin同步绑定及独立Java类型化值解码见对应合同；完整annotation matcher、其他格式/损坏边界及真实DexKit兼容和性能对照仍未完成。

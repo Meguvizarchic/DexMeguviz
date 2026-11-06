@@ -1,0 +1,8 @@
+{
+  "sha256": "73bf0ac154e3a00bca62c9b3762b6c2aaf2e90d193f731ca384665032d1855a2",
+  "expected_signatures": [
+    "()V",
+    "(I)V"
+  ],
+  "scope": "authored structural DEX, no ART claim"
+}

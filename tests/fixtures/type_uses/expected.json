@@ -1,0 +1,55 @@
+{
+  "scope": "self-authored D8 fixture independently observed with Android SDK dexdump; no ART",
+  "dex_sha256": "2b2f3baa2ca75a27d0bb7eb4c2f66539223eff9b831e2e8159e9f416f8254198",
+  "events": [
+    [
+      "allocate",
+      0,
+      34,
+      5,
+      "Lfixture/TypeUses$Parent;"
+    ],
+    [
+      "array",
+      1,
+      35,
+      11,
+      "[Lfixture/TypeUses$Parent;"
+    ],
+    [
+      "array",
+      4,
+      31,
+      5,
+      "Lfixture/TypeUses$Parent;"
+    ],
+    [
+      "array",
+      8,
+      34,
+      5,
+      "Lfixture/TypeUses$Parent;"
+    ],
+    [
+      "cast",
+      0,
+      31,
+      5,
+      "Lfixture/TypeUses$Parent;"
+    ],
+    [
+      "check",
+      0,
+      32,
+      5,
+      "Lfixture/TypeUses$Parent;"
+    ],
+    [
+      "literal",
+      0,
+      28,
+      5,
+      "Lfixture/TypeUses$Parent;"
+    ]
+  ]
+}

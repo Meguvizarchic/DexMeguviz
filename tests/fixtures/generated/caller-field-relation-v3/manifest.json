@@ -1,0 +1,82 @@
+{
+  "object.dex": {
+    "bytes": 292,
+    "sha256": "4825a91a5f5fcfc0b88faa781971c58b979bffac2714a884e2f8138e0acae21c"
+  },
+  "object-invalid.dex": {
+    "bytes": 292,
+    "sha256": "4ba11faadbf2045e7e758cac25901eefb301f97096ec101ddf9c9f683d968f66"
+  },
+  "interface-caller.dex": {
+    "bytes": 464,
+    "sha256": "1b592ea452a39184727f1e690092b6fbe89b57c4968741d1acd234f67be06c3e"
+  },
+  "child-target.dex": {
+    "bytes": 288,
+    "sha256": "8321d5d037845162b66de0e96787fe422c8e235d455646c633968d3cd772419c"
+  },
+  "parent-target.dex": {
+    "bytes": 364,
+    "sha256": "764490b2053c8253723f929a65a3408dd889b1af0e084843beba5c23a8a206b1"
+  },
+  "caller-external.dex": {
+    "bytes": 472,
+    "sha256": "a2ccb2747d58c292e89fa7c291f0f23cd3e613871ffcc33c73864f8c98908071"
+  },
+  "caller-missing.dex": {
+    "bytes": 464,
+    "sha256": "1c20051a3a25ba6c98a8daca8ae14f2152fa7ae8b7f03dd9b13c2d4c825cb75e"
+  },
+  "caller-cycle-a.dex": {
+    "bytes": 464,
+    "sha256": "e2669a949312bb6babe0f60aa2632a3528f4c806a6acdcbe1b02ec54f6d874e4"
+  },
+  "caller-cycle-b.dex": {
+    "bytes": 312,
+    "sha256": "9c6403b90e2559285511821d6941019b397372da6d49ffc8ec487f6c7f1f0444"
+  },
+  "child-ancestor.dex": {
+    "bytes": 440,
+    "sha256": "3c46bc6eaea9bb71985941bd63530080df1fbcc2fcdd6eab83ca9c0816dba52c"
+  },
+  "child-hide.dex": {
+    "bytes": 448,
+    "sha256": "2e5617fa97dca1d25c5f85f370f063bab49ebd6ace4dc7b46ca959aad42465df"
+  },
+  "child-different-type.dex": {
+    "bytes": 460,
+    "sha256": "8792c393aa2d46a5f035d76d5edff0578ace769bb12bdd1cb70d8dada6b453bf"
+  },
+  "child-self.dex": {
+    "bytes": 440,
+    "sha256": "54cf0a5f17c85b613496f7bc1d01c9ddfd0f4283a1d6121b4747e0cdac8dc84c"
+  },
+  "child-unknown-branch.dex": {
+    "bytes": 484,
+    "sha256": "a67392ab4e8e8a502529aebff18556cf629d93aab0ce28a73db46e0d8aa9f898"
+  },
+  "caller-interface.dex": {
+    "bytes": 528,
+    "sha256": "ec5fd018cfb417267065fa754c02f35adac45db89bf5b4e56677ea6891e88ad5"
+  },
+  "caller-diamond.dex": {
+    "bytes": 528,
+    "sha256": "6d40ca5e9ffa406ab8eeb5c828d439a409444f5d49aef19765001d9a17ea4d1a"
+  },
+  "caller-diamond-target.dex": {
+    "bytes": 548,
+    "sha256": "181e44aaf9a7632ab04c601476e96a4e902d79a6bdbe92ec4b24795291b93d07"
+  },
+  "interface-a.dex": {
+    "bytes": 352,
+    "sha256": "eda9e40876f522bf3d4d8308dec5d6da87a10fe9e879cf1aed7dc4b1f3e9ad7e"
+  },
+  "interface-b.dex": {
+    "bytes": 352,
+    "sha256": "ef3260682aa37c7aa33d9ecedb7393ec42d0c3b45c76d16b735bfb83f7d37d77"
+  },
+  "interface-common.dex": {
+    "bytes": 364,
+    "sha256": "b090ec4701783b89721d096ffd49ff17aad54768222a085c716b1d1de7f0d438"
+  }
+}

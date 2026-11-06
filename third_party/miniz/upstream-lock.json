@@ -1,0 +1,74 @@
+{
+  "name": "miniz",
+  "version": "3.1.2",
+  "upstream_url": "https://github.com/richgel999/miniz",
+  "release_url": "https://github.com/richgel999/miniz/releases/tag/3.1.2",
+  "source_revision": "77d0dce8627735138c51770d1799a1ef48f2117d",
+  "archive_url": "https://github.com/richgel999/miniz/releases/download/3.1.2/miniz-3.1.2.zip",
+  "archive_bytes": 101958,
+  "digest_algorithm": "sha256",
+  "digest": "f0446d863f9c19926ad9483c523fdc42e42b8d4a6a431d27e09d49c79a140d9a",
+  "local_digest_verified": true,
+  "safe_zip_paths_verified": true,
+  "archive_entries": [
+    {
+      "name": "miniz.c",
+      "bytes": 350352
+    },
+    {
+      "name": "miniz.h",
+      "bytes": 76822
+    },
+    {
+      "name": "examples/example1.c",
+      "bytes": 3593
+    },
+    {
+      "name": "examples/example2.c",
+      "bytes": 6968
+    },
+    {
+      "name": "examples/example3.c",
+      "bytes": 7753
+    },
+    {
+      "name": "examples/example4.c",
+      "bytes": 2866
+    },
+    {
+      "name": "examples/example5.c",
+      "bytes": 11189
+    },
+    {
+      "name": "examples/example6.c",
+      "bytes": 5100
+    },
+    {
+      "name": "ChangeLog.md",
+      "bytes": 20179
+    },
+    {
+      "name": "readme.md",
+      "bytes": 4784
+    },
+    {
+      "name": "LICENSE",
+      "bytes": 1184
+    }
+  ],
+  "files": {
+    "miniz.c": {
+      "bytes": 350352,
+      "sha256": "e2c1aeb66eef9191d8c3feb164db2def2335a61d039bf04ed849f6b042433b30"
+    },
+    "miniz.h": {
+      "bytes": 76822,
+      "sha256": "b53b62ed122e559b8f679e3cb787a0b0035fe87a58f909da0e44931678f4e85f"
+    },
+    "LICENSE": {
+      "bytes": 1184,
+      "sha256": "0115478d567121238cf6cc1c0c361926cf07a49d9e4c9e66da97fac6a01646b3"
+    }
+  },
+  "license_url": "https://raw.githubusercontent.com/richgel999/miniz/77d0dce8627735138c51770d1799a1ef48f2117d/LICENSE"
+}

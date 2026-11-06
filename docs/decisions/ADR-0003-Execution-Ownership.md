@@ -1,0 +1,11 @@
+# ADR 0003 资源所有权与有界Job
+
+日期：2026-10-26；状态：已实现method_defs路径，完整算子继续沿此契约扩展。
+
+选择标准C++20 PMR作为托管动态payload的统一分配边界，Engine共享持有分类resource；Source/Query/Result与allocator控制块保持EngineState。首版调度采用最多max_jobs个worker，队列和临时批次均计账，先完成可审查的取消与所有权，再评估线程池优化。
+
+Query仅在同一Engine内复用，跨Engine重新compile，避免一个Job的查询payload落入另一个Engine账本且shutdown含义不清。SourceOccurrence/Snapshot身份不因生命周期API增加而改变。
+
+worker退出必须清空Engine的weak slot。weak控制块中的StateAllocator强持Engine；若只销毁Job对象而留下slot，会形成Engine→weak control block→allocator→Engine保活环。终态与start失败回滚均显式清理，测试证明释放后回到baseline。
+
+MSVC Debug代理的noexcept分配限制已实测；本轮core及内部STL消费者统一target-local禁用iterator proxy，而非人为调大预算避过失败。ASan/所有权/故障注入验证继续保留。此选择不污染BIL C++17 target。

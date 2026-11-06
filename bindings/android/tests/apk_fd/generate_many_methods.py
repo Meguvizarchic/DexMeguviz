@@ -1,0 +1,10 @@
+"""Build a deterministic 4500-method structural APK fixture; exclusively creates output."""
+from pathlib import Path
+import argparse,hashlib,json,os,subprocess,zipfile
+p=argparse.ArgumentParser();p.add_argument("--out",type=Path,required=True);p.add_argument("--java-home",type=Path,required=True);p.add_argument("--d8-jar",type=Path,required=True);a=p.parse_args();out=a.out;out.mkdir();(out/"tmp").mkdir();(out/"classes").mkdir();(out/"dex").mkdir();h=lambda f:hashlib.sha256(f.read_bytes()).hexdigest();java=a.java_home/"bin/java.exe";javac=a.java_home/"bin/javac.exe";inputs=[Path(__file__),java,javac,a.d8_jar];before={str(x):h(x) for x in inputs};env=os.environ.copy();env["TEMP"]=env["TMP"]=str(out/"tmp");source=out/"Many.java";source.write_text("public class Many {\n"+"".join("public static void method%05d() {}\n"%i for i in range(4500))+"}\n",encoding="ascii");records=[]
+def run(name,argv):
+ argv=list(map(str,argv));v=subprocess.run(argv,env=env,capture_output=True,timeout=300);so=out/(name+".stdout.log");se=out/(name+".stderr.log");so.write_bytes(v.stdout);se.write_bytes(v.stderr);records.append({"name":name,"argv":argv,"exit_code":v.returncode,"stdout_sha256":h(so),"stderr_sha256":h(se)});assert v.returncode==0,(name,v.stdout[-1000:],v.stderr[-1000:])
+run("javac",[javac,"--release","8","-g:none","-d",out/"classes",source]);run("d8",[java,"-Djava.io.tmpdir="+str(out/"tmp"),"-cp",a.d8_jar,"com.android.tools.r8.D8","--min-api","27","--output",out/"dex",out/"classes/Many.class"]);dex=out/"dex/classes.dex";assert dex.is_file();apk=out/"many-methods.apk"
+with zipfile.ZipFile(apk,"x",compression=zipfile.ZIP_STORED) as z:
+ info=zipfile.ZipInfo("classes.dex",(1980,1,1,0,0,0));info.compress_type=zipfile.ZIP_STORED;z.writestr(info,dex.read_bytes())
+assert before=={str(x):h(x) for x in inputs};outputs={str(x):h(x) for x in out.rglob("*") if x.is_file()};(out/"summary.json").write_text(json.dumps({"outcome":"passed","method_declarations":4500,"inputs_before":before,"inputs_after":before,"commands":records,"outputs":outputs},indent=2)+"\n");print("PASS generated 4500-method APK",h(apk))

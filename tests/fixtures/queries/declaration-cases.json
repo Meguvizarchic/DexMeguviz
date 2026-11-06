@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "fixture": "generated/metadata-035.dex",
+  "cases": [
+    {"id": "all-definitions", "query": {"schema_version": 1, "relation": "method_defs", "where": {}, "intent": "unique", "max_results": 10}, "expected_names": ["locate", "second"], "decision": "ProvenFalse", "reason": "Ambiguous"},
+    {"id": "exact-locate", "query": {"schema_version": 1, "relation": "method_defs", "where": {"name": {"op": "exact", "value": "locate"}}, "intent": "unique", "max_results": 10}, "expected_names": ["locate"], "decision": "ProvenTrue", "reason": "None"},
+    {"id": "exact-second", "query": {"schema_version": 1, "relation": "method_defs", "where": {"name": {"op": "exact", "value": "second"}}, "intent": "unique", "max_results": 10}, "expected_names": ["second"], "decision": "ProvenTrue", "reason": "None"},
+    {"id": "external-reference-is-not-definition", "query": {"schema_version": 1, "relation": "method_defs", "where": {"name": {"op": "exact", "value": "external"}}, "intent": "unique", "max_results": 10}, "expected_names": [], "decision": "ProvenFalse", "reason": "NoMatch"},
+    {"id": "missing", "query": {"schema_version": 1, "relation": "method_defs", "where": {"name": {"op": "exact", "value": "missing"}}, "intent": "unique", "max_results": 10}, "expected_names": [], "decision": "ProvenFalse", "reason": "NoMatch"},
+    {"id": "static-contains", "query": {"schema_version": 1, "relation": "method_defs", "where": {"flags_contains": 8}, "intent": "unique", "max_results": 10}, "expected_names": ["second"], "decision": "ProvenTrue", "reason": "None"},
+    {"id": "abstract-contains", "query": {"schema_version": 1, "relation": "method_defs", "where": {"flags_contains": 1024}, "intent": "unique", "max_results": 10}, "expected_names": ["locate"], "decision": "ProvenTrue", "reason": "None"}
+  ]
+}

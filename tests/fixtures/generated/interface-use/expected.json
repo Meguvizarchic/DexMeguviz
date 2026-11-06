@@ -1,0 +1,23 @@
+{
+  "scope": "project-original static metadata and encoded invoke, no ART or runtime binding",
+  "owner": "Lifx/Child;",
+  "superclass": "Ljava/lang/Object;",
+  "interfaces": [
+    "Lifx/Left;"
+  ],
+  "method": {
+    "name": "uses",
+    "prototype": "(Lifx/Left;)V",
+    "static": true,
+    "access_flags": 9
+  },
+  "events": [
+    {
+      "kind": "invoke_static",
+      "pc": 0,
+      "target_owner": "Lifx/Child;",
+      "target_name": "sink",
+      "target_prototype": "()V"
+    }
+  ]
+}

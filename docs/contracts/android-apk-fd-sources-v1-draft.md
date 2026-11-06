@@ -1,0 +1,15 @@
+# Android 显式 APK 文件描述符与元数据来源草稿
+
+`NativeEngine.openApkFdSources` 是独立同步入口，只接收 1–8 个调用方显式提供的 APK fd 范围、唯一 slot、allowNoDex、可选 expected SHA-256 及所有显式预算；调用方保有原 fd 所有权，调用期间须保持 fd/文件有效与内容稳定。JNI 对入参数组做复制并复核，核心在读取前对 fd 作独立复制/重开，按绝对偏移复制到受管内存，不改变原文件位置。整个调用不可取消，不保证 `Thread.interrupt` 或提前关闭原 fd 停止作业；不得在 UI 线程调用。任何失败不发布部分快照，核心不会关闭 caller fd。
+
+`ApkFdLimits` 要求调用方明确设置 Engine owned、每来源、每APK、全部APK、每DEX、全部DEX、目录条目、目录字节及总名称字节上限；新 JNI 防御性硬限分别为 Engine owned≤1GiB、单来源≤512MiB、累计APK≤4GiB、目录≤16MiB、名称≤8MiB、条目≤100000，展开来源≤64。`maxDex≤maxSource`、`maxArchive≤maxSource`、`maxTotalDex≤owned`；超过上限明确拒绝，没有自动调大或预分配。账本不含 OS/JVM/RSS/映射元数据，32位地址空间和系统内存可提前不足。旧 `openSources(byte[][],...)` 及其总输入/解压16MiB限制不变。
+
+`AndroidApkSources.plan/open` 只读取调用方传入的 `ApplicationInfo.sourceDir/splitNames/splitSourceDirs` 并复制列表，不调用 PackageManager、枚举设备或自动枚举其他包；open 会读取 caller 指定的 APK 文件；base先于Android给出的split顺序，不按路径或DEX内容去重。split slot 为 `split.`+完整splitName，必须唯一、非空、可打印非空白ASCII且总长度≤128，base slot为`base`；路径字符串必须是平台绝对非根路径、非空、无NUL且不含 `.`/`..` 路径段，重复原路径明确拒绝，不做realpath。splitName/path/allowNoDex 数组不一致或超过7个split明确失败，不按 publicSourceDir 补缺；调用时不得并发修改 ApplicationInfo/数组。计划另保存调用者传入 ApplicationInfo 的 packageName 观察值；可选 `LoaderDeclaration` 保存调用方的 loader/generation 对象引用（generation不得为null、loader可为bootstrap null），引用对象可能变化，非序列化 token、版本信息、包签名或认证。两者均不进入 Snapshot 身份，也不证明 loader 实际可见性。此计划仅代表这次取到的静态元数据，不声称完整安装集、loader顺序或动态来源。
+
+metadata open 将路径严格编码为UTF-8（孤立代理、NUL与超长拒绝，不替换），经单个私有JNI在POSIX以 `O_RDONLY|O_CLOEXEC` 原子打开，在Windows测试以 `_O_NOINHERIT` 打开，检查fd标志并用fstat验证普通文件；编译平台缺少原子标志或打开后检查未见CLOEXEC返回Unsupported；path open本身失败统一报告SourceMismatch，不能据此精确判断权限、缺文件或内核不支持；并发exec安全仍依赖内核正确实现原子标志；缺路径、非普通文件、读取失败和预算超限直接失败；即使 caller 允许该 split 没有 DEX，也不得吞掉缺失文件或坏APK。每个 split 的 allowNoDex 由调用方显式声明；成功返回的零DEX只是未观察到DEX，不证明其为纯资源或完整应用无代码。`openBorrowed` 只在同步JNI期间借用 caller PFD 的整数 fd，不创建或关闭任何 Java PFD 副本；caller必须保证所有 PFD/底层fd持续打开且内容稳定直到返回，不得并发 close。adapter将捕获的 PFD 数组作为JNI实参持有，JNI局部引用在整个调用中强保活；恶意 PFD 子类可以返回任意 fd，因此仍须信任调用方、来源未认证。native 在获得全部自有路径fd后调用同一 fd SourceSet，路径fd在返回前由 RAII 依次关闭；成功构造快照后若关闭失败则先撤销未交付的snapshot并返回错误，绝不静默交付。失败路径尝试关闭所有自有fd，系统close本身报错时不重试避免关闭复用fd。
+
+核心通过原子 F_DUPFD_CLOEXEC 复制借用fd，并按绝对偏移读取，不改变原PFD位置；不使用非原子dup+fcntl回退。若系统不支持原子方式返回 Unsupported。CLOEXEC 在成功 exec 时关闭描述符，fork 后到 exec 前的子进程仍可能继承，不能声称阻止这一窗口；fd 不冻结底层文件。`getStatSize`、路径或文件元数据前后相同不能证明读取期间没有改变及恢复，甚至复制结果也不一定对应同一时刻的revision。可选expected SHA只对复制字节做相等检查，必须由可信方提供才具有相应输入身份意义；既有Java InputInfo不暴露expected_verified布尔值，调用方可保留期望值并与返回的sourceSha256比较；它不是APK签名、ClassLoader来源或运行时绑定认证。所有快照固定scope incomplete，资源-only仍保留input条目；独立 scoped-v4 查询对调用方声明的局部slot范围可报告Complete，但这不证明已安装来源或loader完整。调用结果持有自己的快照并显式close，调用后PFD关闭不影响已复制内容。
+
+此草稿未证明 Android设备、ART、真实 ApplicationInfo一致性、绝对所有并发时序、系统OOM、真实 APK/loader来源或性能。高预算需要调用方根据设备内存谨慎选择，宿主分配、引用数和预取成本另记。原始路径可能包含敏感信息，adapter不自动日志输出；不得把source路径或generation对象作为发布数据。Windows路径转换严格UTF-8→UTF-16并使用 `_O_NOINHERIT`，Windows测试不能证明Android POSIX分支已执行。
+
+公开 `AndroidApkSources.open(plan, expectedSha256, limits)` 执行调用方已捕获的同一计划；原 `open(ApplicationInfo, ...)` 仍在调用期间生成计划后执行。计划固定复制后的 slot、路径与 allowNoDex，loader/generation 仅保留可变引用；它不冻结路径指向的文件，不认证内容、安装集合或 loader 可见性。可选 expected SHA 仅检查读取副本与可信调用方提供摘要是否相等。调用期间的同步、预算、关闭和 incomplete 限制与原入口相同。

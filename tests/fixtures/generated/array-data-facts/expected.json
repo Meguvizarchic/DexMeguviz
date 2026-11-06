@@ -1,0 +1,12 @@
+{
+  "sha256": "3fa9edce6b40beee5ccb89befc54d0369e94cec1b969103932e29a6afbe977cd",
+  "code_offset": 244,
+  "instruction_pc": 0,
+  "payload_pc": 4,
+  "width_bytes": 4,
+  "bits": [
+    "12345678",
+    "80000001"
+  ],
+  "scope": "original DEX byte layout; not runtime array types or execution"
+}

@@ -1,0 +1,94 @@
+{
+  "fixtures": {
+    "good-039": {
+      "sha256": "34b3f7c4f5887b81d481ab6f3f733f70876ae904956ae9c35bea081ff385a305",
+      "bytes": 664
+    },
+    "good-040": {
+      "sha256": "26578bea7bdc02d0a3b2458be2cbdfdd878c239769db105302035decd27be8bd",
+      "bytes": 664
+    },
+    "old-038": {
+      "sha256": "3752c5cc6cf1750ec92c1188c74db626be3c4905e79db5342594094c4f4f2133",
+      "bytes": 664
+    },
+    "bad-handle": {
+      "sha256": "ca586dd0012c561302a9057f56c8312f8f0af055d61807d4b98d736de64b5ee1",
+      "bytes": 664
+    },
+    "bad-type": {
+      "sha256": "3249c9c2ed7d9c40fa727c4b2cae7d3cefeb2cf80ad60862eb4d531f99056a98",
+      "bytes": 664
+    },
+    "bad-register": {
+      "sha256": "53c389ed1675768912d652868867c77c5ed5928f48850df3e745af45b8a75e56",
+      "bytes": 664
+    },
+    "late-opcode": {
+      "sha256": "3f606266a03196d83dc315ca3051cec7b938ef28c329f752c30e24056ffccd91",
+      "bytes": 664
+    },
+    "nonzero-039": {
+      "sha256": "bec62291ee45b1d0b4d866449a3b96235e144eb2553f3eb28a0b50c3dcff2e3b",
+      "bytes": 492
+    },
+    "bad-handle-two": {
+      "sha256": "c26fa7e52649efe0e45cce018dd2bbcdfa88328e7f838134d213c5c689d7bb71",
+      "bytes": 492
+    },
+    "bad-type-two": {
+      "sha256": "bae002fbce4eaf9f19859b4ce01cd326f91292f2bf8ec8324db5fa76479e6077",
+      "bytes": 492
+    },
+    "bad-register-two": {
+      "sha256": "f8234b892f74ca8c81e826f7fb29358f54561450cb7c60b97c8c883f4a91aa02",
+      "bytes": 492
+    }
+  },
+  "source_sha256": "ecf85d163c87d58f065335f0d932442be48b91b5efa3858e319a1c1cdf7313b0",
+  "code_offset": 416,
+  "words": [
+    254,
+    0,
+    255,
+    0,
+    254,
+    0,
+    14,
+    0
+  ],
+  "nonzero_code_offset": 296,
+  "nonzero_words": [
+    510,
+    1,
+    511,
+    1,
+    254,
+    0,
+    14
+  ],
+  "expected": [
+    [
+      0,
+      0,
+      0,
+      254,
+      0
+    ],
+    [
+      2,
+      0,
+      0,
+      255,
+      1
+    ],
+    [
+      4,
+      0,
+      0,
+      254,
+      0
+    ]
+  ],
+  "scope": "authored mutated DEX structure, not ART legality or runtime target"
+}

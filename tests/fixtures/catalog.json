@@ -1,0 +1,1385 @@
+{
+  "schema_version": 1,
+  "suites": [
+    {
+      "id": "base",
+      "generator": "generators/generate_dex.py",
+      "generator_sha256": "fe20d2e471999897bcadee7b70438636397d16cd0e2b4c11b39d3fe041353ddc",
+      "scope": "035/037/038/039/040, UTF16/NUL/surrogates, external references, metadata corruption",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "expected.json": "f17f00020942cf6c0dae6a20973e1c11074a3adac76271c1f73b506c6f17735c",
+        "manifest.json": "a01ccd1f81b1956f68c0c83039b9fe27c2fdc8f224259ea99c69e34c2e824d92"
+      },
+      "files": [
+        {
+          "path": "generated/metadata-035.dex",
+          "bytes": 448,
+          "sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f"
+        },
+        {
+          "path": "generated/metadata-037.dex",
+          "bytes": 448,
+          "sha256": "f0598ae1758ace8b1345d01bdb1ac237d271d431b1f633b6b65fc7835ceb9543"
+        },
+        {
+          "path": "generated/metadata-038.dex",
+          "bytes": 448,
+          "sha256": "a104df71a0078adbd0b6589e99e517ff01f0345c2dfbd3eea1310039dbeb4cc7"
+        },
+        {
+          "path": "generated/metadata-039.dex",
+          "bytes": 448,
+          "sha256": "a4e6867b6691bb272d25fd62bed193b06317d347dec94f381dc584b75feeb7ba"
+        },
+        {
+          "path": "generated/metadata-040.dex",
+          "bytes": 448,
+          "sha256": "ba670ff08a87906ba2ca5528fd96b4dcc3c99ca314d070757d2ab12705a6c1cf"
+        },
+        {
+          "path": "generated/minimal.dex",
+          "bytes": 448,
+          "sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f"
+        },
+        {
+          "path": "malformed/class-data-interior.dex",
+          "bytes": 448,
+          "sha256": "bb3b984c45652592954ecfe93a69fa4fd03697d288122e55a345c3191378dfe8"
+        },
+        {
+          "path": "malformed/duplicate-definition.dex",
+          "bytes": 448,
+          "sha256": "1fd6bfd8c466ff80478e13375159c8ee0df8be19fe94f5b12f8821d2492613c2"
+        },
+        {
+          "path": "malformed/method-delta-oob.dex",
+          "bytes": 448,
+          "sha256": "e4bd30038e154b442c6f09541bdc6739acb1779884ad952be947aaef8765e132"
+        },
+        {
+          "path": "malformed/method-name-index-oob.dex",
+          "bytes": 448,
+          "sha256": "b29ee7abf9404921ca09cf12f105ec7608ec33d78a1a42a71a514f9333dfedc3"
+        },
+        {
+          "path": "malformed/mutf-invalid-leading-byte.dex",
+          "bytes": 448,
+          "sha256": "e06be05f3b0a3888d98da1c0086b7c090c5f32b8c4caa9a4ecf3aeada0c22195"
+        },
+        {
+          "path": "malformed/mutf-length-mismatch.dex",
+          "bytes": 448,
+          "sha256": "bd44a1a7ce3fd05a3878a77ad35a47606c6c8321888cd776bacc584df95a6982"
+        },
+        {
+          "path": "malformed/reverse-endian.dex",
+          "bytes": 448,
+          "sha256": "30bcaf9a2bcb42cfd9fb62a58e4baaa5b9703dd684eb32b449a22ada974ec500"
+        },
+        {
+          "path": "malformed/string-data-interior.dex",
+          "bytes": 448,
+          "sha256": "c95c0f6a3cbc42280d3b8e39e708af23a9c422cb66fc77aecfca9482496b4dfb"
+        },
+        {
+          "path": "malformed/string-offset-oob.dex",
+          "bytes": 448,
+          "sha256": "ee2963fc6354c86e4abe741e4dfc5a497f6ada66f859e1c091ea8546df23cf12"
+        },
+        {
+          "path": "malformed/truncated-header.dex",
+          "bytes": 80,
+          "sha256": "5776229ef074fef9cb50fffed33e84c45a6dda4210a540179bc4330ccf0ce93d"
+        },
+        {
+          "path": "malformed/truncated-tail.dex",
+          "bytes": 441,
+          "sha256": "b3f90b4ba9a267d2ca6f8132d953b4dbbdfd0611b774b2c372ad40e7cccdfd65"
+        },
+        {
+          "path": "malformed/uleb-overflow.dex",
+          "bytes": 448,
+          "sha256": "f4b4659013e7c9e34ec73c1b5c78fc1bddc6897db2872014253e3629b5c34b44"
+        },
+        {
+          "path": "malformed/version-041.dex",
+          "bytes": 448,
+          "sha256": "471fbe134b24fb5a61dcf0fe41103c4e3fd91ac6a49bd126ac8c04224e9dd471"
+        }
+      ]
+    },
+    {
+      "id": "unicode",
+      "generator": "generators/generate_unicode.py",
+      "generator_sha256": "26ffed221edacc38f22b96019e3e076dbec44477e11ef73bda4e3effe41d5773",
+      "scope": "lone UTF-16 surrogates, embedded NUL, and supplementary pairs",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/unicode/expected.json": "cb748859c9cde8ccd8ae3d406c092fa0960f69c51abeb6832378b88aee9e4546"
+      },
+      "files": [
+        {
+          "path": "generated/unicode/lone-high.dex",
+          "bytes": 436,
+          "sha256": "899e41549066618ec3e22e39d82c1aa05d0c8425803cf71eb6cd4c20a3c4fc53"
+        },
+        {
+          "path": "generated/unicode/lone-low.dex",
+          "bytes": 436,
+          "sha256": "f71f969b8f96b9a9dbc158088fd579fe96e4d7cdb0d24cf3a12dfb92fe8d1ab7"
+        },
+        {
+          "path": "generated/unicode/mixed-unpaired.dex",
+          "bytes": 448,
+          "sha256": "72d11067710b37251f62b5d065656f47161e2a93597bade43562643b3d94bbe3"
+        }
+      ]
+    },
+    {
+      "id": "graph",
+      "generator": "generators/generate_graph_dex.py",
+      "generator_sha256": "028a98e2468200e5c9da184beb67783c4e74e0c60673ce1561918d740284fcf6",
+      "scope": "static multi-source method identities and independently authored call graph samples",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/graph/manifest.json": "f0efedf8bcbdbaefdc155a63e183fa474f8b46be234a5c0add825bde7e377b91"
+      },
+      "files": [
+        {
+          "path": "generated/graph/amb-a.dex",
+          "bytes": 424,
+          "sha256": "10d0ea04da45c7c021ba902ce90ea8f24415d44fd396916088ed55dc6518213b"
+        },
+        {
+          "path": "generated/graph/amb-b1.dex",
+          "bytes": 416,
+          "sha256": "c811692d62f01e48bb23d83edb7c642501be7d7e6f1c7bceb6abacb80558371f"
+        },
+        {
+          "path": "generated/graph/amb-b2.dex",
+          "bytes": 416,
+          "sha256": "c605e9132c416a210acc409890c6003ac3228e7b03553397834c057f170e45a4"
+        },
+        {
+          "path": "generated/graph/amb-c1.dex",
+          "bytes": 380,
+          "sha256": "97a56d6392561486cf27ce7270362cc1b23b8481468c5a2e1522bb03808dd8b6"
+        },
+        {
+          "path": "generated/graph/amb-c2.dex",
+          "bytes": 380,
+          "sha256": "9e132bb4c1ab74db8a6802c0ed364adc534e32982adbb0c68071a6fbb211bee9"
+        },
+        {
+          "path": "generated/graph/amb-overload.dex",
+          "bytes": 416,
+          "sha256": "c0fab422a2f5706321bf77eab534c0da353705a3e260663a0829be23f09d7d0e"
+        },
+        {
+          "path": "generated/graph/cycle-a.dex",
+          "bytes": 420,
+          "sha256": "79d75f4435aa890de3e3942615b8be80b09836b55d85d5ad29fafd70fdc584df"
+        },
+        {
+          "path": "generated/graph/cycle-b.dex",
+          "bytes": 420,
+          "sha256": "005f5ccea3544eb6c2759a3ab0bff5e20df12efac7c28536173cf09f5f2921be"
+        },
+        {
+          "path": "generated/graph/diamond-a.dex",
+          "bytes": 468,
+          "sha256": "1da956c8aed19f47711c1a5d2e8e885d98769872b57cd78ffd134a103e8f609a"
+        },
+        {
+          "path": "generated/graph/diamond-b.dex",
+          "bytes": 424,
+          "sha256": "71f26ad76c71a7ffa3cce7a6d4649bf85c70874cbd6daa4313fc3e09d9726f79"
+        },
+        {
+          "path": "generated/graph/diamond-c.dex",
+          "bytes": 424,
+          "sha256": "319ceb42ae8d25077d8991147dcbdda6add577868c8df9951a545f356dde1975"
+        },
+        {
+          "path": "generated/graph/diamond-d.dex",
+          "bytes": 384,
+          "sha256": "11f93469220a30a85519c6b48d3a2b2f8f11b54ddadb4ce26a0b8402a33b04c0"
+        }
+      ]
+    },
+    {
+      "id": "q03",
+      "generator": "generators/generate_q03.py",
+      "generator_sha256": "d0c56577e74025edd528142bec826ba4c8768ecd6a10eb9db7f919120ce9dba2",
+      "scope": "annotation, static-value and method-use string evidence domains",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/q03/expected.json": "2b90da20b16f0e0225973a5562c30fdf5cc411e03165c4e3152113eaff36c9c0"
+      },
+      "files": [
+        {
+          "path": "generated/q03/q03-domains.dex",
+          "bytes": 684,
+          "sha256": "ea6e44ec68dfbb6c68a88171c5c64b77dca38b73bfdf0cc1b820d4d1e5ccb062"
+        }
+      ]
+    },
+    {
+      "id": "q04",
+      "generator": "generators/generate_q04.py",
+      "generator_sha256": "90ccf5471441ab2fcc1b5d790b32b6b1aa93e456bacc00983c9612c4272357d0",
+      "scope": "multi-method string-use sets, scope and occurrence identity",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/q04/manifest.json": "99db748e2ae40313cf358f12fae35e7607ec135d61d815a90d80070444ed0ca4"
+      },
+      "files": [
+        {
+          "path": "generated/q04/q04.dex",
+          "bytes": 584,
+          "sha256": "5d7d17c93289fe3d644560edd32070790e9fb1796e9a883b4188bb877e0593f4"
+        }
+      ]
+    },
+    {
+      "id": "q06",
+      "generator": "generators/generate_q06.py",
+      "generator_sha256": "95534be10ac817f8d8a903e2a91f690bb5e61960bda23dab29c2ca764ddaa624",
+      "scope": "same target at distinct call sites, overloads and external references",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/q06/manifest.json": "bc83f110a4865aa36d5c1d2207b6feccc9ef461977260ad237b959b5d2cd6ae9"
+      },
+      "files": [
+        {
+          "path": "generated/q06/q06.dex",
+          "bytes": 560,
+          "sha256": "d0641987a3ba58396dbf2ece5608b6979bcea46ed12a3d8edcd353fc82dec6e7"
+        }
+      ]
+    },
+    {
+      "id": "q08",
+      "generator": "generators/generate_q08.py",
+      "generator_sha256": "4650926a3b7608b9aa683c5df329b777c7ef96eeb8aa6a27c62cd96bee2db642",
+      "scope": "own declarations, direct parent and method field read/write domains",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/q08/manifest.json": "619836e0442121c9f31a1ee47b335b617568f31e7c6d1da57819f714ca0aac2c"
+      },
+      "files": [
+        {
+          "path": "generated/q08/q08.dex",
+          "bytes": 664,
+          "sha256": "83bca6b796f3e343b84b29ddef6949dade9b8c66c2807b6bb89f15b03981e8a8"
+        }
+      ]
+    },
+    {
+      "id": "numeric",
+      "generator": "generators/numeric_facts.py",
+      "generator_sha256": "1a83e91a6e4520216353b50ca9e8718aac035ea51d7c3d2eb80de914eb82a773",
+      "scope": "const and arithmetic literal events; checked static code item only",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/numeric/expected.json": "7ce805e2bcce01ea0cb444b17eebde8e2a632203f9ebe5d530bab7bcf34d537f"
+      },
+      "files": [
+        {
+          "path": "generated/numeric/numeric.dex",
+          "bytes": 608,
+          "sha256": "45493d9c18a659507a1929467be3420bba23e408f906641d253da59d73c92699"
+        }
+      ]
+    },
+    {
+      "id": "q09-stream",
+      "generator": "generators/generate_q09_stream.py",
+      "generator_sha256": "9819ef013c099fceec40103325f8ed04c5950af58069a06a537bac9e1ea03ebc",
+      "scope": "unresolved field before defined fields; checked streaming and resource cases",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/q09-stream/expected.json": "ca6fb398de306c5985aa859d859eb00fbceccc91fdc5b8c9048c0db6c2ab1940"
+      },
+      "files": [
+        {
+          "path": "generated/q09-stream/definitions.dex",
+          "bytes": 804,
+          "sha256": "6419a7b0b6f792efbd43fc53d8d991d7b5b2b1fad971de0f9a47509e124d9413"
+        },
+        {
+          "path": "generated/q09-stream/duplicate-class.dex",
+          "bytes": 804,
+          "sha256": "f65b2ca0018f49e6520283270a33266ea5ed684c99b27600a7478be0a12b9492"
+        },
+        {
+          "path": "generated/q09-stream/duplicate-field.dex",
+          "bytes": 804,
+          "sha256": "c8d3fa09f9bca2bca6f9d1fe4d2532eba82d211e0a2ae766e9e5eda932c5456b"
+        },
+        {
+          "path": "generated/q09-stream/duplicate-interface.dex",
+          "bytes": 804,
+          "sha256": "de3bb938f22ae740c465bfbde4feff9ea426dbe1d70cb58a4fbcb86f6cb5522f"
+        },
+        {
+          "path": "generated/q09-stream/wrong-field-owner.dex",
+          "bytes": 804,
+          "sha256": "53165c5e1691d5877a3e2b8ab7549f46735405295c146f22d18e7844dec3c15e"
+        },
+        {
+          "path": "generated/q09-stream/wrong-static-group.dex",
+          "bytes": 804,
+          "sha256": "3e7dff95caea54d0d48c29f68ebf2c747d2b290cf1b2781ff236f51d76fb8d52"
+        }
+      ]
+    },
+    {
+      "id": "inherited-edges-v2",
+      "generator": "generators/generate_inherited_edges.py",
+      "generator_sha256": "03d2d0a88669527ed51f27a23b94a34dfd5ee49cc28582f5be4ad1625ef7cc19",
+      "scope": "private same-name hiding, same-name distinct types, and interface Unknown",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/inherited-edges-v2/manifest.json": "8390eaa77f3acdfabe2e6de15c7d288356fec02df58adf58a992aec6e5de0b4a"
+      },
+      "files": [
+        {
+          "path": "generated/inherited-edges-v2/base-collision.dex",
+          "bytes": 360,
+          "sha256": "719f2b15c6784e327ab742c71195c66d406d35e8c8760dafabdb9248ec9588ba"
+        },
+        {
+          "path": "generated/inherited-edges-v2/child-clear.dex",
+          "bytes": 280,
+          "sha256": "b5c5225a0cbf1880773cab5b223c65486de480c4b7756282a3a63467f131f181"
+        },
+        {
+          "path": "generated/inherited-edges-v2/child-interface.dex",
+          "bytes": 328,
+          "sha256": "51fde985de6097dded9b2f3bd7a53714b7cd26478f1e36acba7c4e4bc158ccf0"
+        },
+        {
+          "path": "generated/inherited-edges-v2/child-private.dex",
+          "bytes": 340,
+          "sha256": "5ef45741353cdfef6d94402b430202a9779da5d33b72f9b8b3263785ed88b847"
+        }
+      ]
+    },
+    {
+      "id": "inherited",
+      "generator": "generators/generate_inherited.py",
+      "generator_sha256": "9fab2428a9a26360fbc8588ae1f46fc100e3ffd83d82c37bb6696ae94efcc528",
+      "scope": "cross-source superclass field observations with ambiguity and partial scope",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/inherited/manifest.json": "a5a8c75856c229ea1a5f3b130f66c677bddce10f7b3a80154a095b29e91e70b4"
+      },
+      "files": [
+        {
+          "path": "generated/inherited/alt.dex",
+          "bytes": 336,
+          "sha256": "b457ec32d06a7aed209d9aa628a1c9cefce823adcbc215af714a489c038f728b"
+        },
+        {
+          "path": "generated/inherited/base-a.dex",
+          "bytes": 416,
+          "sha256": "1487c9475fa8d4d45841f6ca9a1b925a909c1e00db3e17d1195590d0e5358ebe"
+        },
+        {
+          "path": "generated/inherited/base-b.dex",
+          "bytes": 332,
+          "sha256": "824121d4c85831d3262bc85787b7269aa6cc773889905037139374b53b60edf3"
+        },
+        {
+          "path": "generated/inherited/base-cycle.dex",
+          "bytes": 336,
+          "sha256": "3e222af7de21a82eae58a54310872b2e484f3dc8e19da9e6b7e6cae8cb9a1462"
+        },
+        {
+          "path": "generated/inherited/child.dex",
+          "bytes": 356,
+          "sha256": "b7aea3ef203a3ab20ea6b98477208aaa41844568ecf416db082c9a10c580d889"
+        },
+        {
+          "path": "generated/inherited/root.dex",
+          "bytes": 260,
+          "sha256": "7857fd32d6fa71d9b974b3a8e7a449a41c883dbb923236886bdeefe8b961a6d5"
+        }
+      ]
+    },
+    {
+      "id": "inherited-use",
+      "generator": "generators/generate_inherited_use.py",
+      "generator_sha256": "92eb0d06ba7b7f8211ddc7af176a831f99ec526083ec86f277338ae71ea54b25",
+      "scope": "inherited superclass proofs joined to same-source callsites and target references",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/inherited-use/expected.json": "931ee0e4abdf6ee740b1c8a78ac5847f70fa4ee01c3041555f0c77e9193ab59c"
+      },
+      "files": [
+        {
+          "path": "generated/inherited-use/local-target.dex",
+          "bytes": 608,
+          "sha256": "ef33098510d9768bd17f2ace28d77138235b499d1f5f84907f814c1a6fe0d7fb"
+        }
+      ]
+    },
+    {
+      "id": "interface-v8",
+      "generator": "generators/generate_interface_v8.py",
+      "generator_sha256": "1948f53d0ed3d3eb28b73021f45c456b171a6887f222072c19bc1f2ffa6c939c",
+      "scope": "static superclass and interface fields; diamonds, hiding, ambiguity and unsupported flags",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/interface-v8-v4/manifest.json": "88937fdba78497e7b2dc443d7dfc14cb4bf6028a5d054732400ed260771ae0f5"
+      },
+      "files": [
+        {
+          "path": "generated/interface-v8-v4/annotation.dex",
+          "bytes": 340,
+          "sha256": "691541c741550af1bc486fac3fa9fc3c323db034f5938f9846e5ebf3a7b733e4"
+        },
+        {
+          "path": "generated/interface-v8-v4/bad-instance.dex",
+          "bytes": 328,
+          "sha256": "d05269b11f91e19a4c8c21e97c2e8abe33ffbd43b731201efc368d5d49b0f99c"
+        },
+        {
+          "path": "generated/interface-v8-v4/bad-nofinal.dex",
+          "bytes": 328,
+          "sha256": "e6f3c500b9c3f164442caa67bb7028ccc98881892c30a5c7d875fe5c7c700a51"
+        },
+        {
+          "path": "generated/interface-v8-v4/bad-protected.dex",
+          "bytes": 328,
+          "sha256": "eb1d093cc35b56429ae541db2f891524b49e86e8ba1e86579836344b5636c980"
+        },
+        {
+          "path": "generated/interface-v8-v4/bad-type.dex",
+          "bytes": 328,
+          "sha256": "8c48db72b5b20c1665170f5c9f6b38f0abd84cf9efb27be171d74991b3962d4f"
+        },
+        {
+          "path": "generated/interface-v8-v4/base.dex",
+          "bytes": 332,
+          "sha256": "cdd6f3fdcbe2b4f79f53591f62255e80d8891c35a94b16e4656903c8b05941a8"
+        },
+        {
+          "path": "generated/interface-v8-v4/child-bad.dex",
+          "bytes": 300,
+          "sha256": "6bb168b35e7952bb6493f58e3c4dcd0a389da6023a0e19f1c6c2f28691b405dd"
+        },
+        {
+          "path": "generated/interface-v8-v4/child-cycle.dex",
+          "bytes": 300,
+          "sha256": "25abb38567b4b3c28284f7aa9ed0f03639937e8aca3c08b0e2b058f81f7cd930"
+        },
+        {
+          "path": "generated/interface-v8-v4/child.dex",
+          "bytes": 384,
+          "sha256": "d28ba4f24ee08c8541d89250b44e534b98284163fac3c4d1a7c879ff908cf341"
+        },
+        {
+          "path": "generated/interface-v8-v4/cycle.dex",
+          "bytes": 372,
+          "sha256": "7fa9dc35bba7689ab4bc9e6ad221a3c155a8497c84e203dc534e37be7337b70b"
+        },
+        {
+          "path": "generated/interface-v8-v4/cycle2.dex",
+          "bytes": 312,
+          "sha256": "280ea4bb59ea1df81fa363df518a872839407907497e04bf6521d5efd6509e06"
+        },
+        {
+          "path": "generated/interface-v8-v4/left.dex",
+          "bytes": 416,
+          "sha256": "a8eb1905b9d054497f7e792c3eb33b262df18ccd5b309120bf17f0895ef8afa3"
+        },
+        {
+          "path": "generated/interface-v8-v4/right.dex",
+          "bytes": 368,
+          "sha256": "0071d6d7fd129bcc1a9cd61eef21bdec104e434c37fe42058b07f1e1f8c53b04"
+        },
+        {
+          "path": "generated/interface-v8-v4/root.dex",
+          "bytes": 248,
+          "sha256": "8a3a3177fe1e1c608f695a47453f40adeb6e4e56a55631483d1074facae91512"
+        },
+        {
+          "path": "generated/interface-v8-v4/top.dex",
+          "bytes": 376,
+          "sha256": "19d5d0c7e421d793d06e01f0ffd8db77180eb970a1c58d8de60ef95b9847aa4d"
+        }
+      ]
+    },
+    {
+      "id": "interface-use",
+      "generator": "generators/generate_interface_use.py",
+      "generator_sha256": "f88aa999a251d042186e531c4641ff5682de3cabba55f029c78e9e65ba1b9013",
+      "scope": "interface inheritance and source-local static invoke evidence",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/interface-use/expected.json": "eec6d02351f76b21711e7f2cfc9bd6b3ba7164d2f230a5c405651d8faa8a6e19"
+      },
+      "files": [
+        {
+          "path": "generated/interface-use/child-use.dex",
+          "bytes": 468,
+          "sha256": "48da5437d5cdd764b3fc80e455f5a2ef2f488af768ad3155cd78c9efa58402e7"
+        }
+      ]
+    },
+    {
+      "id": "interface-v11",
+      "generator": "generators/generate_interface_v11.py",
+      "generator_sha256": "33006a70c306f505e04efc48866f32b9d60aef4750a46d9340edd8ea0ac696c4",
+      "scope": "static interface roots and multiple definition branches; scoped evidence only",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/interface-v11/manifest.json": "71dbe2614ef7d6444da2108b02d06c6c9619b5997aedc48aa5dd933e3b18d273"
+      },
+      "files": [
+        {
+          "path": "generated/interface-v11/annotation.dex",
+          "bytes": 340,
+          "sha256": "691541c741550af1bc486fac3fa9fc3c323db034f5938f9846e5ebf3a7b733e4"
+        },
+        {
+          "path": "generated/interface-v11/bad-instance.dex",
+          "bytes": 328,
+          "sha256": "d05269b11f91e19a4c8c21e97c2e8abe33ffbd43b731201efc368d5d49b0f99c"
+        },
+        {
+          "path": "generated/interface-v11/bad-nofinal.dex",
+          "bytes": 328,
+          "sha256": "e6f3c500b9c3f164442caa67bb7028ccc98881892c30a5c7d875fe5c7c700a51"
+        },
+        {
+          "path": "generated/interface-v11/bad-protected.dex",
+          "bytes": 328,
+          "sha256": "eb1d093cc35b56429ae541db2f891524b49e86e8ba1e86579836344b5636c980"
+        },
+        {
+          "path": "generated/interface-v11/bad-type.dex",
+          "bytes": 328,
+          "sha256": "8c48db72b5b20c1665170f5c9f6b38f0abd84cf9efb27be171d74991b3962d4f"
+        },
+        {
+          "path": "generated/interface-v11/base.dex",
+          "bytes": 332,
+          "sha256": "cdd6f3fdcbe2b4f79f53591f62255e80d8891c35a94b16e4656903c8b05941a8"
+        },
+        {
+          "path": "generated/interface-v11/child-bad.dex",
+          "bytes": 300,
+          "sha256": "6bb168b35e7952bb6493f58e3c4dcd0a389da6023a0e19f1c6c2f28691b405dd"
+        },
+        {
+          "path": "generated/interface-v11/child-cycle.dex",
+          "bytes": 300,
+          "sha256": "25abb38567b4b3c28284f7aa9ed0f03639937e8aca3c08b0e2b058f81f7cd930"
+        },
+        {
+          "path": "generated/interface-v11/child.dex",
+          "bytes": 384,
+          "sha256": "d28ba4f24ee08c8541d89250b44e534b98284163fac3c4d1a7c879ff908cf341"
+        },
+        {
+          "path": "generated/interface-v11/cycle.dex",
+          "bytes": 372,
+          "sha256": "7fa9dc35bba7689ab4bc9e6ad221a3c155a8497c84e203dc534e37be7337b70b"
+        },
+        {
+          "path": "generated/interface-v11/cycle2.dex",
+          "bytes": 312,
+          "sha256": "280ea4bb59ea1df81fa363df518a872839407907497e04bf6521d5efd6509e06"
+        },
+        {
+          "path": "generated/interface-v11/left-alt.dex",
+          "bytes": 396,
+          "sha256": "4c0f36d80187c1c5e25630e05df67f364b78ab78ceef73d6cec31c83de2d15b4"
+        },
+        {
+          "path": "generated/interface-v11/left.dex",
+          "bytes": 416,
+          "sha256": "a8eb1905b9d054497f7e792c3eb33b262df18ccd5b309120bf17f0895ef8afa3"
+        },
+        {
+          "path": "generated/interface-v11/right.dex",
+          "bytes": 368,
+          "sha256": "0071d6d7fd129bcc1a9cd61eef21bdec104e434c37fe42058b07f1e1f8c53b04"
+        },
+        {
+          "path": "generated/interface-v11/root.dex",
+          "bytes": 248,
+          "sha256": "8a3a3177fe1e1c608f695a47453f40adeb6e4e56a55631483d1074facae91512"
+        },
+        {
+          "path": "generated/interface-v11/top-alt.dex",
+          "bytes": 352,
+          "sha256": "091d35e4f5f75b236bfce203bb21b429503f0832e1823af21060d00775e9b9cc"
+        },
+        {
+          "path": "generated/interface-v11/top.dex",
+          "bytes": 376,
+          "sha256": "19d5d0c7e421d793d06e01f0ffd8db77180eb970a1c58d8de60ef95b9847aa4d"
+        }
+      ]
+    },
+    {
+      "id": "composite-v10",
+      "generator": "generators/composite_v10.py",
+      "generator_sha256": "43b2adc34c5459825351ffb230a7116b24a47480335614d378df28cc32a34746",
+      "scope": "static superclass, numeric literal and invocation composition",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/composite-v10/manifest.json": "d5aa2df046866365467edbe4315e7e5c1d52a2191b040cdc4a57fd094321f713"
+      },
+      "files": [
+        {
+          "path": "generated/composite-v10/composite.dex",
+          "bytes": 664,
+          "sha256": "ae071f078b042f7455c69c7044bed82209faff9bdb5c807bd9088da458ac3d63"
+        }
+      ]
+    },
+    {
+      "id": "cross-capability-v10",
+      "generator": "generators/generate_cross_v10.py",
+      "generator_sha256": "41fe36d6080affbf3bf46869da0dd1471ffcff2af162af70e395b549dd3bb79e",
+      "scope": "static interface edge, numeric literal and caller invocation across sources",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/cross-capability-v10/manifest.json": "469c10d903f829342a4ae910d040ad0a7680e3e613c0caff9fbe5018d5d9c502"
+      },
+      "files": [
+        {
+          "path": "generated/cross-capability-v10/child.dex",
+          "bytes": 484,
+          "sha256": "50df04d1cef8cea702be31e57d89dde37e7cca7a4f5ccce9816b3b771538a631"
+        },
+        {
+          "path": "generated/cross-capability-v10/contract.dex",
+          "bytes": 340,
+          "sha256": "bae0456d8f8011ba74ead803f5c6d819f5de0e789539c3efd1f4ca19e6c46e5b"
+        },
+        {
+          "path": "generated/cross-capability-v10/object.dex",
+          "bytes": 248,
+          "sha256": "8a3a3177fe1e1c608f695a47453f40adeb6e4e56a55631483d1074facae91512"
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "generator": "generators/generate_q10.py",
+      "generator_sha256": "3dc4e12d044419540959b253a74ed4b24d96dd6fcd932dadc66c99cfcff6f3cc",
+      "scope": "33 static method definitions and test-only post-validation model",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/q10/expected.json": "3701a335fb48f98738a26190732510a017bf06c61abbaed03e0a2e6730d02534"
+      },
+      "files": [
+        {
+          "path": "generated/q10/q10-33.dex",
+          "bytes": 1068,
+          "sha256": "5781e8d4723a2f051d187929072357b8507d7bad0ecc30c9c9e244e2a0ebf0b8"
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "generator": "generators/generate_q11.py",
+      "generator_sha256": "9dd009631543042739cc9fe235e45550393a94391d2a3f2e0b990cc91b0d6abd",
+      "scope": "global TopN, multi-source stable ties and scope",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/q11/manifest.json": "5097c9331d743d22d22ed64210344f7ac2addc8dbad1cdb3dde28697900afd75"
+      },
+      "files": [
+        {
+          "path": "generated/q11/early.dex",
+          "bytes": 512,
+          "sha256": "2c842eaddb4f7b505acfad875c433b24ac4b415df19c760893a83d9284c909fe"
+        },
+        {
+          "path": "generated/q11/late.dex",
+          "bytes": 512,
+          "sha256": "d169c51725b9520a685f878e344af1a3e09c5a4b0b447ec2c731054e14e1baa2"
+        }
+      ]
+    },
+    {
+      "id": "extended",
+      "generator": "generators/metadata_extended.py",
+      "generator_sha256": "d9ea4359cbf29a317ee2c5aad40d4d3a1373f1d3bd7562a71909f34f2c83af29",
+      "scope": "shared items, SLEB, type lists, code metadata and topology",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/extended/manifest.json": "2fe36d391fd8acc91f660607044ec0a768520506700b75b45f50c08c7769d99a"
+      },
+      "files": [
+        {
+          "path": "generated/extended/catch-all-address-oob.dex",
+          "bytes": 868,
+          "sha256": "4dec08ac6f96bddc656dd19cf2b649815a07ea7f65d52eb9413505bef0854ad2"
+        },
+        {
+          "path": "generated/extended/class-topology.dex",
+          "bytes": 868,
+          "sha256": "226ed79409bba6162f7547247328241035cfa5f8733f164b81c6af42d748257c"
+        },
+        {
+          "path": "generated/extended/code-count-high.dex",
+          "bytes": 868,
+          "sha256": "51215e15fde82e8b2030b2679b83d869780dbfc19a890b8faed0211bfc059079"
+        },
+        {
+          "path": "generated/extended/code-count-low.dex",
+          "bytes": 868,
+          "sha256": "b3efb91480a3a5210e69cbae1deeadec3c6aa1c36a35abe066d8ebe072b812dc"
+        },
+        {
+          "path": "generated/extended/code-interior.dex",
+          "bytes": 868,
+          "sha256": "ebede9fc46d82616fd69d467393de8989a60922162c5aa22e286bc8f08efbf1f"
+        },
+        {
+          "path": "generated/extended/empty-code.dex",
+          "bytes": 868,
+          "sha256": "6201e92b21fcb1effd5a24c5fca0f5e2fda48ccd25d96bc4bc7e00385515de68"
+        },
+        {
+          "path": "generated/extended/handler-address-oob.dex",
+          "bytes": 868,
+          "sha256": "a098938e3b1206d0ed9c944a47a64eea8c2bcc032115d46f0550e0d89446ac29"
+        },
+        {
+          "path": "generated/extended/handler-interior.dex",
+          "bytes": 868,
+          "sha256": "c500ebe9a0a565c524dcc0424dd63cdbde57f5b7bbbfbeec46c068bb2c1ea752"
+        },
+        {
+          "path": "generated/extended/handlers-count-zero.dex",
+          "bytes": 868,
+          "sha256": "cf9953b721d8a4a98d2437e6a36ea476528fa31eb3cc7d53599b5073dd21d506"
+        },
+        {
+          "path": "generated/extended/incoming-mismatch.dex",
+          "bytes": 868,
+          "sha256": "0cbe05526be37940bfd467a8049d9b92babb321c0d7afc853101e3a6d3476440"
+        },
+        {
+          "path": "generated/extended/interface-topology.dex",
+          "bytes": 868,
+          "sha256": "136637c271f2cd7e5ed708d4376ee88894d6548c3c787b95cbcafaae6558e014"
+        },
+        {
+          "path": "generated/extended/registers-too-small.dex",
+          "bytes": 868,
+          "sha256": "826c3427d9b7deafc94498093b5b94134618e51d612bf6fd9ed4960e42259e97"
+        },
+        {
+          "path": "generated/extended/shared-items.dex",
+          "bytes": 868,
+          "sha256": "135c62685a5265e10388353873bbd41d18ffd0ac871329d42eb46eefd9f34734"
+        },
+        {
+          "path": "generated/extended/try-range-oob.dex",
+          "bytes": 868,
+          "sha256": "4898e2db28030c1b9a572a204fb053303f1426a6bb84d57b18b6545b1e7702d6"
+        },
+        {
+          "path": "generated/extended/type-list-count-high.dex",
+          "bytes": 868,
+          "sha256": "6e6aa1c375c1b7a9744c5fc8d8652acad56ee7d76e037c46ba030cdc4bb44e35"
+        },
+        {
+          "path": "generated/extended/type-list-count-low.dex",
+          "bytes": 868,
+          "sha256": "34de4479366ee4a9a08ea264928e5ca7e1225805acce9b6d93b239896aebfe5f"
+        },
+        {
+          "path": "generated/extended/type-list-interior.dex",
+          "bytes": 868,
+          "sha256": "72ad88b646cee7f08347006fc0a3ee6c6ba9fa0c7cd9a8cc7d07c4a6953337fc"
+        }
+      ]
+    },
+    {
+      "id": "facts",
+      "generator": "generators/facts_cases.py",
+      "generator_sha256": "7f331572c4d52c6338eb632de40cbfa7b5d10763e9fd490a53b29e047fb8c57a",
+      "scope": "PC/domain golden values, no-body and pool-only values; 038 fixture is structural only",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/method_facts/expected.json": "0b1701ef957237ad515057b4183965c275747721645570143b4612be9a3865bc",
+        "generated/method_facts/invoke-domains-038.expected.json": "a90dd44af01dc2ebc4afc50f4b04c76a7d798ffc60d1abbf7469da9f0ffddb2a"
+      },
+      "files": [
+        {
+          "path": "generated/method_facts/invoke-domains-038.dex",
+          "bytes": 664,
+          "sha256": "ecf85d163c87d58f065335f0d932442be48b91b5efa3858e319a1c1cdf7313b0"
+        },
+        {
+          "path": "generated/method_facts/method-uses.dex",
+          "bytes": 608,
+          "sha256": "8262d2b338e54a7965111b4cec1ef9e628ada9795ad2f6a555d717a2ba9546bc"
+        }
+      ]
+    },
+    {
+      "id": "use-relations",
+      "generator": "generators/use_relations.py",
+      "generator_sha256": "c20aa7de4922ba9d86a2af817b751ce48f47fa80e0ed9883b0fd628f74d1df6e",
+      "scope": "multiple PCs per target, field reads/writes, jumbo strings, valid facts before a corrupt opcode",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/use_relations/expected.json": "49adfa0f869308ccc07f99745b61e8beb3da1c3bbb682d38c418c0e259912983"
+      },
+      "files": [
+        {
+          "path": "generated/use_relations/field-read-write.dex",
+          "bytes": 608,
+          "sha256": "7558a8945c3a87f727de782d885c687539d839e460497f6d2e86c2a7c7f46e8d"
+        },
+        {
+          "path": "generated/use_relations/string-normal-jumbo.dex",
+          "bytes": 608,
+          "sha256": "65373dc14bb0b19b3fb4ae8fd236e83befbfee4b69b74e3a8d4a8b7db2637c04"
+        },
+        {
+          "path": "generated/use_relations/two-invokes.dex",
+          "bytes": 608,
+          "sha256": "04656bbfe03c8b04e6f77d29b8cae8e7e06f18a038f85300658f8c691435648b"
+        },
+        {
+          "path": "generated/use_relations/valid-then-corrupt.dex",
+          "bytes": 608,
+          "sha256": "4e0661d233cfc3eaf32aff66e615a1cacba822e768c3c3b4559f0f0abfc2c2be"
+        }
+      ]
+    },
+    {
+      "id": "unique-one-v12",
+      "generator": "generators/unique_one_utf16.py",
+      "generator_sha256": "499385ca295d4a9e48ebda87ce2d130a1bcaab937bb6cf0b45ebf98b5f0fa883",
+      "scope": "v12 string-use fixture referencing UTF-16 supplementary pair",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/unique-one-v12/manifest.json": "90c468ba65e21f72b3706c4b27e98b70d5b5ef9910521934e0e56479ac0a201f"
+      },
+      "files": [
+        {
+          "path": "generated/unique-one-v12/string-utf16-v12.dex",
+          "bytes": 608,
+          "sha256": "67e58385794f6bc1f8fe56a30bbcb4a4eb973e26b4e6449a52ed0c671668292a"
+        }
+      ]
+    },
+    {
+      "id": "use-stream-v9",
+      "generator": "generators/use_stream_v9.py",
+      "generator_sha256": "1c739c0266be74c39f86f68769ca87c4948d2b57fa996835d3d108f4760e1cc7",
+      "scope": "two checked methods, later corruption and incremental use evidence",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/use-stream-v9/manifest.json": "e546bca7a1c3efe6407f04ca6e248c6cbb189c84b6ee3b7521589bcda776a893"
+      },
+      "files": [
+        {
+          "path": "generated/use-stream-v9/later-corrupt.dex",
+          "bytes": 612,
+          "sha256": "9c86f51bfa689764b9d38e984e6c0ef80cf49122e8a209010477ccf2226b66f6"
+        },
+        {
+          "path": "generated/use-stream-v9/two-methods.dex",
+          "bytes": 612,
+          "sha256": "cb9020777da008d67b856862068a7a23fd6483b599a18ead5f01a3b94ecde00b"
+        }
+      ]
+    },
+    {
+      "id": "definitions",
+      "generator": "generators/definition_catalog.py",
+      "generator_sha256": "276b52a600bcccd14e471bdc8c52b8d588e8e752d9b1e66640188ba8f8cd7761",
+      "scope": "class/field definitions, external field refs, interface order",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/definition_catalog/expected.json": "2e823b57cefbd24bb62808ebd98bfcd203e993a1fce0134f380a7a940e451ca1"
+      },
+      "files": [
+        {
+          "path": "generated/definition_catalog/definitions.dex",
+          "bytes": 804,
+          "sha256": "e1059582b6c893690880403d00f6b5be8dfceb7be282793e2117bdf15b14e77a"
+        },
+        {
+          "path": "generated/definition_catalog/duplicate-class.dex",
+          "bytes": 804,
+          "sha256": "5013c355c911db46c1e3a402ea2255b5a40ce806f03264e85f3a3baa5f4c1fc7"
+        },
+        {
+          "path": "generated/definition_catalog/duplicate-field.dex",
+          "bytes": 804,
+          "sha256": "b45f7cf15bce5db0acdab551d04bf14864b8ef95772873520e58840e4095b8ac"
+        },
+        {
+          "path": "generated/definition_catalog/duplicate-interface.dex",
+          "bytes": 804,
+          "sha256": "0601eaaf5e606ee0d51373609efab4c1f42b3cb78231c51772be491a2f7e4228"
+        },
+        {
+          "path": "generated/definition_catalog/wrong-field-owner.dex",
+          "bytes": 804,
+          "sha256": "ad6219229a908b70d484d9ec3ccf46151c5e9c6e5b9c0fcb89d09bdd3d5c089a"
+        },
+        {
+          "path": "generated/definition_catalog/wrong-static-group.dex",
+          "bytes": 804,
+          "sha256": "1de6f0b4669681044999b673eaf1ad8a52028104bdac4d4c75e40f7a4520be79"
+        }
+      ]
+    },
+    {
+      "id": "archive",
+      "generator": "generators/archive_fixtures.py",
+      "generator_sha256": "a62e06084836232f46902d000016828b1f3db73d096c915aee2fad4260cf2bc3",
+      "scope": "stored/deflate/ZIP64/CRC/zipalign, limits and cancellation",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/archive/manifest.json": "1c2495b9629a94ae20248501362c415eb5b9eb1f88e98f0a8fab2e5abfa2dc91"
+      },
+      "files": [
+        {
+          "path": "generated/archive/central-extra-zero-tail.apk",
+          "bytes": 571,
+          "sha256": "79ac1e22496ee52e1582f281f7c5e86bc37fe31c774e66808f8550981c85a041"
+        },
+        {
+          "path": "generated/archive/crc-mismatch.apk",
+          "bytes": 382,
+          "sha256": "2e29a29b91ac720de5970ce582b289ecf8f0c828679fdd91d57a8afce8f733ba"
+        },
+        {
+          "path": "generated/archive/deflated.apk",
+          "bytes": 382,
+          "sha256": "936a7f2fcba3e4a2b85985f0512756d839f6d85a3db07b716146bcb3ba1652a0"
+        },
+        {
+          "path": "generated/archive/descriptor.apk",
+          "bytes": 398,
+          "sha256": "d162ab03a48069e1e348c04154680088cf626b1b97e91565360c273ab227ede6"
+        },
+        {
+          "path": "generated/archive/directory-offset-overflow.apk",
+          "bytes": 568,
+          "sha256": "08a338c871deaa97a544ada0f0866e67412175c68fd3b1875f82aa8980e2c18c"
+        },
+        {
+          "path": "generated/archive/duplicate-long.zip",
+          "bytes": 2604,
+          "sha256": "2697769b578ad05063caed0e89020a6c498b30014b2c468c6de8a6f938b37eff"
+        },
+        {
+          "path": "generated/archive/duplicate.apk",
+          "bytes": 1114,
+          "sha256": "99d878babd08cf204360577b0af7258d1ec91505187ff16db1290c6bc7640e6f"
+        },
+        {
+          "path": "generated/archive/embedded-nul.apk",
+          "bytes": 568,
+          "sha256": "4a507a62e73c9243fea5b13097daed0b4c309334313dbd17e6e1ae36b9806e69"
+        },
+        {
+          "path": "generated/archive/empty.zip",
+          "bytes": 22,
+          "sha256": "8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85"
+        },
+        {
+          "path": "generated/archive/encrypted.apk",
+          "bytes": 568,
+          "sha256": "8424455ab8a2ac69ce6c6c964d24f7bb7eba76bf10926637b9ae25baa393e200"
+        },
+        {
+          "path": "generated/archive/local-extra-nonzero-tail.apk",
+          "bytes": 571,
+          "sha256": "dd70e7170ce987eef5f8e7b2fb56ddd3e7e427f168ff54819567e0f82a446268"
+        },
+        {
+          "path": "generated/archive/local-name-mismatch.apk",
+          "bytes": 568,
+          "sha256": "940caa94408ced74a2d0e2212fbf39028a0494e79cad8c84b3e3c1d21c52386a"
+        },
+        {
+          "path": "generated/archive/local-zip64.apk",
+          "bytes": 588,
+          "sha256": "30bed330dbcf87b8d43f1d30fc08a6338a87dae730a0c106017c20bb843ba4fb"
+        },
+        {
+          "path": "generated/archive/long-name.zip",
+          "bytes": 2616,
+          "sha256": "4947576571ccc299672dcf2d3c7065a42a691494fdeef8e20d2d79a52cce53c0"
+        },
+        {
+          "path": "generated/archive/many.apk",
+          "bytes": 5242,
+          "sha256": "be6988fb4d6515ffaeb718e84e0a7565c43b1eab0a17c8de42dd9d8ed1947cab"
+        },
+        {
+          "path": "generated/archive/multidex.apk",
+          "bytes": 744,
+          "sha256": "d62cee9741c30b1dcf7c5090826c17c5386a6f8a24eb7c7234682958f30fbcac"
+        },
+        {
+          "path": "generated/archive/size-too-large.apk",
+          "bytes": 382,
+          "sha256": "c5902a3e0ebb9fe42c635fd0819607e67829a3ad0f670573e1261629f1077ab2"
+        },
+        {
+          "path": "generated/archive/size-too-small.apk",
+          "bytes": 382,
+          "sha256": "2fab31e473e851db22367c4c0a27cebb7dd1f0e12260fca8380fe3129bc5bae3"
+        },
+        {
+          "path": "generated/archive/stored.apk",
+          "bytes": 568,
+          "sha256": "efa0ba9202a7ac290ec958749e649b8dfad31a448ef9c2ed618f07c25e9c712b"
+        },
+        {
+          "path": "generated/archive/truncated.apk",
+          "bytes": 557,
+          "sha256": "b915ddece05bc20452045092473767fc9d1a9de5bcc6e39ca388f7ffb0a88987"
+        },
+        {
+          "path": "generated/archive/unsupported-method.apk",
+          "bytes": 568,
+          "sha256": "b6bd89491c6c8e64af97ec9162fcfd00968989ee814cd67429ce67e54190bd49"
+        },
+        {
+          "path": "generated/archive/zero-entry.zip",
+          "bytes": 116,
+          "sha256": "4c461b4ddbb72a75cf25b439babf2ea5f674af683854962f327dd7b67ec53ce6"
+        },
+        {
+          "path": "generated/archive/zip64-descriptor.apk",
+          "bytes": 716,
+          "sha256": "116bd08fad5dd057322ff5ac22c1597e0f9991e1988eb5bd655f6794e5d9c05e"
+        },
+        {
+          "path": "generated/archive/zip64-required-field-missing.apk",
+          "bytes": 571,
+          "sha256": "2cd770a64aaa17c66db613714879a44a1c037b108b870ec6292ca53447899d72"
+        },
+        {
+          "path": "generated/archive/zip64-size-overflow.apk",
+          "bytes": 692,
+          "sha256": "70b2feb16888d28499465e9fd46b75760df5e4f7a3799e471c85ddb85e1e8852"
+        },
+        {
+          "path": "generated/archive/zip64.apk",
+          "bytes": 692,
+          "sha256": "be3f7c5b244d705024529978762f33f06ae5782add2e18e140803e73615802df"
+        },
+        {
+          "path": "generated/archive/zipalign-after-extra.apk",
+          "bytes": 576,
+          "sha256": "8ab7095e31ea201bad0688d985de7de39b1baaec4d7d7e9df581c5bb8459dcf9"
+        },
+        {
+          "path": "generated/archive/zipalign-after-zip64.apk",
+          "bytes": 591,
+          "sha256": "b61736e07fbc70834f47daa3f2fa644cc980489759590ad8e0c96050abdfc185"
+        },
+        {
+          "path": "generated/archive/zipalign-padding-1.apk",
+          "bytes": 569,
+          "sha256": "cae3c1e0a87b08a20db27492114f5ca585a9ec99df636db32897661522ce425c"
+        },
+        {
+          "path": "generated/archive/zipalign-padding-3.apk",
+          "bytes": 571,
+          "sha256": "058485e6368dc2e79984eed900abfe333e9d7e1e9599f5c97151e9cbb8858d8b"
+        },
+        {
+          "path": "generated/archive/zipalign-padding-7.apk",
+          "bytes": 575,
+          "sha256": "05cb25490dc385effd9fcf71babb6bb495c09b5f22fb3e468caf925a8bdc08bd"
+        }
+      ]
+    },
+    {
+      "id": "multisource",
+      "generator": "generators/multisource_fixtures.py",
+      "generator_sha256": "615a29a508946dfe5161e451ae8f19baf5ae72a009d1c45e77963adad22363c7",
+      "scope": "ordered occurrences, repeated bytes, incomplete scope, atomic failures",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/multisource/manifest.json": "94575fa29a169b0018fab2a93d1e09f991943f74ae1e8686daa63a1a44c2d142"
+      },
+      "files": [
+        {
+          "path": "generated/multisource/bad-crc.apk",
+          "bytes": 1792,
+          "sha256": "b149caaeaea408321afabe6f9651acbf67795a150d442cf5fada27ee5f805b6f"
+        },
+        {
+          "path": "generated/multisource/classes01-only.apk",
+          "bytes": 572,
+          "sha256": "bd0300257d9f128c79421c62d96c63851987bd13e5e0e5c3e03c9c5c808d0e8f"
+        },
+        {
+          "path": "generated/multisource/classes1-only.apk",
+          "bytes": 570,
+          "sha256": "e8e56d02bfd02926d1f28a3d879b49ee74c11a044a6271ef080a7e61d5a2c03d"
+        },
+        {
+          "path": "generated/multisource/duplicate-entry.apk",
+          "bytes": 1114,
+          "sha256": "5221d260b3513f749dd79008ae1d88a54162fc8f8b63918cad959b3c2a500702"
+        },
+        {
+          "path": "generated/multisource/noncanonical-with-canonical.apk",
+          "bytes": 1666,
+          "sha256": "ca9a3be543a98f23c8604954aad08aaadb9c5da304178b9f5492caf848576029"
+        },
+        {
+          "path": "generated/multisource/one-corrupt-dex.apk",
+          "bytes": 1109,
+          "sha256": "6001483cd848e329bfc3c4518cf6d9028eafc32907ad38ee17e9e314c0a356b9"
+        },
+        {
+          "path": "generated/multisource/raw-a-copy.dex",
+          "bytes": 448,
+          "sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f"
+        },
+        {
+          "path": "generated/multisource/raw-a.dex",
+          "bytes": 448,
+          "sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f"
+        },
+        {
+          "path": "generated/multisource/raw-b.dex",
+          "bytes": 448,
+          "sha256": "f0598ae1758ace8b1345d01bdb1ac237d271d431b1f633b6b65fc7835ceb9543"
+        },
+        {
+          "path": "generated/multisource/resource-only.apk",
+          "bytes": 159,
+          "sha256": "cc40a323a644bdb171431693957b9fae5fb7d202ba5148e165bc723fb76052be"
+        },
+        {
+          "path": "generated/multisource/reverse-deflate.apk",
+          "bytes": 1236,
+          "sha256": "9f642f00cdbf46949079c417755846bb03a2843b118b35d1c1eba4b4d83d8662"
+        },
+        {
+          "path": "generated/multisource/reverse-stored.apk",
+          "bytes": 1792,
+          "sha256": "7700016d146fccea06af2a3e1ada7ce7a80b18d85dbbcd6f76a3fc60ad9350c2"
+        }
+      ]
+    },
+    {
+      "id": "array-data-facts",
+      "generator": "generators/array_data_facts.py",
+      "generator_sha256": "45197c6c8724d71a2f033c01bf02763bc99f647e5bfc6261cc203f41e1cf8f80",
+      "scope": "referenced fill-array-data payload bits, original single-method DEX",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/array-data-facts/expected.json": "0a723e4f418d61b9ad93666c9a538757fa80cb3f994e706950bc5405c18f5ec7"
+      },
+      "files": [
+        {
+          "path": "generated/array-data-facts/array-data.dex",
+          "bytes": 416,
+          "sha256": "3fa9edce6b40beee5ccb89befc54d0369e94cec1b969103932e29a6afbe977cd"
+        }
+      ]
+    },
+    {
+      "id": "switch-facts",
+      "generator": "generators/switch_facts.py",
+      "generator_sha256": "eb72eba8d581cba9e8af397289f45358d0e3640953efb4474b56000a9ac1ca4c",
+      "scope": "packed and sparse signed switch keys, payloads and local targets",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/switch-facts/expected.json": "44d8053e7b3186f546ad821a1fddccb43da01f66f77b0378f921129982d88af1"
+      },
+      "files": [
+        {
+          "path": "generated/switch-facts/switch-facts.dex",
+          "bytes": 444,
+          "sha256": "c99e0594c79d5309533b4071286d6cf4b8a6a9edd01c70376546ff04a7ec3d38"
+        }
+      ]
+    },
+    {
+      "id": "dataflow-v1",
+      "generator": "generators/dataflow_v1.py",
+      "generator_sha256": "9acd96873d4037ab5fb8bac88bdf0fa7d72d53303c051df0094e0bf36e2106f7",
+      "scope": "structural int32 constant join and reaching definition",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/dataflow-v1/expected.json": "6df0e514d179ea64c94500cf12fd35e6c90021402d82da5e36ae9ebf775b96d2"
+      },
+      "files": [
+        {
+          "path": "generated/dataflow-v1/dataflow-join.dex",
+          "bytes": 444,
+          "sha256": "2b6c84cfaa0dd491128b9a87ff10d10db60ccf07bc365821fdce6fc0725c1931"
+        }
+      ]
+    },
+    {
+      "id": "dataflow-invoke-v1",
+      "generator": "generators/dataflow_invoke_v1.py",
+      "generator_sha256": "bcf517d79c9dfa0574d74c2266fb28e2e56eadd5efc5bec0562b4826441fca43",
+      "scope": "opaque invoke argument words and unknown result",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/dataflow-invoke-v1/expected.json": "7bfa6ae283c62be67e500e1da2db654827592c094b5c2deebe93dd8f416a8f87"
+      },
+      "files": [
+        {
+          "path": "generated/dataflow-invoke-v1/dataflow-invoke.dex",
+          "bytes": 608,
+          "sha256": "82ae898c0887a6dd40915d5e6db307d83e88238edcf03f2caa3c9d23a0ed4c6a"
+        }
+      ]
+    },
+    {
+      "id": "branch-facts",
+      "generator": "generators/branch_facts.py",
+      "generator_sha256": "b2d619d8ac87c30fc80ca63e2aa52ce764738094595fbedb34c4c367c28ad68d",
+      "scope": "checked encoded goto/if destination PCs, not runtime reachability",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/branch-facts/expected.json": "1f16aa4616ede374a4c9aeefe93542c5efbd7ec4188439a8e761c785aab10d3c"
+      },
+      "files": [
+        {
+          "path": "generated/branch-facts/branch-facts.dex",
+          "bytes": 444,
+          "sha256": "87c9340db46e00cad9573951d6e39ccdb1514993adc6d10626e22890e41f5cf1"
+        }
+      ]
+    },
+    {
+      "id": "jni-utf16",
+      "generator": "generators/generate_jni_utf16.py",
+      "generator_sha256": "a3cca65fcdda7aa391667f9862918bb143bfc5b34cbded56f291201e3e4ec198",
+      "scope": "legal supplementary DEX names and JNI UTF-16 query cases",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/jni-utf16/expected.json": "a4cf6fad1ad8a616524b8422155a27f9e2b85d47f0ec66aa683abb65075c23ef"
+      },
+      "files": [
+        {
+          "path": "generated/jni-utf16/supplementary-names.dex",
+          "bytes": 428,
+          "sha256": "d9eac2a91992305eb36bc7fdfde2ad65299ea564a96dbd055c11ad3437c4b575"
+        }
+      ]
+    },
+    {
+      "id": "query-ir",
+      "generator": "generators/query_ir_cases.py",
+      "generator_sha256": "1bceab80b62e04286fb74cf326681db8c69c108d748521785bb18bb5b0f5d0f0",
+      "scope": "late-shard global TopN winner; source occurrence retained",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "generated/query-ir/expected.json": "788152425542eaea6ec78b1bfa56075f5404c19851e0f6955a6e3edf25621a7a"
+      },
+      "files": [
+        {
+          "path": "generated/query-ir/late-better.dex",
+          "bytes": 448,
+          "sha256": "43897a26eac20c8c0b44af308ff77b7b956e2a66f8907d15c0fde23470921cda"
+        }
+      ]
+    },
+    {
+      "id": "annotations-general",
+      "generator": "annotations-general/generate.py",
+      "generator_sha256": "762b4491ac0d398fe3ee430f6b5cbd107f4e1cb3e86bef72b666f90f9d3aa1c7",
+      "scope": "class, field, method and parameter annotations with nested encoded values",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "annotations-general/expected.json": "636b6b4142a9cc55443030db90773194b1a6ee16f680d5fadb83b9477f3913da"
+      },
+      "files": [
+        {
+          "path": "annotations-general/classes.dex",
+          "bytes": 2020,
+          "sha256": "e18e92572818835b41c649684ac2e680d812a16f74d607bf2c7927ced4d3b616"
+        }
+      ]
+    },
+    {
+      "id": "symbol-text-v1",
+      "generator": "symbol-text-v1/generate.py",
+      "generator_sha256": "5ea87f7bcd020138a7daacb5e7117b86b228fc061f7e59588db51c1e67a2e311",
+      "scope": "empty source-local UTF-16 string",
+      "license": "Project-original; distribution license pending owner decision",
+      "oracle": "Authored semantic model and independent byte readers; never native first-run golden",
+      "oracle_files": {
+        "symbol-text-v1/provenance.json": "17cf893a6b2fd42be8050951a13d203937c51e8abc920f620f9720d1a002fe93"
+      },
+      "files": [
+        {
+          "path": "symbol-text-v1/empty.dex",
+          "bytes": 432,
+          "sha256": "2b37e5b3cff5a9bcc3deaed3f13bf0fcdfba5ffa377436998f7d8e7650e5a1c8"
+        }
+      ]
+    }
+  ],
+  "instruction_cases": "tests/native/decoder_tests.cpp; independently pinned opcode widths in generated/instructions/opcode_widths.json",
+  "real_APKs": "docs/evidence/local-corpus-inventory.json; binaries are not included or uploaded",
+  "remaining_coverage": [
+    "Full QueryIR Q04/Q07/Q08/Q10/Q11/Q12 and project profiles",
+    "SQL S01-S11",
+    "persistent cache F12",
+    "Android ClassLoader, 4KiB/16KiB and runtime verification",
+    "device/foreground A/B/C baselines"
+  ],
+  "task_state_authority": "backlog.json"
+}

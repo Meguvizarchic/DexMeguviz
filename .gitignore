@@ -1,0 +1,14 @@
+# 公开副本 .gitignore（本地证据与构建产物不纳入）
+/build/
+/work/
+__pycache__/
+*.pyc
+/tests/fixtures/generated/multisource/cli-results/
+/tests/fixtures/generated/multisource/query-inputs/
+/docs/evidence/
+/integrations/
+/references/
+*.dex
+*.apk
+*.log
+hs_err_pid*.log

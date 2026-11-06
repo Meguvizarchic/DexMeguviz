@@ -1,0 +1,40 @@
+{
+  "sha256": "82ae898c0887a6dd40915d5e6db307d83e88238edcf03f2caa3c9d23a0ed4c6a",
+  "source_sha256": "8262d2b338e54a7965111b4cec1ef9e628ada9795ad2f6a555d717a2ba9546bc",
+  "code_offset": 416,
+  "uses": [
+    [
+      1,
+      0,
+      0,
+      true,
+      7,
+      0
+    ],
+    [
+      5,
+      0,
+      0,
+      true,
+      7,
+      0
+    ],
+    [
+      5,
+      1,
+      1,
+      false,
+      0,
+      4
+    ],
+    [
+      6,
+      0,
+      0,
+      false,
+      0,
+      5
+    ]
+  ],
+  "scope": "checked static instruction encoding; not invoke signature, move-result placement, ART or runtime"
+}

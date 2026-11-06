@@ -1,0 +1,38 @@
+{
+  "object.dex": {
+    "bytes": 292,
+    "sha256": "4825a91a5f5fcfc0b88faa781971c58b979bffac2714a884e2f8138e0acae21c"
+  },
+  "child.dex": {
+    "bytes": 288,
+    "sha256": "8321d5d037845162b66de0e96787fe422c8e235d455646c633968d3cd772419c"
+  },
+  "child-interface.dex": {
+    "bytes": 328,
+    "sha256": "5332fef7be4378da0dbbe00f2969a4a532ba7eeabaa210ed15e1f5f99cabc7e8"
+  },
+  "parent.dex": {
+    "bytes": 364,
+    "sha256": "764490b2053c8253723f929a65a3408dd889b1af0e084843beba5c23a8a206b1"
+  },
+  "parent-static.dex": {
+    "bytes": 364,
+    "sha256": "fd32f1316f1ab11b046afe61943c82ca3a85c4a96fb6fc6e51e84cf5727fb787"
+  },
+  "interface.dex": {
+    "bytes": 368,
+    "sha256": "b9f1e9985b8eb5464fe8f2ac83bfda56dbaaa42d69d4f6e3f98acbe107a668b5"
+  },
+  "caller-a.dex": {
+    "bytes": 472,
+    "sha256": "a2ccb2747d58c292e89fa7c291f0f23cd3e613871ffcc33c73864f8c98908071"
+  },
+  "caller-b.dex": {
+    "bytes": 472,
+    "sha256": "ce1e46918ac84d4981822e5a9c16004b5e1580a9d1bb986e2101c930a5810d8d"
+  },
+  "caller-no-body.dex": {
+    "bytes": 428,
+    "sha256": "4cb73a8bd16d149ecab3e2296260d75c9bb10ae8f976f66ee23cc505cbeaa2f3"
+  }
+}

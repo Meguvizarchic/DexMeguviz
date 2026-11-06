@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "sha256": "ecf85d163c87d58f065335f0d932442be48b91b5efa3858e319a1c1cdf7313b0",
+  "scope": "Structural custom/polymorphic reference domains only; runtime/bootstrap/signature types not verified",
+  "invokes": [
+    {
+      "pc": 0,
+      "index": 4,
+      "kind": "method_and_proto",
+      "extra_proto": 0
+    },
+    {
+      "pc": 4,
+      "index": 0,
+      "kind": "call_site",
+      "extra_proto": null
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "fixture": "q04.dex",
+  "sha256": "5d7d17c93289fe3d644560edd32070790e9fb1796e9a883b4188bb877e0593f4",
+  "bytes": 584,
+  "scope": "project-original static strings and methods; no ART/runtime claim"
+}

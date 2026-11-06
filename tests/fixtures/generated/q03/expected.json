@@ -1,0 +1,38 @@
+{
+  "sha256": "ea6e44ec68dfbb6c68a88171c5c64b77dca38b73bfdf0cc1b820d4d1e5ccb062",
+  "positions": {
+    "strings": {
+      "Ljava/lang/Object;": 0,
+      "Ljava/lang/String;": 1,
+      "Lq03/Annotation;": 2,
+      "Lq03/Subject;": 3,
+      "V": 4,
+      "annValue": 5,
+      "annotation-only-q03": 6,
+      "code-use-q03": 7,
+      "holder": 8,
+      "quiet": 9,
+      "static-only-q03": 10,
+      "uses": 11
+    },
+    "types": {
+      "Ljava/lang/Object;": 0,
+      "Ljava/lang/String;": 1,
+      "Lq03/Annotation;": 2,
+      "Lq03/Subject;": 3,
+      "V": 4
+    },
+    "code": {
+      "quiet": 408,
+      "uses": 428
+    },
+    "annotation": 464,
+    "static": 470,
+    "annotation_set": 476,
+    "directory": 484,
+    "map": 500,
+    "class_data": 450,
+    "bytes": 684
+  },
+  "scope": "authored structural DEX; no ART or runtime claim"
+}

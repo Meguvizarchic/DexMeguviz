@@ -1,0 +1,6 @@
+{
+  "fixture": "field-external.dex",
+  "sha256": "558afd65b954074a9b1f15e039910876a83901b01fe47d8893e1f59b51ca5010",
+  "bytes": 696,
+  "scope": "project-original static DEX references; no ART or runtime inheritance claim"
+}

@@ -1,0 +1,18 @@
+{
+  "child-private.dex": {
+    "bytes": 340,
+    "sha256": "5ef45741353cdfef6d94402b430202a9779da5d33b72f9b8b3263785ed88b847"
+  },
+  "child-clear.dex": {
+    "bytes": 280,
+    "sha256": "b5c5225a0cbf1880773cab5b223c65486de480c4b7756282a3a63467f131f181"
+  },
+  "child-interface.dex": {
+    "bytes": 328,
+    "sha256": "51fde985de6097dded9b2f3bd7a53714b7cd26478f1e36acba7c4e4bc158ccf0"
+  },
+  "base-collision.dex": {
+    "bytes": 360,
+    "sha256": "719f2b15c6784e327ab742c71195c66d406d35e8c8760dafabdb9248ec9588ba"
+  }
+}

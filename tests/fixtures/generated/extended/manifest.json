@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "generator": "metadata_extended.py",
+  "specification": "https://source.android.com/docs/core/runtime/dex-format",
+  "license": "Project-original; distribution license pending owner decision",
+  "scope": "Metadata item indexes, shared references, class topology and code metadata; opcodes/CFG/runtime not verified",
+  "expected_valid_methods": [
+    "alpha",
+    "beta",
+    "gamma",
+    "wide"
+  ],
+  "layout": {
+    "code_a": 636,
+    "code_b": 656,
+    "try_at": 676,
+    "handlers_at": 684,
+    "type_list": 420,
+    "interface_list": 436,
+    "proto_at": 220,
+    "class_at": 324,
+    "map_entries": {
+      "0": 724,
+      "1": 736,
+      "2": 748,
+      "3": 760,
+      "4": 772,
+      "5": 784,
+      "6": 796,
+      "4097": 808,
+      "8194": 820,
+      "8193": 832,
+      "8192": 844,
+      "4096": 856
+    },
+    "encoded_methods": {
+      "alpha": 697,
+      "alpha_code": 699,
+      "beta": 701,
+      "beta_code": 703,
+      "wide": 705,
+      "wide_code": 707,
+      "gamma": 713,
+      "gamma_code": 715
+    },
+    "type_id": {
+      "I": 0,
+      "J": 1,
+      "Ljava/lang/Object;": 2,
+      "Ljava/lang/Throwable;": 3,
+      "Lsample/Base;": 4,
+      "Lsample/Child;": 5,
+      "Lsample/Marker;": 6,
+      "V": 7
+    }
+  },
+  "entries": [
+    {
+      "path": "shared-items.dex",
+      "sha256": "135c62685a5265e10388353873bbd41d18ffd0ac871329d42eb46eefd9f34734",
+      "bytes": 868,
+      "expected": "valid",
+      "reason": "Shared parameter/interface lists and shared code item; valid local class topology; bounded catch-all metadata"
+    },
+    {
+      "path": "type-list-interior.dex",
+      "sha256": "72ad88b646cee7f08347006fc0a3ee6c6ba9fa0c7cd9a8cc7d07c4a6953337fc",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "Prototype references inside a type_list"
+    },
+    {
+      "path": "type-list-count-low.dex",
+      "sha256": "34de4479366ee4a9a08ea264928e5ca7e1225805acce9b6d93b239896aebfe5f",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "Map omits the last declared type_list"
+    },
+    {
+      "path": "type-list-count-high.dex",
+      "sha256": "6e6aa1c375c1b7a9744c5fc8d8652acad56ee7d76e037c46ba030cdc4bb44e35",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "Map counts a nonexistent type_list"
+    },
+    {
+      "path": "code-interior.dex",
+      "sha256": "ebede9fc46d82616fd69d467393de8989a60922162c5aa22e286bc8f08efbf1f",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "Method references inside an indexed code_item"
+    },
+    {
+      "path": "code-count-low.dex",
+      "sha256": "b3efb91480a3a5210e69cbae1deeadec3c6aa1c36a35abe066d8ebe072b812dc",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "Map omits the second code_item"
+    },
+    {
+      "path": "code-count-high.dex",
+      "sha256": "51215e15fde82e8b2030b2679b83d869780dbfc19a890b8faed0211bfc059079",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "Map counts a nonexistent code_item"
+    },
+    {
+      "path": "incoming-mismatch.dex",
+      "sha256": "0cbe05526be37940bfd467a8049d9b92babb321c0d7afc853101e3a6d3476440",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "Shared method code does not match signature word count"
+    },
+    {
+      "path": "registers-too-small.dex",
+      "sha256": "826c3427d9b7deafc94498093b5b94134618e51d612bf6fd9ed4960e42259e97",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "Incoming arguments exceed registers"
+    },
+    {
+      "path": "empty-code.dex",
+      "sha256": "6201e92b21fcb1effd5a24c5fca0f5e2fda48ccd25d96bc4bc7e00385515de68",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "Concrete method has an empty code array"
+    },
+    {
+      "path": "handler-interior.dex",
+      "sha256": "c500ebe9a0a565c524dcc0424dd63cdbde57f5b7bbbfbeec46c068bb2c1ea752",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "try handler offset points inside an encoded handler"
+    },
+    {
+      "path": "handler-address-oob.dex",
+      "sha256": "a098938e3b1206d0ed9c944a47a64eea8c2bcc032115d46f0550e0d89446ac29",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "Typed catch PC equals insns_size"
+    },
+    {
+      "path": "catch-all-address-oob.dex",
+      "sha256": "4dec08ac6f96bddc656dd19cf2b649815a07ea7f65d52eb9413505bef0854ad2",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "Catch-all PC equals insns_size"
+    },
+    {
+      "path": "try-range-oob.dex",
+      "sha256": "4898e2db28030c1b9a572a204fb053303f1426a6bb84d57b18b6545b1e7702d6",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "Try range extends beyond code units"
+    },
+    {
+      "path": "handlers-count-zero.dex",
+      "sha256": "cf9953b721d8a4a98d2437e6a36ea476528fa31eb3cc7d53599b5073dd21d506",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "Try block has no encoded handlers"
+    },
+    {
+      "path": "class-topology.dex",
+      "sha256": "226ed79409bba6162f7547247328241035cfa5f8733f164b81c6af42d748257c",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "Subclass precedes its locally defined superclass"
+    },
+    {
+      "path": "interface-topology.dex",
+      "sha256": "136637c271f2cd7e5ed708d4376ee88894d6548c3c787b95cbcafaae6558e014",
+      "bytes": 868,
+      "expected": "CorruptInput",
+      "reason": "Implementing class precedes its locally defined interface"
+    }
+  ]
+}

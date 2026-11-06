@@ -1,0 +1,28 @@
+{
+  "lone-high.dex": {
+    "sha256": "899e41549066618ec3e22e39d82c1aa05d0c8425803cf71eb6cd4c20a3c4fc53",
+    "units": [
+      55296
+    ],
+    "mutf_bytes_hex": "01eda08000"
+  },
+  "lone-low.dex": {
+    "sha256": "f71f969b8f96b9a9dbc158088fd579fe96e4d7cdb0d24cf3a12dfb92fe8d1ab7",
+    "units": [
+      56320
+    ],
+    "mutf_bytes_hex": "01edb08000"
+  },
+  "mixed-unpaired.dex": {
+    "sha256": "72d11067710b37251f62b5d065656f47161e2a93597bade43562643b3d94bbe3",
+    "units": [
+      55296,
+      120,
+      56320,
+      0,
+      55357,
+      56832
+    ],
+    "mutf_bytes_hex": "06eda08078edb080c080eda0bdedb88000"
+  }
+}

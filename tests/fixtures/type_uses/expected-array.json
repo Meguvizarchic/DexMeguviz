@@ -1,0 +1,20 @@
+{
+  "scope": "self-authored D8 fixture, SDK dexdump observation; no ART runtime claim",
+  "dex_sha256": "fe64ccd9eba3d2d8ba04e06db9cd935fdcfdedcffda845282d66e3daf2ccb0af",
+  "events": [
+    [
+      "packed",
+      0,
+      36,
+      3,
+      "[Ljava/lang/Object;"
+    ],
+    [
+      "ranged",
+      0,
+      37,
+      3,
+      "[Ljava/lang/Object;"
+    ]
+  ]
+}

@@ -1,0 +1,390 @@
+{
+  "schema_version": 1,
+  "provenance": "Human-authored semantic model; physical offsets assigned by generator, never engine output",
+  "files": {
+    "generated/metadata-035.dex": {
+      "version": "035",
+      "method_reference_count": 3,
+      "method_definition_count": 2,
+      "definitions": [
+        {
+          "method_index": 1,
+          "owner": "Lsample/Example;",
+          "name": "locate",
+          "prototype": "()V",
+          "access_flags": 1025,
+          "declaration_offset": 330,
+          "code_offset": 0,
+          "kind": "virtual"
+        },
+        {
+          "method_index": 2,
+          "owner": "Lsample/Example;",
+          "name": "second",
+          "prototype": "()V",
+          "access_flags": 265,
+          "declaration_offset": 326,
+          "code_offset": 0,
+          "kind": "direct"
+        }
+      ],
+      "external_references": [
+        {
+          "method_index": 0,
+          "owner": "Ljava/lang/Object;",
+          "name": "external",
+          "prototype": "()V"
+        }
+      ],
+      "unicode_string_utf16": [
+        38634,
+        55357,
+        56832,
+        0,
+        116,
+        97,
+        105,
+        108
+      ],
+      "layout": {
+        "string_ids_off": 112,
+        "string_offsets": [
+          224,
+          238,
+          258,
+          276,
+          279,
+          289,
+          297,
+          305
+        ],
+        "method_ids_off": 168,
+        "class_defs_off": 192,
+        "class_data_off": 322,
+        "direct_entry_off": 326,
+        "virtual_entry_off": 330,
+        "map_off": 336
+      }
+    },
+    "generated/metadata-037.dex": {
+      "version": "037",
+      "method_reference_count": 3,
+      "method_definition_count": 2,
+      "definitions": [
+        {
+          "method_index": 1,
+          "owner": "Lsample/Example;",
+          "name": "locate",
+          "prototype": "()V",
+          "access_flags": 1025,
+          "declaration_offset": 330,
+          "code_offset": 0,
+          "kind": "virtual"
+        },
+        {
+          "method_index": 2,
+          "owner": "Lsample/Example;",
+          "name": "second",
+          "prototype": "()V",
+          "access_flags": 265,
+          "declaration_offset": 326,
+          "code_offset": 0,
+          "kind": "direct"
+        }
+      ],
+      "external_references": [
+        {
+          "method_index": 0,
+          "owner": "Ljava/lang/Object;",
+          "name": "external",
+          "prototype": "()V"
+        }
+      ],
+      "unicode_string_utf16": [
+        38634,
+        55357,
+        56832,
+        0,
+        116,
+        97,
+        105,
+        108
+      ],
+      "layout": {
+        "string_ids_off": 112,
+        "string_offsets": [
+          224,
+          238,
+          258,
+          276,
+          279,
+          289,
+          297,
+          305
+        ],
+        "method_ids_off": 168,
+        "class_defs_off": 192,
+        "class_data_off": 322,
+        "direct_entry_off": 326,
+        "virtual_entry_off": 330,
+        "map_off": 336
+      }
+    },
+    "generated/metadata-038.dex": {
+      "version": "038",
+      "method_reference_count": 3,
+      "method_definition_count": 2,
+      "definitions": [
+        {
+          "method_index": 1,
+          "owner": "Lsample/Example;",
+          "name": "locate",
+          "prototype": "()V",
+          "access_flags": 1025,
+          "declaration_offset": 330,
+          "code_offset": 0,
+          "kind": "virtual"
+        },
+        {
+          "method_index": 2,
+          "owner": "Lsample/Example;",
+          "name": "second",
+          "prototype": "()V",
+          "access_flags": 265,
+          "declaration_offset": 326,
+          "code_offset": 0,
+          "kind": "direct"
+        }
+      ],
+      "external_references": [
+        {
+          "method_index": 0,
+          "owner": "Ljava/lang/Object;",
+          "name": "external",
+          "prototype": "()V"
+        }
+      ],
+      "unicode_string_utf16": [
+        38634,
+        55357,
+        56832,
+        0,
+        116,
+        97,
+        105,
+        108
+      ],
+      "layout": {
+        "string_ids_off": 112,
+        "string_offsets": [
+          224,
+          238,
+          258,
+          276,
+          279,
+          289,
+          297,
+          305
+        ],
+        "method_ids_off": 168,
+        "class_defs_off": 192,
+        "class_data_off": 322,
+        "direct_entry_off": 326,
+        "virtual_entry_off": 330,
+        "map_off": 336
+      }
+    },
+    "generated/metadata-039.dex": {
+      "version": "039",
+      "method_reference_count": 3,
+      "method_definition_count": 2,
+      "definitions": [
+        {
+          "method_index": 1,
+          "owner": "Lsample/Example;",
+          "name": "locate",
+          "prototype": "()V",
+          "access_flags": 1025,
+          "declaration_offset": 330,
+          "code_offset": 0,
+          "kind": "virtual"
+        },
+        {
+          "method_index": 2,
+          "owner": "Lsample/Example;",
+          "name": "second",
+          "prototype": "()V",
+          "access_flags": 265,
+          "declaration_offset": 326,
+          "code_offset": 0,
+          "kind": "direct"
+        }
+      ],
+      "external_references": [
+        {
+          "method_index": 0,
+          "owner": "Ljava/lang/Object;",
+          "name": "external",
+          "prototype": "()V"
+        }
+      ],
+      "unicode_string_utf16": [
+        38634,
+        55357,
+        56832,
+        0,
+        116,
+        97,
+        105,
+        108
+      ],
+      "layout": {
+        "string_ids_off": 112,
+        "string_offsets": [
+          224,
+          238,
+          258,
+          276,
+          279,
+          289,
+          297,
+          305
+        ],
+        "method_ids_off": 168,
+        "class_defs_off": 192,
+        "class_data_off": 322,
+        "direct_entry_off": 326,
+        "virtual_entry_off": 330,
+        "map_off": 336
+      }
+    },
+    "generated/metadata-040.dex": {
+      "version": "040",
+      "method_reference_count": 3,
+      "method_definition_count": 2,
+      "definitions": [
+        {
+          "method_index": 1,
+          "owner": "Lsample/Example;",
+          "name": "locate",
+          "prototype": "()V",
+          "access_flags": 1025,
+          "declaration_offset": 330,
+          "code_offset": 0,
+          "kind": "virtual"
+        },
+        {
+          "method_index": 2,
+          "owner": "Lsample/Example;",
+          "name": "second",
+          "prototype": "()V",
+          "access_flags": 265,
+          "declaration_offset": 326,
+          "code_offset": 0,
+          "kind": "direct"
+        }
+      ],
+      "external_references": [
+        {
+          "method_index": 0,
+          "owner": "Ljava/lang/Object;",
+          "name": "external",
+          "prototype": "()V"
+        }
+      ],
+      "unicode_string_utf16": [
+        38634,
+        55357,
+        56832,
+        0,
+        116,
+        97,
+        105,
+        108
+      ],
+      "layout": {
+        "string_ids_off": 112,
+        "string_offsets": [
+          224,
+          238,
+          258,
+          276,
+          279,
+          289,
+          297,
+          305
+        ],
+        "method_ids_off": 168,
+        "class_defs_off": 192,
+        "class_data_off": 322,
+        "direct_entry_off": 326,
+        "virtual_entry_off": 330,
+        "map_off": 336
+      }
+    },
+    "generated/minimal.dex": {
+      "version": "035",
+      "method_reference_count": 3,
+      "method_definition_count": 2,
+      "definitions": [
+        {
+          "method_index": 1,
+          "owner": "Lsample/Example;",
+          "name": "locate",
+          "prototype": "()V",
+          "access_flags": 1025,
+          "declaration_offset": 330,
+          "code_offset": 0,
+          "kind": "virtual"
+        },
+        {
+          "method_index": 2,
+          "owner": "Lsample/Example;",
+          "name": "second",
+          "prototype": "()V",
+          "access_flags": 265,
+          "declaration_offset": 326,
+          "code_offset": 0,
+          "kind": "direct"
+        }
+      ],
+      "external_references": [
+        {
+          "method_index": 0,
+          "owner": "Ljava/lang/Object;",
+          "name": "external",
+          "prototype": "()V"
+        }
+      ],
+      "unicode_string_utf16": [
+        38634,
+        55357,
+        56832,
+        0,
+        116,
+        97,
+        105,
+        108
+      ],
+      "layout": {
+        "string_ids_off": 112,
+        "string_offsets": [
+          224,
+          238,
+          258,
+          276,
+          279,
+          289,
+          297,
+          305
+        ],
+        "method_ids_off": 168,
+        "class_defs_off": 192,
+        "class_data_off": 322,
+        "direct_entry_off": 326,
+        "virtual_entry_off": 330,
+        "map_off": 336
+      }
+    }
+  }
+}

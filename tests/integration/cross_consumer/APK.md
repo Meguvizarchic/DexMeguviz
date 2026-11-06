@@ -1,0 +1,9 @@
+# Cross-consumer APK SourceSet verification
+
+`verify_apk_cross.py` builds a C consumer against the supplied same-source core libraries and a Kotlin consumer against the actual AAR `classes.jar`. Both consume the same ordered APK inputs. The fixed datasets cover a stored multi-DEX APK followed by an explicit resource-only APK, and two occurrences of the same deflated multi-DEX APK. The CLI separately runs the generated method-v1 queries with incomplete and caller-declared complete scope.
+
+For 10 dataset/query combinations the runner compares QueryID, status, coverage, decision, counters, method fields and source-local identities across C, Kotlin and incomplete-scope CLI. An independent ZIP/CRC and DEX byte reader recomputes content, entry order, central-directory indices, occurrence and snapshot identities under each caller's namespace. It verifies all 20 CLI results; duplicate-occurrence and source-swap forgeries must be rejected. A corrupted second APK is separately rejected by C, Kotlin, CLI and the independent reader without delivering a snapshot or candidates. Complete scope is only a CLI caller assertion; the Android bridge remains incomplete.
+
+The runner accepts the toolchain, AAR, JNI, core library, `--core-bindings` and source-manifest arguments used by `verify_multi_cross.py`; the output directory must not exist. It binds core artifacts and build logs, all recorded JNI candidate/AAR build source inputs, AAR class bytes, test binaries, generated query files and raw logs by SHA-256 and checks class-load origins.
+
+The fixed APKs are project-original static fixtures, not installable Android applications. C and JNI share the same native core, and the independent Python oracle shares the DEX/ZIP specifications and authored semantics. This does not prove all APK variants, runtime ClassLoader behavior, ART or full P2-08 acceptance.

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "dex_sha256": "e18e92572818835b41c649684ac2e680d812a16f74d607bf2c7927ced4d3b616",
+  "scope": "self-authored D8; independently inspected with SDK dexdump, not ART",
+  "class_type_index": 2,
+  "field_ref_index": 0,
+  "method_ref_index": 2,
+  "parameter_index": 0,
+  "class_annotation_types": [
+    "Lfixture/Complex;",
+    "Lfixture/Mark;"
+  ],
+  "complex_elements": [
+    "ints",
+    "n",
+    "nested",
+    "str",
+    "type"
+  ],
+  "field_method_parameter_annotation": "Lfixture/Mark;"
+}

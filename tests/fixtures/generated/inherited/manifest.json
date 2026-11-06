@@ -1,0 +1,26 @@
+{
+  "child.dex": {
+    "bytes": 356,
+    "sha256": "b7aea3ef203a3ab20ea6b98477208aaa41844568ecf416db082c9a10c580d889"
+  },
+  "base-a.dex": {
+    "bytes": 416,
+    "sha256": "1487c9475fa8d4d45841f6ca9a1b925a909c1e00db3e17d1195590d0e5358ebe"
+  },
+  "base-b.dex": {
+    "bytes": 332,
+    "sha256": "824121d4c85831d3262bc85787b7269aa6cc773889905037139374b53b60edf3"
+  },
+  "base-cycle.dex": {
+    "bytes": 336,
+    "sha256": "3e222af7de21a82eae58a54310872b2e484f3dc8e19da9e6b7e6cae8cb9a1462"
+  },
+  "alt.dex": {
+    "bytes": 336,
+    "sha256": "b457ec32d06a7aed209d9aa628a1c9cefce823adcbc215af714a489c038f728b"
+  },
+  "root.dex": {
+    "bytes": 260,
+    "sha256": "7857fd32d6fa71d9b974b3a8e7a449a41c883dbb923236886bdeefe8b961a6d5"
+  }
+}

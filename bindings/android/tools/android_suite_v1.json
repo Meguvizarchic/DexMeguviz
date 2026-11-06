@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "scope": "Fixed existing Windows JVM/JNI and Kotlin consumers, not all profiles or Android/ART",
+  "java": [
+    {"source": "bindings/android/tests/jni_host/JniSnapshotTest.java", "class": "io.github.jichuo1.dexmeguviz.JniSnapshotTest", "fixtures": ["tests/fixtures/generated/minimal.dex"]},
+    {"source": "bindings/android/tests/jni_host/JniQueryTest.java", "class": "io.github.jichuo1.dexmeguviz.JniQueryTest", "fixtures": ["tests/fixtures/generated/minimal.dex"]},
+    {"source": "bindings/android/tests/jni_host/JniJobTest.java", "class": "io.github.jichuo1.dexmeguviz.JniJobTest", "fixtures": ["tests/fixtures/generated/minimal.dex", "tests/fixtures/generated/q03/q03-domains.dex", "tests/fixtures/generated/multisource/resource-only.apk"]},
+    {"source": "bindings/android/tests/jni_host/JniEntityJobTest.java", "class": "io.github.jichuo1.dexmeguviz.JniEntityJobTest", "fixtures": ["tests/fixtures/generated/definition_catalog/definitions.dex", "tests/fixtures/generated/multisource/resource-only.apk"]},
+    {"source": "bindings/android/tests/jni_host/JniGraphJobTest.java", "class": "io.github.jichuo1.dexmeguviz.JniGraphJobTest", "fixtures": ["tests/fixtures/generated/definition_catalog/definitions.dex", "tests/fixtures/generated/multisource/resource-only.apk"]},
+    {"source": "bindings/android/tests/jni_host/JniReflectionMethodUsesTest.java", "class": "io.github.jichuo1.dexmeguviz.JniReflectionMethodUsesTest", "fixtures": ["tests/fixtures/generated/method_facts/method-uses.dex", "tests/fixtures/generated/graph-cache/unknown.dex"]}
+  ],
+  "kotlin": [
+    {"source": "bindings/android/tests/kotlin_host/KotlinMethodJobTest.kt", "class": "io.github.jichuo1.dexmeguviz.KotlinMethodJobTestKt", "fixtures": ["tests/fixtures/generated/minimal.dex", "tests/fixtures/generated/q03/q03-domains.dex"]},
+    {"source": "bindings/android/tests/kotlin_host/KotlinEntityJobTest.kt", "class": "io.github.jichuo1.dexmeguviz.KotlinEntityJobTestKt", "fixtures": ["tests/fixtures/generated/definition_catalog/definitions.dex"]},
+    {"source": "bindings/android/tests/kotlin_host/KotlinGraphJobTest.kt", "class": "io.github.jichuo1.dexmeguviz.KotlinGraphJobTestKt", "fixtures": ["tests/fixtures/generated/definition_catalog/definitions.dex"]},
+    {"source": "bindings/android/tests/kotlin_host/KotlinTypedReflectionMethodUsesTest.kt", "class": "io.github.jichuo1.dexmeguviz.KotlinTypedReflectionMethodUsesTestKt", "fixtures": ["tests/fixtures/generated/method_facts/method-uses.dex", "tests/fixtures/generated/graph-cache/unknown.dex"]}
+  ],
+  "not_covered": ["complete advanced/expand/precompute behavior", "all public consumers and all resource failures", "Android/ART/device", "actual BIL and Hook/UI", "coverage-guided fuzz"]
+}

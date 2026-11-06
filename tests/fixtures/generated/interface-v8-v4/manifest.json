@@ -1,0 +1,238 @@
+{
+  "root.dex": {
+    "sha256": "8a3a3177fe1e1c608f695a47453f40adeb6e4e56a55631483d1074facae91512",
+    "bytes": 248,
+    "owner": "Ljava/lang/Object;",
+    "parent": null,
+    "flags": 1,
+    "fields": [],
+    "interfaces": []
+  },
+  "base.dex": {
+    "sha256": "cdd6f3fdcbe2b4f79f53591f62255e80d8891c35a94b16e4656903c8b05941a8",
+    "bytes": 332,
+    "owner": "Lifx/Base;",
+    "parent": "Ljava/lang/Object;",
+    "flags": 1,
+    "fields": [
+      [
+        "classSame",
+        "I",
+        1
+      ]
+    ],
+    "interfaces": []
+  },
+  "top.dex": {
+    "sha256": "19d5d0c7e421d793d06e01f0ffd8db77180eb970a1c58d8de60ef95b9847aa4d",
+    "bytes": 376,
+    "owner": "Lifx/Top;",
+    "parent": "Ljava/lang/Object;",
+    "flags": 1537,
+    "fields": [
+      [
+        "diamond",
+        "I",
+        25
+      ],
+      [
+        "hidden",
+        "I",
+        25
+      ],
+      [
+        "override",
+        "I",
+        25
+      ]
+    ],
+    "interfaces": []
+  },
+  "left.dex": {
+    "sha256": "a8eb1905b9d054497f7e792c3eb33b262df18ccd5b309120bf17f0895ef8afa3",
+    "bytes": 416,
+    "owner": "Lifx/Left;",
+    "parent": "Ljava/lang/Object;",
+    "flags": 1537,
+    "fields": [
+      [
+        "classSame",
+        "I",
+        25
+      ],
+      [
+        "same",
+        "I",
+        25
+      ],
+      [
+        "override",
+        "I",
+        25
+      ]
+    ],
+    "interfaces": [
+      "Lifx/Top;"
+    ]
+  },
+  "right.dex": {
+    "sha256": "0071d6d7fd129bcc1a9cd61eef21bdec104e434c37fe42058b07f1e1f8c53b04",
+    "bytes": 368,
+    "owner": "Lifx/Right;",
+    "parent": "Ljava/lang/Object;",
+    "flags": 1537,
+    "fields": [
+      [
+        "same",
+        "I",
+        25
+      ]
+    ],
+    "interfaces": [
+      "Lifx/Top;"
+    ]
+  },
+  "child.dex": {
+    "sha256": "d28ba4f24ee08c8541d89250b44e534b98284163fac3c4d1a7c879ff908cf341",
+    "bytes": 384,
+    "owner": "Lifx/Child;",
+    "parent": "Lifx/Base;",
+    "flags": 1,
+    "fields": [
+      [
+        "hidden",
+        "I",
+        2
+      ]
+    ],
+    "interfaces": [
+      "Lifx/Left;",
+      "Lifx/Right;"
+    ]
+  },
+  "cycle.dex": {
+    "sha256": "7fa9dc35bba7689ab4bc9e6ad221a3c155a8497c84e203dc534e37be7337b70b",
+    "bytes": 372,
+    "owner": "Lifx/Cycle;",
+    "parent": "Ljava/lang/Object;",
+    "flags": 1537,
+    "fields": [
+      [
+        "cycle",
+        "I",
+        25
+      ]
+    ],
+    "interfaces": [
+      "Lifx/Cycle2;"
+    ]
+  },
+  "cycle2.dex": {
+    "sha256": "280ea4bb59ea1df81fa363df518a872839407907497e04bf6521d5efd6509e06",
+    "bytes": 312,
+    "owner": "Lifx/Cycle2;",
+    "parent": "Ljava/lang/Object;",
+    "flags": 1537,
+    "fields": [],
+    "interfaces": [
+      "Lifx/Cycle;"
+    ]
+  },
+  "child-cycle.dex": {
+    "sha256": "25abb38567b4b3c28284f7aa9ed0f03639937e8aca3c08b0e2b058f81f7cd930",
+    "bytes": 300,
+    "owner": "Lifx/Child;",
+    "parent": "Lifx/Base;",
+    "flags": 1,
+    "fields": [],
+    "interfaces": [
+      "Lifx/Cycle;"
+    ]
+  },
+  "bad-instance.dex": {
+    "sha256": "d05269b11f91e19a4c8c21e97c2e8abe33ffbd43b731201efc368d5d49b0f99c",
+    "bytes": 328,
+    "owner": "Lifx/Bad;",
+    "parent": "Ljava/lang/Object;",
+    "flags": 1537,
+    "fields": [
+      [
+        "bad",
+        "I",
+        1
+      ]
+    ],
+    "interfaces": []
+  },
+  "bad-protected.dex": {
+    "sha256": "eb1d093cc35b56429ae541db2f891524b49e86e8ba1e86579836344b5636c980",
+    "bytes": 328,
+    "owner": "Lifx/Bad;",
+    "parent": "Ljava/lang/Object;",
+    "flags": 1537,
+    "fields": [
+      [
+        "bad",
+        "I",
+        28
+      ]
+    ],
+    "interfaces": []
+  },
+  "bad-nofinal.dex": {
+    "sha256": "e6f3c500b9c3f164442caa67bb7028ccc98881892c30a5c7d875fe5c7c700a51",
+    "bytes": 328,
+    "owner": "Lifx/Bad;",
+    "parent": "Ljava/lang/Object;",
+    "flags": 1537,
+    "fields": [
+      [
+        "bad",
+        "I",
+        9
+      ]
+    ],
+    "interfaces": []
+  },
+  "bad-type.dex": {
+    "sha256": "8c48db72b5b20c1665170f5c9f6b38f0abd84cf9efb27be171d74991b3962d4f",
+    "bytes": 328,
+    "owner": "Lifx/Bad;",
+    "parent": "Ljava/lang/Object;",
+    "flags": 513,
+    "fields": [
+      [
+        "bad",
+        "I",
+        25
+      ]
+    ],
+    "interfaces": []
+  },
+  "annotation.dex": {
+    "sha256": "691541c741550af1bc486fac3fa9fc3c323db034f5938f9846e5ebf3a7b733e4",
+    "bytes": 340,
+    "owner": "Lifx/Bad;",
+    "parent": "Ljava/lang/Object;",
+    "flags": 13825,
+    "fields": [
+      [
+        "annotationField",
+        "I",
+        25
+      ]
+    ],
+    "interfaces": []
+  },
+  "child-bad.dex": {
+    "sha256": "6bb168b35e7952bb6493f58e3c4dcd0a389da6023a0e19f1c6c2f28691b405dd",
+    "bytes": 300,
+    "owner": "Lifx/Child;",
+    "parent": "Lifx/Base;",
+    "flags": 1,
+    "fields": [],
+    "interfaces": [
+      "Lifx/Bad;"
+    ]
+  }
+}

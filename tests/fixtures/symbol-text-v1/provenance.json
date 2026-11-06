@@ -1,0 +1,6 @@
+{
+  "generator": "tests/fixtures/generators/generate_dex.py",
+  "generator_sha256": "fe20d2e471999897bcadee7b70438636397d16cd0e2b4c11b39d3fe041353ddc",
+  "fixture_sha256": "2b37e5b3cff5a9bcc3deaed3f13bf0fcdfba5ffa377436998f7d8e7650e5a1c8",
+  "case": "empty DEX string at string_id 0"
+}

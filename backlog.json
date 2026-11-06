@@ -1,0 +1,1900 @@
+{
+  "schema_version": 1,
+  "project": "DexMeguviz",
+  "plan_version": "1.0",
+  "prepared_on": "2026-10-26",
+  "implementation_started": true,
+  "task_state_authority": "this_file",
+  "allowed_statuses": [
+    "planned",
+    "ready",
+    "in_progress",
+    "implemented_unverified",
+    "blocked",
+    "done",
+    "deferred"
+  ],
+  "dependency_policy": "Only listed dependencies gate a task. Missing Android/device tasks do not block independent host tasks. Conditional dependencies apply only when that capability is enabled. Evidence is required for done; partial implementation is not gate completion.",
+  "tasks": [
+    {
+      "id": "P0-01",
+      "phase": "P0",
+      "title": "核实工作区与工具环境",
+      "status": "done",
+      "workstream": "coordination",
+      "depends_on": [],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "docs/evidence/environment.json",
+        "docs/evidence/repository-inventory.md"
+      ],
+      "acceptance": [
+        "记录实际仓库、commit、dirty状态和工具版本；不把部分源码快照当完整checkout",
+        "缺失设备/SDK/APK按范围记录，可独立任务继续"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/bootstrap.md",
+        "docs/evidence/validation-summary.json"
+      ],
+      "blockers": [],
+      "implementation_note": "实际工作区、工具链、BIL commit/dirty与设备/APK未验范围已记录"
+    },
+    {
+      "id": "P0-02",
+      "phase": "P0",
+      "title": "冻结BIL规则与旧语义映射",
+      "status": "done",
+      "workstream": "bil",
+      "depends_on": [
+        "P0-01"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "integrations/bil/rules/manifest.v1.json",
+        "integrations/bil/docs/semantic-parity.md"
+      ],
+      "acceptance": [
+        "33项与实际enum严格对应；来源、结果意图、能力、runtime profile明确",
+        "保留STATIC Contains、Class/owner/角色组及副作用验真；新旧分支差异有证据"
+      ],
+      "required_environment": "BIL source checkout",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/bil-rules-freeze.json",
+        "integrations/bil/rules/manifest.v1.json"
+      ],
+      "blockers": [],
+      "implementation_note": "33项实际源码冻结，27文件/183引用/7检查；非运行时适配验收"
+    },
+    {
+      "id": "P0-03",
+      "phase": "P0",
+      "title": "确认语言ADR与Host构建骨架",
+      "status": "done",
+      "workstream": "native",
+      "depends_on": [
+        "P0-01"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "CMakeLists.txt",
+        "CMakePresets.json",
+        "include/dexmeguviz/dexmeguviz.h",
+        "docs/decisions/ADR-0001-Core-Language.md"
+      ],
+      "acceptance": [
+        "host最小C++20构建及C消费者smoke实际执行",
+        "目标局部设置与依赖版本可复现；Android未具备不阻塞host分支"
+      ],
+      "required_environment": "host C++ compiler and CMake",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/bootstrap.md",
+        "docs/evidence/validation-summary.json"
+      ],
+      "blockers": [],
+      "implementation_note": "真实Host C++20及C consumer通过；target局部设置，Android双ABI也完成只编译"
+    },
+    {
+      "id": "P0-04",
+      "phase": "P0",
+      "title": "核实Android工具链与双ABI包装",
+      "status": "done",
+      "workstream": "android",
+      "depends_on": [
+        "P0-01",
+        "P0-03"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "bindings/android/gradlew",
+        "bindings/android/settings.gradle.kts",
+        "docs/evidence/android-toolchain.json"
+      ],
+      "acceptance": [
+        "实际NDK/JDK/Gradle/AGP及minSdk锁定；两个ARM ABI smoke build",
+        "BIL C++17 targets和既有native依赖不被批量改写；装载/设备结果与构建分开"
+      ],
+      "required_environment": "Android SDK NDK JDK",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/bootstrap.md",
+        "docs/evidence/validation-summary.json",
+        "docs/evidence/android-toolchain.json",
+        "docs/evidence/iteration20.md",
+        "docs/evidence/iteration20-summary.json",
+        "docs/evidence/iteration24.md",
+        "docs/evidence/iteration25.md",
+        "docs/evidence/iteration26.md",
+        "docs/evidence/iteration27.md"
+      ],
+      "blockers": [],
+      "implementation_note": "JDK 17主版本（Gradle JVM及javac toolchain）、NDK、Gradle、AGP、minSdk和严格依赖版本已锁；隔离离线双ABI AAR构建、导出及C消费者交叉链接通过。JDK厂商/补丁仅记录，未设备装载，Kotlin/完整JNI为后续任务。"
+    },
+    {
+      "id": "P0-05",
+      "phase": "P0",
+      "title": "冻结Source Query Result与ABI契约",
+      "status": "done",
+      "workstream": "architecture",
+      "depends_on": [
+        "P0-01"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "docs/contracts/source.md",
+        "docs/contracts/query-ir-v1.md",
+        "docs/contracts/result.md",
+        "docs/contracts/c-abi.md"
+      ],
+      "acceptance": [
+        "身份无循环且不混引用/定义/出现位置；coverage decision lifecycle分字段",
+        "flags、文本、scope、Job/Batch所有权、失败代码及所需能力有可测试定义"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/bootstrap.md",
+        "docs/evidence/validation-summary.json"
+      ],
+      "blockers": [],
+      "implementation_note": "Source/Query/Result/C ABI契约已落盘，区分完整设计与metadata-v0实装边界"
+    },
+    {
+      "id": "P0-06",
+      "phase": "P0",
+      "title": "建立Host测试与故障注入基础",
+      "status": "done",
+      "workstream": "validation",
+      "depends_on": [
+        "P0-03",
+        "P0-05"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "tests/native/",
+        "tests/abi/",
+        "tools/test_driver.py"
+      ],
+      "acceptance": [
+        "CTest/presets存在并实际执行非空用例",
+        "分配失败、取消检查点和独立golden输入可注入；日志记录测试数/skip"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/bootstrap.md",
+        "docs/evidence/validation-summary.json",
+        "docs/evidence/iteration2-summary.json",
+        "tests/native/job_tests.cpp",
+        "tests/native/core_tests.cpp"
+      ],
+      "blockers": [],
+      "implementation_note": "实际非空CTest/C消费者、PMR分配故障、取消/背压/deadline检查及独立golden已具备"
+    },
+    {
+      "id": "P0-07",
+      "phase": "P0",
+      "title": "建立语料清单和独立生成方式",
+      "status": "done",
+      "workstream": "validation",
+      "depends_on": [
+        "P0-05",
+        "P0-06"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "tests/fixtures/manifest.json",
+        "tests/fixtures/generators/",
+        "tests/fixtures/queries/"
+      ],
+      "acceptance": [
+        "小型合法/错误DEX有生成方式、摘要、独立期望和许可",
+        "35/37/38/39/40、Unicode、外部引用、重复定义等覆盖计划完整；真实APK缺失不伪造"
+      ],
+      "required_environment": "host plus chosen DEX generation tool",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/bootstrap.md",
+        "docs/evidence/validation-summary.json",
+        "tests/fixtures/catalog.json",
+        "docs/evidence/iteration3-summary.json"
+      ],
+      "blockers": [],
+      "implementation_note": "六组87个生成式文件、原始PC/golden、独立Python路径和真实APK身份引用齐备；catalog记录剩余覆盖计划"
+    },
+    {
+      "id": "P0-08",
+      "phase": "P0",
+      "title": "预登记性能协议与统计口径",
+      "status": "in_progress",
+      "workstream": "benchmark",
+      "depends_on": [
+        "P0-01",
+        "P0-02",
+        "P0-05"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "benchmarks/protocol.v1.json",
+        "benchmarks/README.md"
+      ],
+      "acceptance": [
+        "固定A/B/C、分母、结果语义、设备/冷暖条件、样本/排除/区间与停止规则",
+        "正式C结果前锁定C/B最小有效差异；无设备字段标待补不编造"
+      ],
+      "required_environment": "host; device inventory for final protocol",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/benchmark-protocol-draft.json",
+        "benchmarks/protocol.v1.json",
+        "docs/evidence/integration-20261102-final.md",
+        "docs/evidence/iteration206.md",
+        "docs/evidence/iteration208.md",
+        "docs/evidence/iteration212.md",
+        "docs/evidence/iteration215.md",
+        "docs/evidence/iteration217.md",
+        "docs/evidence/iteration230.md"
+      ],
+      "blockers": [],
+      "implementation_note": "相对门槛与统计已预登记，14合成检查；29实际运行条件未选，formal_runner_ready=false 迭代196/198收紧最终性能判定，B→C原耗时和内存门槛必须同时满足，A→C对应两项置信区间上界须严格小于1；仅合成控制通过，正式语义/设备/构件/29项配置仍待确定。 迭代206增加L0、warm及前台p95相对A/B严格变快门槛，保留原容差检查；17组合成控制及两项变异对照通过，无真实性能结论。 迭代208隔离Android时钟/PSS采集器候选，仅SDK编译与合成主机控制；尚需审查线程生命周期/开销、实机和正式runner接入，未安装。 迭代212增加独立Android单任务PSS/耗时采集组件，基线、采样、边界/漏采/超时及多重失败主机控制通过；无设备/ART、开销、真实A/B/C或完整runner，仍在进行。 迭代215新增TaskProbe单次record转换桥，缺失事实/采样不完整不伪装完成；Java8主机及420行合成分析器控制通过，正式campaign writer和设备/DexKit对照仍未实现。 迭代217增加有界新文件追加日志及分析器恢复，截断/错误/预算/身份/篡改失败保留，主机合成及变异控制通过；无真实Android/断电/性能数据。 迭代230增加实验串行A/B/C协调器，420项合成顺序与失败/中断/日志控制通过；无真实后端、设备或完整正式验收。 迭代232采集前核对协议/身份摘要并独占journal，旧未绑定计划明确拒绝；协议内容/身份真实性、真实后端及性能尚未验证。 迭代235增加冻结协议参数预检及合成反例控制；不认证身份或代替真实设备、正式采集及外部门禁。"
+    },
+    {
+      "id": "P0-09",
+      "phase": "P0",
+      "title": "取得A与优化B的真实基线",
+      "status": "planned",
+      "workstream": "benchmark",
+      "depends_on": [
+        "P0-04",
+        "P0-07",
+        "P0-08"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "benchmarks/bil/baselines/",
+        "integrations/bil/patches/dexkit-baseline-b/"
+      ],
+      "acceptance": [
+        "A真实使用方式不人为重复开bridge；B与A结果和验真一致",
+        "保存APK摘要、真实设备raw数据与B优化patch；没有真实执行不能done"
+      ],
+      "required_environment": "Android devices and exact APK corpus",
+      "optional_capability": false,
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "P1-01",
+      "phase": "P1",
+      "title": "实现SourceLease与资源账本",
+      "status": "done",
+      "workstream": "native",
+      "depends_on": [
+        "P0-03",
+        "P0-05",
+        "P0-06"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/source/",
+        "src/execution/budget/",
+        "tests/native/source_lifetime_tests.cpp"
+      ],
+      "acceptance": [
+        "owned/borrowed/stable FD范围与所有权成立；先reserve再allocate",
+        "合法close/cancel和Batch保活不使预算提前归零；可变revision边界明确"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/bootstrap.md",
+        "docs/evidence/validation-summary.json",
+        "docs/evidence/iteration2-summary.json",
+        "docs/contracts/execution-v1.md",
+        "tests/native/source_lifetime_tests.cpp"
+      ],
+      "blockers": [],
+      "implementation_note": "copy/immutable borrowed lease/FD range拥有型快照、managed资源账本与Batch保活通过；根Engine/OS/RSS排除范围明示"
+    },
+    {
+      "id": "P1-02",
+      "phase": "P1",
+      "title": "集成APK ZIP与受控解压",
+      "status": "done",
+      "workstream": "native",
+      "depends_on": [
+        "P1-01",
+        "P0-07"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/source/archive/",
+        "docs/decisions/ADR-0002-Archive-Backend.md"
+      ],
+      "acceptance": [
+        "stored/deflate/multidex和所声明ZIP特征有fixture；重复名与超限明确失败",
+        "CRC/强摘要/结构各有状态；不任意解压路径，不隐式加预算"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration2-summary.json",
+        "docs/evidence/archive-component.json",
+        "docs/decisions/ADR-0002-Archive-Backend.md",
+        "docs/evidence/iteration3-summary.json"
+      ],
+      "blockers": [],
+      "implementation_note": "成熟miniz的stored/deflate/ZIP64/CRC/配额/取消与SourceSet输入接通；原子失败、强摘要、资源包身份和真实APK已验证"
+    },
+    {
+      "id": "P1-03",
+      "phase": "P1",
+      "title": "实现标准DEX头与表结构",
+      "status": "in_progress",
+      "workstream": "native",
+      "depends_on": [
+        "P1-01",
+        "P0-07"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/format/header/",
+        "src/format/tables/"
+      ],
+      "acceptance": [
+        "五版本支持矩阵和bounds tests通过；offset/count先验证后形成指针",
+        "endian/version/map/大小/索引错误稳定返回，不assert用户输入"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/bootstrap.md",
+        "docs/evidence/validation-summary.json",
+        "docs/evidence/iteration2-summary.json",
+        "docs/evidence/iteration3-summary.json",
+        "docs/evidence/iteration22.md",
+        "docs/evidence/iteration24.md",
+        "docs/evidence/iteration25.md",
+        "docs/evidence/iteration26.md",
+        "docs/evidence/iteration29.md",
+        "docs/evidence/iteration31.md",
+        "docs/evidence/iteration33.md",
+        "docs/evidence/iteration38.md",
+        "docs/evidence/iteration51.md",
+        "docs/evidence/iteration87.md",
+        "docs/evidence/iteration104.md",
+        "docs/evidence/iteration120.md",
+        "docs/evidence/iteration170.md",
+        "docs/evidence/iteration185.md",
+        "docs/evidence/iteration204.md"
+      ],
+      "blockers": [],
+      "implementation_note": "完成静态初始值数量、顺序、基元精确类型及引用类别检查；共享数组按每个类分别验证并计费。定向与完整回归、双APK静态检查通过；完整DEX verifier和运行时引用可赋值性仍未验。 新增按来源可选DEX头Adler-32/SHA-1比较，不改变默认解析或将校验当认证；完整结构与语义验证仍未完成。 补充annotation item、set、ref list及directory有界结构、实际条目起点、排序和关联类成员归属；32个定向结构样例在本轮完整回归中通过，参数列表长度与签名、运行时类型和完整verifier仍未验证。 debug_info编码、操作数引用、结束符及code真实条目起点已检查；实际APK含41947条调试项，单样本原版与新版本静态对照Complete。参数/寄存器与方法关联、PC及调试语义仍未完整验。 新增内部显式调试关联诊断，默认metadata-open接受行为不收紧；固定样例涵盖共享code/debug及J/D参数。 内部显式debug关联新增累积地址和行号检查；固定19例与两项既有回归在Debug/ASan通过。地址等于insns_size允许，指令边界、局部变量生命周期和完整DEX verifier仍未完成。 新增参数注解列表数量不一致的结构回归；固定版本ART对部分构造器隐式参数有兼容调整，当前不将长度不等直接判损坏，未实现运行时注解对齐。 新增内部单方法 debug emitted position 与 checked 指令/载荷起点分类；仅诊断，不修改默认解析或判定 ART，局部生命周期和完整 verifier 未完成。 内部按需提取 debug local 事件，限定源码和寄存器/PC 检查；不验证生命周期或 ART。 迭代51新增内部显式 debug local 状态转换诊断，初始参数 Unknown，标准 CTest 和真实 DEX 字节定向对照通过；不判 ART 或完整 verifier。 迭代87新增显式debug local PC边界分类及协作取消；默认metadata-open不变，内部结构布局改变，完整DEX verifier和ART仍未验收。 迭代104保存可选hiddenapi结构诊断隔离候选；固定顺序/边界、五版本、空成员及预算故障有字节对照，不接生产、未知flag不判断，完整P1-03/ART未完成。 迭代120修复D8 code_item段尾自身4字节对齐的零填充误判；1/2/3字节及非零/过长/少计与其他段反例通过，Debug/ASan与单项CTest覆盖，完整DEX verifier及ART未完成。 迭代170接受035–040映射段间额外全零间隙，条目/边界与非零/重叠仍拒绝，041不变；Release及五版本合成样本通过，ART/完整DEX verifier未验。 迭代185通用C ABI读取本地类/字段/方法/参数注解，保留元素与嵌套值原始编码；D8自建/独立dexdump/C限额及生命周期样本通过，typed值、Android/ART及完整DexKit兼容未验。 迭代203增加有界Java encoded_value解码与正反例，引用索引不解析，完整DEX verifier和注解matcher仍未完成。 final3以同源AAR/Windows JNI另行通过解码器34项及固定注解样本，未计入统一24步；完整DEX verifier和matcher未验。"
+    },
+    {
+      "id": "P1-04",
+      "phase": "P1",
+      "title": "实现LEB MUTF与符号查找",
+      "status": "in_progress",
+      "workstream": "native",
+      "depends_on": [
+        "P1-03"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/format/encoding/",
+        "src/facts/symbols/"
+      ],
+      "acceptance": [
+        "边界编码/delta/UTF16语义与独立golden一致",
+        "精确有序表查找与标量参考一致；hash命中继续精确比较"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/bootstrap.md",
+        "docs/evidence/validation-summary.json",
+        "docs/evidence/iteration2-summary.json",
+        "docs/evidence/iteration3-summary.json",
+        "docs/evidence/iteration25.md",
+        "docs/evidence/iteration99.md",
+        "docs/evidence/iteration101.md",
+        "docs/evidence/iteration208.md",
+        "docs/evidence/iteration211.md",
+        "docs/evidence/iteration216.md"
+      ],
+      "blockers": [],
+      "implementation_note": "真实DEX孤立高低代理、NUL及代理对原始MUTF字节与UTF16独立oracle一致；未命中插入区间和符号查找对照493项通过。当前无hash路径、生产查询未使用该索引，依赖任务与其他门槛仍未完成。 生产using_strings精确预筛选复用共享UTF-16索引，逐单元计费保持，固定样本156组新旧CLI对照一致；合并回归含639项符号对照，不声称性能提升。 迭代99保存不接生产的单Facts精确字符串hash实验；碰撞精确对照、固定预算/取消/分配与单机合成计时有证据，生命周期/ABA及实际收益未验证，全部验收仍未完成。 迭代101补充8规则9文本在真实APK三个DEX的单机固定测量；样本单查询1/2键构建成本远高于有序查找，默认路径未变，完整验收仍未完成。 迭代208隔离来源符号文本候选C消费者与双ABI语法有局部证据；v1因stringAt/typeAt重载审核失败，v2修JNI内存错误但尚需修审核及完整重建，未安装。 迭代211新增来源局部string_id/type_id有界UTF16读取C与Android接口；同源双ABI AAR、主机Unicode、C/Kotlin与R8固定样本通过；设备、完整DEX verifier和全DexKit兼容未验。 迭代216增加来源occurrence内字段/方法引用三元索引与proto_id文本C/Android接口；双ABI AAR、固定Java/Kotlin/C主机及R8通过，非运行时绑定/设备/完整DexKit等价。 迭代249 v24按来源/执行复用注解区段表，固定样本工作/结果与预算一致，设备和真实性能未验。"
+    },
+    {
+      "id": "P1-05",
+      "phase": "P1",
+      "title": "实现定义目录与code item",
+      "status": "in_progress",
+      "workstream": "native",
+      "depends_on": [
+        "P1-04"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/format/class_data/",
+        "src/facts/definitions/"
+      ],
+      "acceptance": [
+        "四类delta序列独立、flags域明确；定义/外部引用/无body不混淆",
+        "跨DEX和重复occurrence身份正确，未读特征不当空"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/bootstrap.md",
+        "docs/evidence/validation-summary.json",
+        "docs/evidence/iteration2-summary.json",
+        "docs/evidence/iteration3-summary.json",
+        "docs/evidence/iteration26.md",
+        "docs/evidence/iteration91.md",
+        "docs/evidence/iteration95.md",
+        "docs/evidence/iteration182.md"
+      ],
+      "blockers": [],
+      "implementation_note": "四类delta组各三成员、组内增量及跨组重置的独立fixture、字段方法证据和错误变体已覆盖；前置任务及全部验收仍未关闭。 显式调试关联诊断按每个code核对寄存器、按每个声明核对参数个数；PC/行号、局部生命周期及完整设备语义未验。 迭代91方法事实新增已请求类型与可用性，缓存保留掩码，固定字节和多规则对照通过；内部C++结构布局改变，运行时、完整验收及前置仍未完成。 迭代95增加单来源 method_ref 内部分类（本地有体/无体/无本地定义），实体查询接入且保持 method_refs code_known 既有语义；重复 occurrence、跨来源同名、预算/取消及旧CLI/C定向主机样本通过，完整 P1-05 和设备/ART 未验。 迭代182增加通用方法参数C ABI：静态prototype类型及可用debug名称，缺定义/体/debug/NO_INDEX分开；Release C及两ABI语法样本通过，Android与DexKit完整兼容/性能未验。"
+    },
+    {
+      "id": "P1-06",
+      "phase": "P1",
+      "title": "实现checked指令流与payload",
+      "status": "in_progress",
+      "workstream": "native",
+      "depends_on": [
+        "P1-05"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/format/instructions/",
+        "tests/native/decoder_tests.cpp"
+      ],
+      "acceptance": [
+        "变宽/payload/jumbo/range/custom/polymorphic与异常边界fixture通过",
+        "证明层和coverage范围准确，损坏opcode不能当NOP继续"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration3-summary.json",
+        "docs/evidence/iteration25.md",
+        "docs/evidence/iteration39.md",
+        "docs/evidence/iteration40.md",
+        "docs/evidence/iteration87.md",
+        "docs/evidence/iteration108.md",
+        "docs/evidence/iteration129.md",
+        "docs/evidence/iteration130.md"
+      ],
+      "blockers": [],
+      "implementation_note": "标准指令/变宽payload/jumbo/range/custom/poly及try-handler边界369例通过；不宣称完整ART类型或CFG 内部按需array_data支持1/2/4/8字节元素、共享payload及资源/取消边界；不是完整ART类型或CFG。 新增按需 checked switch case 静态事实；不证明 CFG 或 ART。 内部按需提取 goto/if 已检查目标，未证明完整 CFG 或 ART。 迭代87将局部事件关联checked指令和payload起点/内部及数值端点；固定主机定向与字节样本通过，完整指令/设备验收仍未完成。 迭代108新增内部按需const-method-handle/type局部事实及固定边界/缓存拒绝；无公共ABI或运行时解析，完整验收仍未完成。 迭代129新增显式 type_uses v21，七opcode checked事实、source-local caller/target_ref 关系及 C/CLI/Kotlin/JNI 和 Job 定向验证；设备/ART、完整关系和本任务全验收仍未完成。 迭代130新增直接 method_defs 的 using_types 与字符串/调用/字段同方法组合，空量词保留布尔恒等且须显式能力；定向 C/CLI/Kotlin/JNI/Job、双ABI静态和R8宿主样本通过；空量词独立C consumer、完整图组合、设备/ART及本任务全验收未完成。"
+    },
+    {
+      "id": "P1-07",
+      "phase": "P1",
+      "title": "实现按需事实提取",
+      "status": "in_progress",
+      "workstream": "native",
+      "depends_on": [
+        "P1-06"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/facts/string_use/",
+        "src/facts/invoke_sites/",
+        "src/facts/collectors/"
+      ],
+      "acceptance": [
+        "一次checked walk提供被请求事实；方法使用字符串与文件含字符串区分",
+        "callsite保留PC/kind/ref；无reverse需求时反向索引构建计数为零"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration3-summary.json",
+        "docs/evidence/iteration10-summary.json",
+        "docs/contracts/use-scan-v1.md",
+        "docs/evidence/iteration21.md",
+        "docs/evidence/iteration22.md",
+        "docs/evidence/iteration25.md",
+        "docs/evidence/iteration26.md",
+        "docs/evidence/iteration27.md",
+        "docs/evidence/iteration39.md",
+        "docs/evidence/iteration40.md",
+        "docs/evidence/iteration82.md",
+        "docs/evidence/iteration84.md",
+        "docs/evidence/iteration85.md",
+        "docs/evidence/iteration100.md",
+        "docs/evidence/iteration102.md",
+        "docs/evidence/iteration103.md",
+        "docs/evidence/iteration108.md",
+        "docs/evidence/iteration129.md",
+        "docs/evidence/iteration130.md",
+        "docs/evidence/iteration141.md",
+        "docs/evidence/iteration145.md",
+        "docs/evidence/iteration179.md",
+        "docs/evidence/iteration185.md",
+        "docs/evidence/iteration224.md"
+      ],
+      "blockers": [],
+      "implementation_note": "公开三类事实根支持来源+caller+PC身份与引用域；隔离Debug/ASan各33组、六fuzz目标及Android两ABI编译通过。前置任务、反向索引构建计数与完整事实验收未关闭。 已新增内部按需数值字面量事件及独立样本；尚无公开numeric查询、完整事实种类和全部前置验收。 新增独立numeric-v7精确位模式查询与64位见证；数组载荷、静态初值和完整事实能力仍未完成。 内部array_data事件按需提取且不公开查询或ABI；前向扫描检查为隔离草稿，当前不存在可证明为零的反向索引构建计数器。 前向扫描固定样本验证完成回调、重复扫描及PMR回收；当前无反向索引构建计数器，不能声称计划中的零计数验收。 已增加合法补充字符名称的JNI UTF-16样本，NUL/孤立代理仅作查询输入；反向索引构建计数仍未证明。 补 switch 目标和有符号键的内部事实；完整事实提取仍未完成。 增加直接分支事实；fallthrough、异常边及可达性仍未实现。 迭代82新增实验性 snapshot/source/kind 按需反向使用点计数索引，真实发布/失败/复用计数及无请求前向零构建经 C 使用方与并发样本核验；工作/取消/Engine 账本受限，索引不进入 QueryIR，Dataset registry 固定开销可能改变紧预算打开阈值。完整事实种类、P1-06 前置、QueryIR 与生产验收仍未完成。 迭代84新增实验性 reverse page C API：固定值事件按来源内 caller ordinal/PC 确定排序、按 offset 复制且失败不写输出；已验证预算/取消/分配失败不发布半成品和独立字节 oracle。QueryIR/JNI、完整 P1-07 和 ART/BIL 仍未验收。 迭代85新增受限显式反向索引 target_ref 连接；固定 host 与双ABI交叉链接通过，完整事实、ART和生产验收未完成。 迭代100新增独立实验字段 use→field_ref 反向 target_ref C入口，固定主机及双ABI交叉链接通过；仅核验所选交集，索引正确性为前提；额外资源阈值、普通/Job/批量接线及完整验收未完成。 迭代102新增独立实验字符串 use→string_values 的 target_ref C入口；固定主机及双ABI交叉链接通过，仅核选中交集，每侧上限4096，依赖索引正确性；资源阈值、默认/Job/批量接线和完整验收未完成。 迭代103新增独立显式同步交集v2，移除该入口4096固定上限但仍受各资源预算，固定主机与双ABI交叉验证；仅核所选交集且依赖索引正确性，样本含建索引计时未证明普遍收益，默认/Job/批量、完整验收及ART/BIL仍未完成。 迭代108新增内部按需const-method-handle/type局部事实及固定边界/缓存拒绝；无公共ABI或运行时解析，完整验收仍未完成。 迭代129新增显式 type_uses v21，七opcode checked事实、source-local caller/target_ref 关系及 C/CLI/Kotlin/JNI 和 Job 定向验证；设备/ART、完整关系和本任务全验收仍未完成。 迭代130新增直接 method_defs 的 using_types 与字符串/调用/字段同方法组合，空量词保留布尔恒等且须显式能力；定向 C/CLI/Kotlin/JNI/Job、双ABI静态和R8宿主样本通过；空量词独立C consumer、完整图组合、设备/ART及本任务全验收未完成。 迭代141显式provider接通四类use扫描、出入向expand和反向索引构建，4对真实冷/热查询保持候选/逻辑work并命中缓存。默认关闭；041绕过旧持久键，完整L1/通用负依赖与专项未完成。 迭代145新增无snapshot计划视图/CLI explain、计划与运行profile外层及source+method_ref单方法完整调用C入口；Release和有限连通通过。SQL profile映射、Android接线及全ABI/取消/特殊域专项待后续。 迭代179增加与BIL无关的单方法facts C ABI，按需一次解码并复制字符串/字段/数值/调用/类型/指令；Release与C固定样本通过，Android/ART和真实DexKit兼容/性能未验。 迭代185通用C ABI读取本地类/字段/方法/参数注解，保留元素与嵌套值原始编码；D8自建/独立dexdump/C限额及生命周期样本通过，typed值、Android/ART及完整DexKit兼容未验。 迭代224增加显式v23直接方法opcode序列查询及同步Android入口，四模式、显式通配/16位转换、预算取消/旧查询固定主机对照通过；仅受限profile，真实DexKit/ART/设备和性能未验。 迭代231 Android新增单来源和来源集合有界输出流分块导出；不同自建DEX及逆序压缩多DEX逐字节样本通过，路径导出、设备/ART及真实性能未验。"
+    },
+    {
+      "id": "P1-08",
+      "phase": "P1",
+      "title": "实现QueryIR与标量参考执行器",
+      "status": "in_progress",
+      "workstream": "query",
+      "depends_on": [
+        "P0-05",
+        "P0-06",
+        "P0-07"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/query/",
+        "src/execution/reference/",
+        "tests/native/query_semantics_tests.cpp"
+      ],
+      "acceptance": [
+        "typed fixture上的Q01-Q12和Unique零/一/多/未完成语义通过",
+        "不存在BIL特例；JSON u16/flags/set-bag/scope有规范化测试"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/bootstrap.md",
+        "docs/evidence/validation-summary.json",
+        "docs/evidence/iteration3-summary.json",
+        "docs/evidence/iteration5-summary.json",
+        "docs/contracts/method-query-v1.md",
+        "docs/evidence/iteration6-summary.json",
+        "docs/contracts/entity-query-v2.md",
+        "docs/evidence/iteration7-summary.json",
+        "docs/contracts/relational-query-v3.md",
+        "docs/evidence/iteration8-summary.json",
+        "docs/evidence/iteration10-summary.json",
+        "docs/contracts/use-scan-v1.md",
+        "docs/evidence/iteration21.md",
+        "docs/evidence/iteration22.md",
+        "docs/evidence/iteration23.md",
+        "docs/evidence/iteration24.md",
+        "docs/evidence/iteration27.md",
+        "docs/evidence/iteration28.md",
+        "docs/evidence/iteration30.md",
+        "docs/evidence/iteration32.md",
+        "docs/evidence/iteration33.md",
+        "docs/evidence/iteration34.md",
+        "docs/evidence/iteration39.md",
+        "docs/evidence/iteration42.md",
+        "docs/evidence/iteration42-summary.json",
+        "docs/evidence/iteration43.md",
+        "docs/evidence/iteration44.md",
+        "docs/evidence/iteration45.md",
+        "docs/evidence/iteration46.md",
+        "docs/evidence/iteration50.md",
+        "docs/evidence/iteration52.md",
+        "docs/evidence/iteration55.md",
+        "docs/evidence/iteration84.md",
+        "docs/evidence/iteration85.md",
+        "docs/evidence/iteration94.md",
+        "docs/evidence/iteration97.md",
+        "docs/evidence/iteration98.md",
+        "docs/evidence/iteration100.md",
+        "docs/evidence/iteration102.md",
+        "docs/evidence/iteration103.md",
+        "docs/evidence/iteration121.md",
+        "docs/evidence/iteration122.md",
+        "docs/evidence/iteration124.md",
+        "docs/evidence/iteration127.md",
+        "docs/evidence/iteration129.md",
+        "docs/evidence/iteration130.md",
+        "docs/evidence/iteration133.md",
+        "docs/evidence/iteration135.md",
+        "docs/evidence/functional-host-build-20261102.md",
+        "docs/evidence/functional-host-build-20261102-v2.md",
+        "docs/evidence/iteration160.md",
+        "docs/evidence/iteration171.md",
+        "docs/evidence/iteration224.md",
+        "docs/evidence/iteration229.md"
+      ],
+      "blockers": [],
+      "implementation_note": "公开tagged事实根、caller/target_ref连接及旧ABI拒绝已实现并在隔离Debug/ASan各33组、独立样例与有限fuzz中验证；BoundedExpand、完整关系IR及Q01-Q12仍未完成。 BoundedExpand草稿在隔离区，尚未发布；v5模糊测试子任务被自动安全过滤中止，尚无该项运行证据。 Q02/Q03/Q04/Q06指定静态样本与独立来源/伪造对照已验；Q05 reflection、Q08继承闭包及其余Q项仍未完成。 Q09仅完成可取得Batch交付阶段中断对照，扫描中途见证仍待实现/验证。 Q11 指定多来源全量排序与同键稳定顺序在 Debug/ASan 独立对照通过，Unicode 广泛排序及其他Q项仍未完成。 Q11 补充定义序号与引用号相反的平局反例，避免两者恰好一致造成假通过。 无排序直接Exists/Unique现可在扫描时发布可靠候选；中途取消、Unknown、背压和资源回收有主机证据；关系图和排序路径仍不支持扫描中途交付。Q10业务验真仍是测试模型，真实适配未完成。 新增直接查询中的inherited-v6静态父类候选与numeric-v7；接口边/包可见性保守Unknown，关系继承与v6/v7组合Unsupported；Q08及全部Q项仍未完成。 v6扩展到关系Scan/Filter，v8增加静态父类+接口联合成员模型；多解/缺失/环/非常规访问仍保守Unknown，旧域与新域混用拒绝；完整Q08未完成。 v10限定组合能力与v11有界多定义接口静态世界已接入；仅固定场景有独立字节及伪造证据对照，未定义能力组合明确拒绝，完整QueryIR、Q07及全部Q08仍未完成。 v12显式unique_one_stream支持无排序Unique/1单根string_uses、invoke_sites或field_uses scan，能力组合限定拒绝；完整QueryIR与Q07仍未完成。 v12 限定 Unique/1 单根 string_uses、invoke_sites、field_uses 已接入并经固定样本、资源边界及旧版对照；完整QueryIR、Q01-Q12仍未完成。 显式v13静态reflection flags模型支持有限直接实体查询，缺定义、注解不明及未建模位保持Unknown；C ABI/Job与固定样本通过，设备反射和完整Q05仍未完成。 新增显式 v14 静态反射关系图，限纯实体元数据与固定运算，通用见证验证器和完整 Q05 仍未完成。 新增单 raw DEX、完整 scope、单 Scan 反射叶的独立见证复核；多来源、join/group、组合和部分执行仍未验证，工作量与内存计数只检查范围。 新增单 raw DEX、完整 scope、单 Scan 加最多八层 Filter 的 v14 反射叶独立复核；join/group、多来源、排序和部分执行仍未证明。 新增受限 v15 反射标志与方法体谓词组合；完整 IR 仍未完成。 迭代42将BoundedExpand候选从迭代22重基到迭代41当前核心（work/iteration42/expand-candidate），补v5与v6-v15全部能力/谓词混用拒绝（38例）及14个既有profile对照；Debug/ASan各139项完整CTest通过，因v5模糊测试未完成暂不公开v5，完整QueryIR与Q01-Q12仍未完成。 迭代42隔离 BoundedExpand 草稿保留；因主核心异常 CFG 文件变更，后续集成需重新核验基线。 第42轮隔离BoundedExpand草稿保留，本轮核心变化后需重新评估基线。 第42轮 BoundedExpand 隔离草稿保留，本轮核心变化后需重新评估基线。 第46轮隔离草稿重基当前核心并通过 Debug/ASan 各23项确定性测试；此前被自动安全过滤的 v5 模糊测试未重试，v5 未正式验收。 迭代50增加显式 v16 使用事实到方法、字段、字符串目标的完整 UTF-16 静态符号 Join/SemiJoin，跨 occurrence 保留多解与 Unknown；完整 IR、BoundedExpand 和 Q01–Q12 未完成。 迭代52新增显式 v17 静态反射与方法体谓词关系组合，固定图样本、C/Job 与主机 JNI 验证通过；完整 Q05、全部 IR 与设备验收未完成。 迭代55新增显式 v18 继承字段与使用目标符号连接组合，固定关系样本、C/Job 和 Unknown 证据通过；执行中取消/完整 OOM、全部图组合与完整 Q08 未验收。 迭代84提供可供后续事实算子复用的来源限定反向事件分页内核，但 QueryIR/JOIN 未调用该索引，完整关系算子与 BoundedExpand 仍未完成。 迭代85提供仅正向直接 v4 target_ref join 的显式实验 C 入口；其他形状拒绝，额外预算独立，全量 QueryIR 和验证仍未完成。 迭代94以现有 v16/v4 关系验证固定 Q07 两跳，独立字节对照中间歧义、无后续边、重复 occurrence 与 tuple 差异；all-matches静态结果不代表运行时解析，完整Q07仍未完成。 迭代97对 v11 受限单类ASCII接口图补充独立字节世界和来源范围对照，含一致/分歧、重复 occurrence、显式封闭与不完整 scope、缺接口及Filter子树；Unknown未发布见证，复杂图及完整Q08未验。 迭代98补充v4/v9排序 Unique 单/双候选及TopN的归约/提交确定性屏障；归约后结果排序前无Batch，取消不发布；最终提交前可读provisional Batch，区分单/双见证决策，非扫描中早发或完整Q09。 迭代100新增独立实验字段 use→field_ref 反向 target_ref C入口，固定主机及双ABI交叉链接通过；仅核验所选交集，索引正确性为前提；额外资源阈值、普通/Job/批量接线及完整验收未完成。 迭代102新增独立实验字符串 use→string_values 的 target_ref C入口；固定主机及双ABI交叉链接通过，仅核选中交集，每侧上限4096，依赖索引正确性；资源阈值、默认/Job/批量接线和完整验收未完成。 迭代103新增独立显式同步交集v2，移除该入口4096固定上限但仍受各资源预算，固定主机与双ABI交叉验证；仅核所选交集且依赖索引正确性，样本含建索引计时未证明普遍收益，默认/Job/批量、完整验收及ART/BIL仍未完成。 迭代121新增显式 field_declaration_static v19：对所选 slot 的字段使用事件，按字段引用 owner/name/type 关联自身或继承声明，并保留逐路径 C/JNI 见证；缺失/重复/环只在实际访问时 Unknown，静态候选不证明 caller 所属类、loader 或 ART。固定字节 oracle、Debug/ASan、C/Job、Kotlin/JNI、双 ABI 静态链接和 R8 Windows 样例通过；完整 Q08/QueryIR、设备与运行时未验。 迭代122将现有 v19 字段声明静态谓词与 method_defs→field_uses caller Join/SemiJoin 组合，限制相同显式 slot 和单条声明路径；声明范围相对 field_ref.owner，非 caller 或运行时。独立字节/伪造、Debug/ASan、C/Job 及 Kotlin/JNI 定向样本通过；完整 Q08 与全部 QueryIR 未完成。 迭代124新增显式 caller_field_relation_observation：对已确定字段使用行观察其声明类相对 caller 声明类的 SELF/ANCESTOR/EXTERNAL/UNKNOWN；EXTERNAL 仅在 caller 可达静态祖先闭包无缺失/歧义/环且各接口 Object 检查通过时成立，观察 Unknown 不改变原查询决策。固定字节/伪造与 C/CLI/Kotlin/JNI 样例通过，完整 Q08/QueryIR 未完成。 迭代127增加显式 v20 类注解静态反射标志模型和见证，保守 Unknown；固定 DEX/主机 JNI、C、预算/取消、双 ABI 静态审计与 R8 样本通过，完整 Q05、真实来源、Android/ART、BIL 和全部验收仍未完成。 ASan 首次因缺运行库无法启动，设置路径后通过；构建工具哈希首次采集于构建中，隐式工具行为未完整追踪。 迭代129新增显式 type_uses v21，七opcode checked事实、source-local caller/target_ref 关系及 C/CLI/Kotlin/JNI 和 Job 定向验证；设备/ART、完整关系和本任务全验收仍未完成。 迭代130新增直接 method_defs 的 using_types 与字符串/调用/字段同方法组合，空量词保留布尔恒等且须显式能力；定向 C/CLI/Kotlin/JNI/Job、双ABI静态和R8宿主样本通过；空量词独立C consumer、完整图组合、设备/ART及本任务全验收未完成。 迭代133接通单根BoundedExpand，移植核心/查询/C ABI/Job/CLI及分组路径物化；Release编译和出向/入向/端点3项烟测通过。外层/多重展开与高位能力组合仍拒绝，专项回归统一后做，完整验收未完成。 迭代135实现单展开外层filter/label/union/distinct/join/semi_join/group，保留路径及独立行证据、opaque未知传播；Release与5组合烟测通过，use主输出拒绝。多重/嵌套与高位能力仍未实现，完整专项统一后做。 迭代160批量method_defs同scope角色分组复用checked方法事实，非匹配图回退；Release、271项内部对照与C consumer连通通过，完整Q12/Android/性能仍未验。 迭代171增加独立v8/v11接口继承使用点图Java/Kotlin同步/Job和专用见证wire；固定主机/CLI对照通过，reader170前快照与设备/完整Q08仍待统一验收。 迭代224增加显式v23直接方法opcode序列查询及同步Android入口，四模式、显式通配/16位转换、预算取消/旧查询固定主机对照通过；仅受限profile，真实DexKit/ART/设备和性能未验。 迭代229新增显式输入slot子范围opcode同步入口，Java/JNI与修正Kotlin固定样本通过；首次runner测试笔误失败保留，组合AAR/R8及设备待验。 迭代245新增v24受限类注解类型/可见性/顶层INT查询和扩展能力发现，固定主机与双ABI交叉构建通过；复杂注解、Android/ART与全部QueryIR未完成。 迭代253 v25新增显式类注解字符串等值及来源局部索引，旧v24 ID/work固定样本一致；Android、复杂注解及完整QueryIR未完成。"
+    },
+    {
+      "id": "P1-09",
+      "phase": "P1",
+      "title": "实现C ABI Job Batch和取消",
+      "status": "in_progress",
+      "workstream": "native",
+      "depends_on": [
+        "P1-01",
+        "P1-08"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/c_api/",
+        "src/execution/job/",
+        "tests/abi/c_consumer.c"
+      ],
+      "acceptance": [
+        "C消费者实际调用；retain/close/NotReady/EOF/终态一次提交符合契约",
+        "取消量子、故障注入、预算与慢消费者背压通过；无跨ABI异常"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/bootstrap.md",
+        "docs/evidence/validation-summary.json",
+        "docs/evidence/iteration2-summary.json",
+        "docs/contracts/execution-v1.md",
+        "docs/evidence/iteration5-summary.json",
+        "docs/contracts/method-query-v1.md",
+        "docs/evidence/iteration6-summary.json",
+        "docs/contracts/entity-query-v2.md",
+        "docs/evidence/iteration7-summary.json",
+        "docs/contracts/relational-query-v3.md",
+        "docs/evidence/iteration8-summary.json",
+        "docs/evidence/iteration17.md",
+        "docs/evidence/iteration17-summary.json",
+        "docs/evidence/iteration22.md",
+        "docs/evidence/iteration23.md",
+        "docs/evidence/iteration24.md",
+        "docs/evidence/iteration27.md",
+        "docs/evidence/iteration42.md",
+        "docs/evidence/iteration42-summary.json",
+        "docs/evidence/iteration133.md",
+        "docs/evidence/iteration135.md",
+        "docs/evidence/iteration153.md",
+        "docs/evidence/iteration155.md"
+      ],
+      "blockers": [],
+      "implementation_note": "v2事件值、绑定、证明及Job状态通过隔离C消费者、Debug和ASan；Android运行、完整ABI和任务全部验收未完成。 修复JSON解析对象强制noexcept导致的分配失败终止；v1-v4直接/C ABI逐分配点回滚已验。 Q09交付阶段取消与终态线性化、满队列丢通知修复及受控前后对照已验；扫描中途私有候选、全并发与Android运行仍未验。 不含use关系的无序图Exists及不重复scan/filter/label Unique可交付已形成见证；复杂Unique、use、排序回退。归约中断保留已观察计数下界；全并发/设备验收未完成。 显式v9按完整方法提交使用事实，已验证部分拓扑与C消费；Unique上限1、未覆盖拓扑及排序回退原子，完整Q09与设备验收未完成。 v10 Job混合证据目前原子交付；v9 Unique上限1继续原子回退，错误优先级和安全提交设计记录在work/iteration24/v9-limit-review.md。 v12采用独立QueryID域，首条可provisional、终态锁提交ResultLimit；固定样本与故障/取消定向通过，全部调度、资源阈值和设备行为仍未证明。 迭代42在隔离候选补齐展开结果对v6-v11新增witness及全部旧Result/Batch/Job getter的DMG_UNSUPPORTED保护，并验证9种展开形态在ResultLimit与晚期OOM、提交前取消/到期下的原子提交及worker终态阻塞期内存回收。 迭代133接通单根BoundedExpand，移植核心/查询/C ABI/Job/CLI及分组路径物化；Release编译和出向/入向/端点3项烟测通过。外层/多重展开与高位能力组合仍拒绝，专项回归统一后做，完整验收未完成。 迭代135实现单展开外层filter/label/union/distinct/join/semi_join/group，保留路径及独立行证据、opaque未知传播；Release与5组合烟测通过，use主输出拒绝。多重/嵌套与高位能力仍未实现，完整专项统一后做。 迭代153只校准已有验证入口：Q09排序屏障注册，SQL provisional负例由BLOB换为REAL且原失败断言保留；尚未执行，不计为验收通过。 迭代155同源Windows Debug/ASan各7项通过，含Q09排序屏障和SQL provisional失败终态；每配置其余218项未执行，不能外推完整验收。 迭代234增加非scope opcode异步Job，队列/取消/终态有限JNI样本通过，待组合AAR/ART及完整专项。 迭代251增加Android v24非scope EntityJob，固定JNI/双ABI通过；scope Job、同源AAR/R8/ART未验。 迭代257增加v24/v25显式范围异步Job与终态来源核验，固定JNI/C样本通过；JobState增大，分配失败和ART/压力专项未验。"
+    },
+    {
+      "id": "P1-10",
+      "phase": "P1",
+      "title": "实现首个CLI查询与证据切片",
+      "status": "in_progress",
+      "workstream": "integration",
+      "depends_on": [
+        "P1-02",
+        "P1-07",
+        "P1-08",
+        "P1-09"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "cli/",
+        "tools/evidence_verifier/",
+        "tests/integration/vertical_slice/"
+      ],
+      "acceptance": [
+        "真实generated DEX/APK经过解析查询输出身份/证据/coverage",
+        "后续验证消费实际结果，独立字节复核；inspect/query命令存在可复现"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/bootstrap.md",
+        "docs/evidence/validation-summary.json",
+        "docs/evidence/iteration3-summary.json",
+        "docs/evidence/iteration5-summary.json",
+        "docs/contracts/method-query-v1.md",
+        "docs/evidence/iteration133.md",
+        "docs/evidence/iteration135.md"
+      ],
+      "blockers": [],
+      "implementation_note": "真实9.17 APK静态字符串定位与独立原始字节/QueryID唯一性复核成功；完整IR前置及后续业务验收仍未关闭 迭代133接通单根BoundedExpand，移植核心/查询/C ABI/Job/CLI及分组路径物化；Release编译和出向/入向/端点3项烟测通过。外层/多重展开与高位能力组合仍拒绝，专项回归统一后做，完整验收未完成。 迭代135实现单展开外层filter/label/union/distinct/join/semi_join/group，保留路径及独立行证据、opaque未知传播；Release与5组合烟测通过，use主输出拒绝。多重/嵌套与高位能力仍未实现，完整专项统一后做。"
+    },
+    {
+      "id": "P1-11",
+      "phase": "P1",
+      "title": "完成Reader核心对抗验证",
+      "status": "in_progress",
+      "workstream": "validation",
+      "depends_on": [
+        "P1-10"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "fuzz/",
+        "tests/native/failure_injection/",
+        "docs/evidence/native-core-validation.md"
+      ],
+      "acceptance": [
+        "F01-F11相关当前能力通过，sanitizer/fuzz实际运行记录范围和seed",
+        "失败样本最小化并回归；无工具时保留未验证不虚报"
+      ],
+      "required_environment": "host sanitizer/fuzzer toolchain",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/native-core-validation.md",
+        "docs/evidence/iteration3-summary.json",
+        "docs/evidence/iteration5-summary.json",
+        "docs/contracts/method-query-v1.md",
+        "docs/evidence/iteration6-summary.json",
+        "docs/contracts/entity-query-v2.md",
+        "docs/evidence/iteration7-summary.json",
+        "docs/contracts/relational-query-v3.md",
+        "docs/evidence/iteration8-summary.json",
+        "docs/evidence/iteration10-summary.json",
+        "docs/contracts/use-scan-v1.md",
+        "docs/evidence/iteration23.md",
+        "docs/evidence/iteration24.md",
+        "docs/evidence/iteration25.md",
+        "docs/evidence/iteration42.md",
+        "docs/evidence/iteration42-summary.json"
+      ],
+      "blockers": [],
+      "implementation_note": "Join CLI独立36场景及10个伪造控制已验；完整IR/CLI与跨平台门槛未完成 v5重基草稿仅完成11项Debug与11项ASan确定性对照；被自动安全过滤中止的v5模糊测试未重试，完整验收未完成。 迭代42隔离候选完成Windows Debug/ASan各139项完整CTest（含expand_materialization逐分配点晚期OOM与取消/到期回归）、广告后过滤各20项及14个既有profile对照；v5模糊测试仍未重试，完整验收未完成。"
+    },
+    {
+      "id": "P1-12",
+      "phase": "P1",
+      "title": "评估代表性规则子集原型",
+      "status": "planned",
+      "workstream": "benchmark",
+      "depends_on": [
+        "P1-11",
+        "P0-09"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "benchmarks/bil/prototype/",
+        "docs/decisions/ADR-prototype-go-no-go.md"
+      ],
+      "acceptance": [
+        "相同prepare/query/verify包络比较B/C，说明字节/索引/分配归因",
+        "只对已测子集下结论；无优势先定位瓶颈，不宣布33项替换完成"
+      ],
+      "required_environment": "Android devices and APK corpus",
+      "optional_capability": false,
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "P2-01",
+      "phase": "P2",
+      "title": "实现多规则计划与关系算子",
+      "status": "in_progress",
+      "workstream": "query",
+      "depends_on": [
+        "P1-07",
+        "P1-08",
+        "P1-10"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/planner/",
+        "src/execution/operators/",
+        "tests/native/plan_differential_tests.cpp"
+      ],
+      "acceptance": [
+        "批量/单独及标量/优化执行结果相同；只合并同scope同语义工作",
+        "group-owner/有界关系/否定完整性满足BIL需求；profile能解释收益"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration23.md",
+        "docs/evidence/iteration24.md",
+        "docs/evidence/iteration35.md",
+        "docs/evidence/iteration36.md",
+        "docs/evidence/iteration50.md",
+        "docs/evidence/iteration52.md",
+        "docs/evidence/iteration55.md",
+        "work/iteration60/HANDOFF.md",
+        "work/iteration61/HANDOFF.md",
+        "docs/evidence/iteration66.md",
+        "docs/evidence/iteration69.md",
+        "docs/evidence/iteration85.md",
+        "docs/evidence/iteration100.md",
+        "docs/evidence/iteration102.md",
+        "docs/evidence/iteration103.md",
+        "docs/evidence/iteration116.md",
+        "docs/evidence/iteration122.md",
+        "docs/evidence/iteration124.md",
+        "docs/evidence/iteration133.md",
+        "docs/evidence/iteration135.md",
+        "docs/evidence/iteration141.md",
+        "docs/evidence/iteration145.md",
+        "docs/evidence/iteration160.md"
+      ],
+      "blockers": [],
+      "implementation_note": "Engine受管多规则缓存草稿支持紧预算释放后标量重试；内部2项定向测试通过，但公开独立调用内存账本等价、串行强制及全部P2-01验收未完成，仅保存在work/iteration24/multi-owned-draft。 多规则缓存已重基当前核心并加入私有串行会话；仅 work 草稿，前置依赖、公开 ABI 与逐次调用的资源等价尚未完成。 多规则内部会话新增逐规则 execute_one，复用 C ABI 正式物化及逐项释放；固定预算和来源对照通过，仍非公开批量 ABI 或全部阈值等价。 迭代50增加使用事实到目标的符号连接；固定样本通过，批量/优化执行和全部 P2-01 验收未完成。 迭代52在限定关系图中支持静态反射和方法体谓词组合；批量/优化执行与全部验收仍未完成。 迭代55限定继承字段与目标符号关系组合，按来源保留路径及 Unknown；完整关系计划和优化执行未完成。 多规则隔离草稿保存在work/iteration60，74个固定差分案例和Debug/ASan各4组通过；公开批量ABI、全部资源阈值与完整Q12/P2-01验收仍未完成。 work/iteration61保存多规则私有正式结果物化草稿，Debug/ASan各4组及3个C消费者通过；无公共批量ABI，资源阈值/失败顺序不保证与独立调用等价，完整Q12/P2-01未完成。 迭代66接入实验性同步C多规则v1：限定事实共享、逐项正式Result物化及失败原子不发布；固定C/主机对照、分配故障和并发通过，预算峰值与独立执行不等价，异步取消、完整Q12和P2-01仍未完成。 迭代69限定单method_defs Scan加Filter/Label链的v3/v17图可共享完整方法事实，精确区分来源、有效scope/完整性、需求及能力；固定差分、Unknown、预算、取消和故障通过，其他图回退，完整Q12/P2-01仍未完成。 迭代85对受限实验入口与旧单次/批量固定样本进行对照；无批量索引 opt-in，不代表完整批量ABI或全部验收。 迭代100新增独立实验字段 use→field_ref 反向 target_ref C入口，固定主机及双ABI交叉链接通过；仅核验所选交集，索引正确性为前提；额外资源阈值、普通/Job/批量接线及完整验收未完成。 迭代102新增独立实验字符串 use→string_values 的 target_ref C入口；固定主机及双ABI交叉链接通过，仅核选中交集，每侧上限4096，依赖索引正确性；资源阈值、默认/Job/批量接线和完整验收未完成。 迭代103新增独立显式同步交集v2，移除该入口4096固定上限但仍受各资源预算，固定主机与双ABI交叉验证；仅核所选交集且依赖索引正确性，样本含建索引计时未证明普遍收益，默认/Job/批量、完整验收及ART/BIL仍未完成。 迭代116在实验同步多规则内对全部Scan同范围的method_defs Union/Distinct图复用checked事实；固定主机/真实C对照及双ABI交叉链接通过，非完整Q12或资源阈值等价。 迭代122扩展既有 caller Join/SemiJoin 与 v19 的受限组合，按 occurrence+ordinal 关联，半连接仅选首条确定右见证；其他图形和多路径未开放，完整关系算子及 Q12 未验。 迭代124在现有受限 v19 caller Join/SemiJoin 上增加逐返回行结构注解，不启用分类过滤或新 Job；正向仅证明一条逐边身份唯一的静态路径，不保证全图可链接，完整关系 IR/Q12 未完成。 迭代133接通单根BoundedExpand，移植核心/查询/C ABI/Job/CLI及分组路径物化；Release编译和出向/入向/端点3项烟测通过。外层/多重展开与高位能力组合仍拒绝，专项回归统一后做，完整验收未完成。 迭代135实现单展开外层filter/label/union/distinct/join/semi_join/group，保留路径及独立行证据、opaque未知传播；Release与5组合烟测通过，use主输出拒绝。多重/嵌套与高位能力仍未实现，完整专项统一后做。 迭代141显式provider接通四类use扫描、出入向expand和反向索引构建，4对真实冷/热查询保持候选/逻辑work并命中缓存。默认关闭；041绕过旧持久键，完整L1/通用负依赖与专项未完成。 迭代145新增无snapshot计划视图/CLI explain、计划与运行profile外层及source+method_ref单方法完整调用C入口；Release和有限连通通过。SQL profile映射、Android接线及全ABI/取消/特殊域专项待后续。 迭代160批量method_defs同scope角色分组复用checked方法事实，非匹配图回退；Release、271项内部对照与C consumer连通通过，完整Q12/Android/性能仍未验。 迭代278增加跨DEX流式预编译方法会话，method-v1主机对照及双ARM静态构建通过；反射、Android和真实性能未验。 迭代288新增显式caller-asserted按需C/JNI，33DEX九规则有限主机差分通过，严格覆盖与Android业务未验。 迭代279 C多规则显式单遍method-v1枚举已接入，受限主机对照及C消费通过，Android桥和真实性能未验。 迭代280已接流式批量JNI与隔离BIL六方法规则，受限主机对照及双ARM静态检查通过，设备与性能尚未验。 迭代256 Android新增非scope method-v1同步批量入口，固定JNI/Kotlin与逐项对照通过；无运行中取消、真实AAR/ART及性能证据。 迭代262新增Android显式slot同范围多方法同步批量，主机固定样本通过；无运行中取消，当前AAR/设备早于此入口，真实性能未验。"
+    },
+    {
+      "id": "P2-02",
+      "phase": "P2",
+      "title": "实现Kotlin查询和值类型",
+      "status": "in_progress",
+      "workstream": "android",
+      "depends_on": [
+        "P0-05",
+        "P1-08"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "bindings/android/dexmeguviz-api/",
+        "bindings/android/dexmeguviz-api/src/test/"
+      ],
+      "acceptance": [
+        "Kotlin DSL与C/CLI对同IR有相同文本/flags/结果语义",
+        "普通JVM测试可运行；类型层不引入BIL和Android class loader",
+        "形成不依赖BIL业务的可复用公开查询与事实读取能力；未支持的DexKit通用能力不得声称兼容。"
+      ],
+      "required_environment": "JDK Kotlin Gradle; Android SDK not required for API tests",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration25.md",
+        "docs/evidence/iteration26.md",
+        "docs/evidence/iteration27.md",
+        "docs/evidence/iteration28.md",
+        "docs/evidence/iteration29.md",
+        "docs/evidence/iteration31.md",
+        "docs/evidence/iteration32.md",
+        "docs/evidence/iteration33.md",
+        "docs/evidence/iteration34.md",
+        "docs/evidence/iteration35.md",
+        "docs/evidence/iteration36.md",
+        "docs/evidence/iteration37.md",
+        "docs/evidence/iteration39.md",
+        "docs/evidence/iteration40.md",
+        "docs/evidence/iteration41-summary.json",
+        "docs/evidence/iteration50.md",
+        "docs/evidence/iteration52.md",
+        "docs/evidence/iteration106.md",
+        "docs/evidence/iteration110.md",
+        "docs/evidence/iteration113.md",
+        "docs/evidence/iteration114.md",
+        "docs/evidence/iteration121.md",
+        "docs/evidence/iteration122.md",
+        "docs/evidence/iteration124.md",
+        "docs/evidence/iteration136.md",
+        "docs/evidence/iteration137.md",
+        "docs/evidence/iteration146.md",
+        "docs/evidence/iteration156.md",
+        "docs/evidence/iteration165.md",
+        "docs/evidence/iteration171.md",
+        "docs/evidence/iteration179.md",
+        "docs/evidence/iteration180.md",
+        "docs/evidence/iteration182.md",
+        "docs/evidence/iteration184.md",
+        "docs/evidence/iteration185.md",
+        "docs/evidence/iteration204.md"
+      ],
+      "blockers": [],
+      "implementation_note": "Kotlin 2.4.21由宿主提供、无传递运行时依赖；有限method_defs类型、长文本混合编码和显式快照JNI执行已接入。自动编码选择非穷举，全部关系/值类型/Job及设备验收未完成。 有界线性自动混合编码与多来源快照执行已增加；混合搜索不穷举，全部关系/值类型及设备验收仍未完成。 Kotlin method-v1新增参数数量/单位置类型、owner flags、方法种类与方法体const-string条件；最终AAR的CLI及Windows JNI固定样本通过，完整类型和关系仍未完成。 新增七类直接实体Kotlin JSON构造及23组最终AAR/CLI对照；迭代31时无类型化实体JNI结果入口，其他实体profile仍需后续实现。 新增七类直接实体的同步 JNI 结果及 Kotlin 入口，仅 v1/v2 直接根；迭代32时高级 profile、实体 Job 和设备验证未完成。 迭代33时新增七类直接实体的 Kotlin 异步 Job 入口；仅 v1/v2、来源范围固定不完整，关系图及设备验证未完成。 新增单源/多源 Kotlin method Job 和转发 JSON 的 v3 metadata 图入口；不含类型化关系图构造器，设备未验证。 新增 Kotlin v3 metadata 图异步 Job 入口；不支持类型化图构造、其他 profile 或设备验证。 Kotlin 图同步与 Job 接受显式 v14 静态反射关系；仍无类型化图构造与设备验收。 新增受限 v3/v14 Kotlin 类型化关系图构造器与同步/Job 入口；不含全部图操作、使用事实 DSL 或设备验收。 新增 v15 Kotlin 原始 JSON 同步与 Job 包装；不代表完整 DSL 或设备验收。 新增 v15 类型化 Kotlin 方法查询，固定组合与 CLI 对照；完整 DSL 和设备验收仍未完成。 迭代41最终同源AAR的7组类型化图、4组v15及8组类型化v15与新CLI复验通过，类来源确认为实际AAR；不是设备/ART或完整DSL验收。 迭代50宿主 Kotlin/JNI 原始 JSON 入口对 v16 通过固定样本，非类型化 DSL 或 Android/ART 验收。 迭代52新增 Kotlin 类型化单次 v16 目标符号 Join/SemiJoin 和事件谓词；合并 AAR 的 14 组固定主机对照通过，完整 DSL 与设备未验。 迭代106新增 v4 类型化同 occurrence target_ref Join/SemiJoin 和同步既有JNI桥，17组JVM/CLI固定对照；scope固定不完整，完整DSL及ART未验。 迭代110新增受限v4 invoke_sites单扫描 Kotlin构造与同步桥，重载/特殊域/UTF16固定JVM/CLI对照；范围不完整，真实BIL/ART及完整DSL未验。 迭代113新增独立显式顶层slot范围v4 use-graph同步入口与Kotlin有界构造；固定C/JVM/JNI/CLI同源对照和双ABI静态链接通过，局部scope不证明loader完整，原入口/Job不扩展，ART/BIL仍未验。 迭代114新增无scope v4/v9 use-graph Job与Kotlin转发；provisional批次、v2终态、固定背压及测试注入交付故障验证，双ABI静态和R8压缩类Windows JNI样本通过；ART/设备、真实BIL、全部故障并发与完整验收未完成。历史导出数更正见docs/evidence/iteration114-export-correction.md。 迭代121新增显式 field_declaration_static v19：对所选 slot 的字段使用事件，按字段引用 owner/name/type 关联自身或继承声明，并保留逐路径 C/JNI 见证；缺失/重复/环只在实际访问时 Unknown，静态候选不证明 caller 所属类、loader 或 ART。固定字节 oracle、Debug/ASan、C/Job、Kotlin/JNI、双 ABI 静态链接和 R8 Windows 样例通过；完整 Q08/QueryIR、设备与运行时未验。 迭代122新增 v19 caller Join/SemiJoin Kotlin 类型化构造；最终 AAR/Windows JNI 与旧 v19 消费者通过，JNI 结果和工作上限不变，完整 DSL 与 ART 未验。 迭代124新增类型化 caller-relative 观察和独立结果 wire；旧 v19 入口拒绝新能力，Windows JNI 固定样本和旧编译消费者通过，完整 DSL/ART 未验。 迭代136接通展开同步/Job及typed Kotlin/Java有界wire，保留行、路径、前沿和独立外层证明。Java/Kotlin/同头Windows JNI编译与少量连通通过；原始JSON支持实体组合。新AAR/Android/ABI/R8与专项统一后做，Job scope精确索引列表尚未提供而显式标未知。 迭代137补齐GraphExpression.expand/ExpandGraphQuery，使既有实体算子可类型化组合单展开并经ExpandExecution同步/Job执行；编译与1条CLI连通通过，完整专项待统一。 迭代146接通Advanced四profile实体/metadata同步及Job，完整高级见证；单source+method_ref calls接口已Android复制值接线。主机编译和小连通通过；use图/完整ABI/R8/ART仍未支持或未验，旧入口不放宽。 迭代156基于当前同源AAR/JNI执行17项固定主机检查通过，包括AAR静态、JNI/Java/Kotlin、binder与R8；首次JniJobTest夹具错配失败已保留并按冻结fixture显式修正，设备/ART和全部接口/故障验收未完成。 迭代165显式v6继承使用点图Java/Kotlin同步/Job入口，复用v18带继承见证wire，旧入口不放宽；Windows JNI/CLI与固定样本通过，双ABI AAR/R8/设备及完整矩阵未验。 迭代171增加独立v8/v11接口继承使用点图Java/Kotlin同步/Job和专用见证wire；固定主机/CLI对照通过，reader170前快照与设备/完整Q08仍待统一验收。 用户明确要求通用复用、DexKit依赖全量退出与同条件兼容/性能优势；该目标目前未验收。 迭代179增加与BIL无关的单方法facts C ABI，按需一次解码并复制字符串/字段/数值/调用/类型/指令；Release与C固定样本通过，Android/ART和真实DexKit兼容/性能未验。 迭代180新增通用显式slot子范围method-v1同步/Job入口，正确映射多DEX/空资源并标记caller声明；主机/R8/NDK有限样本通过，当前179核心同源AAR/设备与完整范围矩阵未验。 迭代182增加通用方法参数C ABI：静态prototype类型及可用debug名称，缺定义/体/debug/NO_INDEX分开；Release C及两ABI语法样本通过，Android与DexKit完整兼容/性能未验。 迭代184新增通用单方法facts Java/Kotlin/JNI读取，保持类别/空/无body、UTF16与原始数值、来源；180同源AAR/主机样本通过，182后最终AAR/R8/设备未验。 迭代185通用C ABI读取本地类/字段/方法/参数注解，保留元素与嵌套值原始编码；D8自建/独立dexdump/C限额及生命周期样本通过，typed值、Android/ART及完整DexKit兼容未验。 final3同源Java/Kotlin参数与注解固定宿主样本另行通过；未证明完整DSL或Android/ART。 迭代236添加显式注解值匹配Java入口，默认值、数组/嵌套和来源认证未完成；有限JNI样本通过，待AAR/ART。 迭代238增加静态来源约束注解文本匹配；不认证运行时来源，尚待组合AAR/ART。 迭代240增加显式注解一维数组精确匹配；包含/嵌套/默认值和来源认证未完成，待AAR/ART。 迭代241增加一维数组项目定义的有序子序列；未证明DexKit等价，待组合AAR/ART。 迭代243增加受限无序标量一对一数组匹配，浮点数值相等；默认值、引用及嵌套/二进制DexKit对照未完成，待AAR/ART。"
+    },
+    {
+      "id": "P2-03",
+      "phase": "P2",
+      "title": "实现JNI Android来源与binder",
+      "status": "in_progress",
+      "workstream": "android",
+      "depends_on": [
+        "P0-04",
+        "P1-09",
+        "P2-02"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "bindings/android/dexmeguviz-android/",
+        "bindings/android/sample/"
+      ],
+      "acceptance": [
+        "两个ABI构建/装载与句柄生命周期分级验证；来源含base/split",
+        "ABI与Origin状态、loader代际、初始化策略准确；批量JNI不逐行回调"
+      ],
+      "required_environment": "Android SDK NDK JDK; device for runtime acceptance",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration26.md",
+        "docs/evidence/iteration27.md",
+        "docs/evidence/iteration28.md",
+        "docs/evidence/iteration30.md",
+        "docs/evidence/iteration31.md",
+        "docs/evidence/iteration32.md",
+        "docs/evidence/iteration33.md",
+        "docs/evidence/iteration34.md",
+        "docs/evidence/iteration35.md",
+        "docs/evidence/iteration36.md",
+        "docs/evidence/iteration37.md",
+        "docs/evidence/iteration39.md",
+        "docs/evidence/iteration50.md",
+        "docs/evidence/iteration51.md",
+        "docs/evidence/iteration52.md",
+        "docs/evidence/iteration55.md",
+        "docs/evidence/iteration58.md",
+        "docs/evidence/iteration66.md",
+        "docs/evidence/iteration68.md",
+        "docs/evidence/iteration69.md",
+        "docs/evidence/iteration88.md",
+        "docs/evidence/iteration93.md",
+        "docs/evidence/iteration96.md",
+        "docs/evidence/iteration109.md",
+        "docs/evidence/iteration113.md",
+        "docs/evidence/iteration114.md",
+        "docs/evidence/iteration117.md",
+        "docs/evidence/iteration118.md",
+        "docs/evidence/iteration119.md",
+        "docs/evidence/iteration120.md",
+        "docs/evidence/iteration121.md",
+        "docs/evidence/iteration122.md",
+        "docs/evidence/iteration124.md",
+        "docs/evidence/iteration127.md",
+        "docs/evidence/iteration129.md",
+        "docs/evidence/iteration130.md",
+        "docs/evidence/iteration136.md",
+        "docs/evidence/iteration142.md",
+        "docs/evidence/iteration145.md",
+        "docs/evidence/iteration146.md",
+        "docs/evidence/android-configuration-20261102.md",
+        "docs/evidence/iteration156.md",
+        "docs/evidence/iteration158.md",
+        "docs/evidence/iteration165.md",
+        "docs/evidence/iteration171.md",
+        "docs/evidence/iteration177.md",
+        "docs/evidence/iteration180.md",
+        "docs/evidence/iteration184.md",
+        "docs/evidence/iteration204.md",
+        "docs/evidence/iteration216.md",
+        "docs/evidence/iteration224.md",
+        "docs/evidence/iteration229.md"
+      ],
+      "blockers": [],
+      "implementation_note": "单raw DEX SourceSet固定不完整，支持同步method-v1查询并复制状态与候选，不含独立witness；完整来源base/split、Job/Batch、ClassLoader、binder和Android设备验收未完成。 同步JNI支持1–8项有序raw DEX集合并复制逐候选来源身份，scope固定不完整；APK自动发现、Job/Batch、ClassLoader、binder和Android设备验收仍未完成。 显式RAW_DEX/APK来源可展开多DEX并保留输入/条目身份；资源包允许零DEX，scope仍不完整；自动发现、ClassLoader/binder、设备运行仍未完成。 受限method-v1 JNI Job支持provisional批次、超时、取消和独立终态；迭代31时物化失败的确定性并发注入与Android设备验收未完成。 测试副本覆盖四个固定物化失败交错及否例；并非实际 JVM 内存耗尽、所有并发或 Android 设备证明。 新增七类直接实体 JNI Job 和测试副本四种固定交错及保护否例；不等于真实 JVM OOM、全部并发或 Android 设备证明。 新增同步 v3 metadata 图 JNI，复制来源、实体、绑定、路径、连接、见证和 profile；迭代34时高级 profile、图 Job 和设备仍未完成。 新增受限 v3 metadata 图 Job，批次复制/解码/交付失败后流失效；测试副本固定交错不证明真实 OOM 或全部并发。 JNI 图查询和图 Job 新增显式 v14 静态反射关系，固定样本保留 Unknown/见证，其他高级组合仍拒绝；设备与 ART 未验证。 新增同步 v4/v9 使用事件图桥，固定样本保留事件身份、来源、Unknown 和证明；不含事件 Job、全部错误路径或 ART/设备验证。 新增专用 v15 JNI 同步与 Job，保留旧入口拒绝范围；Android/ART 与全部故障路径未验证。 迭代50 JNI 使用事件桥接 v16，宿主测试通过；第50轮 AAR 双 ABI 已隔离构建和交叉链接，第45轮 AAR 为旧源码；Android 装载、binder 及设备验收仍未完成。 迭代51 AAR 按最终核心重建，离线双 ABI 静态检查通过；Android/ART 运行尚未验证。 迭代52 JNI 图同步/Job 接入无显式 scope 的 v17 限定方法体 demand；组合 AAR 与主机 JNI 验证通过，Android/ART 未验。 迭代55同源 AAR 双 ABI 离线构建；旧 JNI 入口明确拒绝无法携带继承路径的 v18，Android/ART 未验。 迭代58 同步 use-graph JNI 接入 v18 显式 scope 和继承见证；固定主机样本、旧入口回归、双 ABI 静态检查通过；use-graph Job、Android/ART、binder及设备验收仍未完成。 迭代66含新实验C入口的AAR双ABI静态导出、C交叉链接与Windows JNI组合回归通过；Android/ART实际运行仍未验。 迭代68以第66轮AAR类及同源Windows JNI回归故事偏好和基线固定夹具；未运行真实BIL或Android/ART。 迭代69同源AAR双ABI静态检查、三类C消费者交叉链接及故事host JNI组合回归通过；Android/ART设备运行未验。 迭代88以迭代87源码重建本地双ABI AAR，导出、16KiB对齐、旧及新C交叉链接和同源Windows JNI固定样本通过；未做设备/ART、完整CTest或实际BIL验收。 迭代93重建迭代91核心AAR，双ABI静态导出、16KiB、依赖及12次C交叉链接通过；迭代92核心/Android相关输入无变化。本次Windows JNI、真实ART和设备未验。 迭代96以迭代95核心源码重建双ABI AAR，静态导出、16KiB、依赖及12项C交叉链接通过；本次Windows JNI、设备和ART未验。 迭代109以迭代108核心源码重建双ABI AAR，124导出、16KiB、依赖及22项C交叉链接通过；本次Windows JNI、设备和ART未验。 迭代113新增独立显式顶层slot范围v4 use-graph同步入口与Kotlin有界构造；固定C/JVM/JNI/CLI同源对照和双ABI静态链接通过，局部scope不证明loader完整，原入口/Job不扩展，ART/BIL仍未验。 迭代114新增无scope v4/v9 use-graph Job与Kotlin转发；provisional批次、v2终态、固定背压及测试注入交付故障验证，双ABI静态和R8压缩类Windows JNI样本通过；ART/设备、真实BIL、全部故障并发与完整验收未完成。历史导出数更正见docs/evidence/iteration114-export-correction.md。 迭代117新增显式声明方法绑定、initiating/defining loader与调用方代际身份、候选static/instance一致性；来源始终UNVERIFIED，descriptor-only调用性质UNKNOWN，真实ART/设备和来源验证仍未完成。 迭代118新增显式声明构造器、字段及owner-only绑定，严格Class身份及static已知/未知/冲突分开，来源始终UNVERIFIED；固定JVM/D8/JNI和双ABI静态验证通过，真实ART/设备和来源验证未完成。 迭代119新增显式APK fd与Android元数据适配；调用者同步保活借用PFD，scope incomplete且来源未认证；同源AAR、Windows主机/插桩与双ABI静态验证通过，POSIX fork/exec和Android/PFD/ART未运行。 迭代120支持打开调用方已审阅的APK元数据计划并提供后台EXISTS示例；计划不认证来源，scope仍incomplete，Windows/JNI固定样本与双ABI静态验证通过，Android/PFD/ART未运行。 迭代121新增显式 field_declaration_static v19：对所选 slot 的字段使用事件，按字段引用 owner/name/type 关联自身或继承声明，并保留逐路径 C/JNI 见证；缺失/重复/环只在实际访问时 Unknown，静态候选不证明 caller 所属类、loader 或 ART。固定字节 oracle、Debug/ASan、C/Job、Kotlin/JNI、双 ABI 静态链接和 R8 Windows 样例通过；完整 Q08/QueryIR、设备与运行时未验。 迭代122新增 MethodSourceObservation：绑定同一 APK snapshot 的输入、DEX occurrence 和候选，扫描完成不等于结果列表穷尽；loader/generation 为调用方声明，Origin 始终 UNVERIFIED。Windows fake Android/JNI 验证通过，真实 PFD/ART 未运行。 迭代124新增独立同步 JNI 分类入口、复制式结果和 wire 身份校验；非标准接口 superclass 的正向静态路径经 post-build 固定样本验证，不证明 ART 可装载；设备/真实 loader 未验。 迭代127增加显式 v20 类注解静态反射标志模型和见证，保守 Unknown；固定 DEX/主机 JNI、C、预算/取消、双 ABI 静态审计与 R8 样本通过，完整 Q05、真实来源、Android/ART、BIL 和全部验收仍未完成。 ASan 首次因缺运行库无法启动，设置路径后通过；构建工具哈希首次采集于构建中，隐式工具行为未完整追踪。 迭代129新增显式 type_uses v21，七opcode checked事实、source-local caller/target_ref 关系及 C/CLI/Kotlin/JNI 和 Job 定向验证；设备/ART、完整关系和本任务全验收仍未完成。 迭代130新增直接 method_defs 的 using_types 与字符串/调用/字段同方法组合，空量词保留布尔恒等且须显式能力；定向 C/CLI/Kotlin/JNI/Job、双ABI静态和R8宿主样本通过；空量词独立C consumer、完整图组合、设备/ART及本任务全验收未完成。 迭代136接通展开同步/Job及typed Kotlin/Java有界wire，保留行、路径、前沿和独立外层证明。Java/Kotlin/同头Windows JNI编译与少量连通通过；原始JSON支持实体组合。新AAR/Android/ABI/R8与专项统一后做，Job scope精确索引列表尚未提供而显式标未知。 迭代142新增显式可选sample宿主与自建DEX资产演示SourceSet/展开，Java17 stub编译通过；Gradle/APK/ART/UI统一后做。 迭代145新增无snapshot计划视图/CLI explain、计划与运行profile外层及source+method_ref单方法完整调用C入口；Release和有限连通通过。SQL profile映射、Android接线及全ABI/取消/特殊域专项待后续。 迭代146接通Advanced四profile实体/metadata同步及Job，完整高级见证；单source+method_ref calls接口已Android复制值接线。主机编译和小连通通过；use图/完整ABI/R8/ART仍未支持或未验，旧入口不放宽。 JDK17/短临时目录下离线help含sample配置成功，既有回环错误本次未复现；尚非AAR/APK/ART验证。 迭代156基于当前同源AAR/JNI执行17项固定主机检查通过，包括AAR静态、JNI/Java/Kotlin、binder与R8；首次JniJobTest夹具错配失败已保留并按冻结fixture显式修正，设备/ART和全部接口/故障验收未完成。 迭代158隔离固定快照构建sample Debug APK成功；首次附加的依赖记录任务触发AGP变体歧义，保留失败并改用项目原始任务通过。设备/ART/UI未运行，完整依赖闭包未单独捕获。 迭代165显式v6继承使用点图Java/Kotlin同步/Job入口，复用v18带继承见证wire，旧入口不放宽；Windows JNI/CLI与固定样本通过，双ABI AAR/R8/设备及完整矩阵未验。 迭代171增加独立v8/v11接口继承使用点图Java/Kotlin同步/Job和专用见证wire；固定主机/CLI对照通过，reader170前快照与设备/完整Q08仍待统一验收。 迭代177增加通用Android显式opt-in持久method-v1同步会话，绑定真实Snapshot/SourceSet，默认不链接；旧候选双ABI/R8及最终Java/主机JNI有限连通，174与最终Java后须同源重建，设备/ART未验。 迭代180新增通用显式slot子范围method-v1同步/Job入口，正确映射多DEX/空资源并标记caller声明；主机/R8/NDK有限样本通过，当前179核心同源AAR/设备与完整范围矩阵未验。 迭代184新增通用单方法facts Java/Kotlin/JNI读取，保持类别/空/无body、UTF16与原始数值、来源；180同源AAR/主机样本通过，182后最终AAR/R8/设备未验。 迭代201增加来源 occurrence 的静态DEX字节复制接口；201/203以前sample仅有单台SDK33设备样本，最新接口未在设备验收。 final3统一24步及额外C来源字节样本通过；新接口仍未在Android设备验收。 迭代216增加来源occurrence内字段/方法引用三元索引与proto_id文本C/Android接口；双ABI AAR、固定Java/Kotlin/C主机及R8通过，非运行时绑定/设备/完整DexKit等价。 迭代224增加显式v23直接方法opcode序列查询及同步Android入口，四模式、显式通配/16位转换、预算取消/旧查询固定主机对照通过；仅受限profile，真实DexKit/ART/设备和性能未验。 迭代229新增显式输入slot子范围opcode同步入口，Java/JNI与修正Kotlin固定样本通过；首次runner测试笔误失败保留，组合AAR/R8及设备待验。 迭代247新增v24全输入同步JNI桥，有限JNI/R8/双ABI检查通过；scope/Job与完整AAR/ART仍未完成。 迭代250 Android v24新增显式slot范围同步桥与版本化scope getter；有限主机/R8/双ABI通过，Job/完整AAR/ART未验。 迭代254增加Android v25全输入同步/Job及slot同步桥，有限JNI/双ABI检查通过；范围Job、同源AAR/R8/ART未验。 迭代261当前SDK自建样例在一台API33 arm64 4KiB设备9/9通过；非全部接口、设备或真实BIL/Hook验收。"
+    },
+    {
+      "id": "P2-04",
+      "phase": "P2",
+      "title": "编译BIL33项规则和静态验收",
+      "status": "in_progress",
+      "workstream": "bil",
+      "depends_on": [
+        "P0-02",
+        "P2-01",
+        "P2-02"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "integrations/bil/rules/",
+        "integrations/bil/tests/rules/",
+        "integrations/bil/docs/static-plan-v2.md"
+      ],
+      "acceptance": [
+        "33项清单相等；每项正例/近似反例/基数/未完成/角色配对通过",
+        "保留STATIC Contains、class-only和后置验真；raw cap不提前给业务结论"
+      ],
+      "required_environment": "host/JVM and BIL source",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration36.md",
+        "docs/evidence/iteration37.md",
+        "docs/evidence/iteration38.md",
+        "docs/evidence/iteration39.md",
+        "docs/evidence/iteration40.md",
+        "docs/evidence/iteration41-summary.json",
+        "docs/evidence/iteration43.md",
+        "docs/evidence/iteration44.md",
+        "docs/evidence/iteration45.md",
+        "docs/evidence/iteration46.md",
+        "docs/evidence/iteration47.md",
+        "docs/evidence/iteration48.md",
+        "docs/evidence/iteration49.md",
+        "docs/evidence/iteration51.md",
+        "docs/evidence/iteration52.md",
+        "docs/evidence/iteration53.md",
+        "docs/evidence/iteration72.md",
+        "docs/evidence/iteration86.md",
+        "docs/evidence/iteration89.md",
+        "docs/evidence/iteration90.md",
+        "docs/evidence/iteration92.md",
+        "docs/evidence/iteration105.md",
+        "docs/evidence/iteration107.md",
+        "docs/evidence/iteration111.md",
+        "docs/evidence/iteration132.md",
+        "docs/evidence/iteration150.md",
+        "docs/evidence/iteration178.md",
+        "docs/evidence/iteration186.md"
+      ],
+      "blockers": [],
+      "implementation_note": " 冻结提交的33项中4项可生成静态 Enumerate 候选、29项明确 Unsupported；旧逐归档 raw cap、角色及运行时后验未实现，不代表当前 BIL 兼容。 冻结33项中9项可生成静态候选、24项 Unsupported；旧 raw cap、角色、运行时后验和当前 BIL 完整兼容仍未实现。 冻结33项中10项静态候选，23项 Unsupported；静态反射 Unknown 不可作最终判定，运行时及 raw cap 未完成。 冻结33项中19项静态候选、14项 Unsupported；旧 raw cap、业务角色与运行时后验未实现。 冻结33项中22项可生成静态初筛、11项 Unsupported；广告后过滤、旧 raw cap 和业务后验未完成。 迭代41已合入广告静态调用后过滤，按来源/方法/PC保留标准调用计数、128/129边界及Danmaku排除，poly/custom不误计；修复长名称超过64KiB时错误提交超长批次，真实DEX新旧代码对照及Debug/ASan各20项行为记录通过。仍不实现逐归档raw cap、运行时绑定和业务唯一性，完整33项未完成。 新增单 archive 的静态 raw cap 检查，已有物化数由调用方声明；完整 archive 循环与运行时验收未完成。 增加逐archive暂定会话和调用方物化确认；副作用不可由协议回滚，真实重解析点、ClassLoader和完整BIL未验证。 新增三个同来源方法/构造器/类初始化器 owner 静态锚点，原规则仍 Unsupported，运行时/后验未完成。 三个 owner 锚点可逐 archive 暂定检查；调用方真实物化数为可信反馈，外部副作用不可回滚，完整 BIL 未验收。 增加评论 caller→同来源 method_ref 静态证据；Unknown 模拟及动态 reader/delegate、逐 archive raw cap 和运行时验收未完成。 迭代48增加评论reader同来源静态ABI形状及受控边界验证，原两条规则仍Unsupported，未验证ClassLoader、delegate与真实业务。 迭代49增加 Kotlin 评论 wrapper 到同来源 delegate 静态调用与形状证据，Unknown 保留，原规则仍 Unsupported，运行时与业务验真未完成。 迭代51增加评论逐 archive 原始 caller cap 与调用方确认协议，固定样本通过；动态物化与业务验收仍未完成，两条原规则仍 Unsupported。 迭代52接入 STORY_QUALITY_MATCH 静态初筛，23/33 规则可生成候选；逐 archive 受控物化替身验证通过，真实绑定及业务验收未完成。 迭代53修复故事画质测试的核心源码与工作区身份绑定；安装后15项固定协议及8项身份/运行中变更负例通过，真实 BIL 运行时验收仍未完成。 迭代72新增 SPONSOR_RUN_PLAYABLE 精确静态初筛及逐caller构造引用证据，24/33仅表示初筛；普通调用127/128/129、非常规调用Unknown、逐archive原始阈值与来源顺序经固定样本验证，Constructor/relatedClasses运行时物化和Sponsor角色联验仍未完成。 迭代86接入 Sponsor wrapper/scope 精确首轮静态计划，冻结33项中26项可生成初筛；特殊调用保守Unknown，scope去重Class上限依赖调用方真实物化反馈，旧CLI固定样本不证明当前核心或真实BIL/ART；角色、来源与业务验真未完成。 迭代89增加 STORY DEFAULT 显式双分支静态 bag 及逐归档可信物化确认，D8 custom 与固定 DEX 边界定向通过；通用翻译仍为26/33，真实运行与角色验收未完成。 迭代90将两条评论精确锚点 caller 初筛接入通用翻译（28/33），逐归档先检查原始 caller 上限，再对整档特殊调用保守 Unknown，按同来源 caller 关联 reader/条件 delegate；真实 APK 覆盖、loader 来源、最终 reader 及业务验收仍未完成。 迭代92接入 SEARCH_HOME_DELIVERY 的精确 getHistoryList 方法锚点（通用29/33仅静态初筛），结合既有同来源owner投影与逐档原始方法上限；固定回归使用迭代87核心，迭代91核心及loader来源、typed ABI、业务唯一性未验。 迭代105接入 SEARCH_HOME_STATE 精确构造器首轮静态计划（通用30/33仅静态候选），与同来源owner和逐档可信物化协议对照；原始构造器上限与Class身份去重上限分开，loader、泛型和真实BIL/ART未验。 迭代107接入 HOME_CHROME_SEMANTICS 精确类初始化器静态首筛（通用31/33仅首筛），同来源owner及class-only逐档可信反馈保留；真实loader、字段读取和toString及业务/ART仍未验。 迭代111新增 PLAYER_SPEED_MENU 独立六分支有序静态bag与逐档可信确认，不计入通用31/33；特殊调用/Unknown不提交，实际分支顺序、loader、factory/related与宿主及ART/BIL未验。 迭代132统一v2规划入口接通33项静态计划：31条单查询、STORY默认双分支及速度菜单六分支；保留bag次序/重复/probe，v1不变。仅计划生成烟测，执行差分、真实绑定及业务待统一验证。 迭代150统一33计划分派、运行时发现/接受与实际L0/迁移使用方接入；单caller迁移、当前attestor、最终transition及cached优先已修。JAR和有限2规则/优先级样本通过；完整33业务/副作用/Android与真实BIL验收未完成。 迭代178 Story请求组先逐分支重绑定/attest，已计划失败不得作为未计划null发布完整共享角色；保留具体错误及独立DIRECT等优先级，自建host样本通过，真实BIL/ART未验。 迭代186对齐当前BIL终页merger ABI：允许static并拒绝synthetic，固定JVM正反例通过；真实DEX袋与设备未验。"
+    },
+    {
+      "id": "P2-05",
+      "phase": "P2",
+      "title": "接入BIL façade与业务验证器",
+      "status": "in_progress",
+      "workstream": "bil",
+      "depends_on": [
+        "P2-03",
+        "P2-04"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "integrations/bil/DexMeguvizAssistEngine.kt",
+        "integrations/bil/docs/semantic-parity.md",
+        "integrations/bil/SponsorRunFileAssist.kt",
+        "integrations/bil/SponsorRoleSelector.kt",
+        "integrations/bil/SponsorSiblingFileAssist.kt",
+        "integrations/bil/EndPageMergerFileAssist.kt",
+        "integrations/bil/BlockUpdateFileAssist.kt",
+        "integrations/bil/CommentMapperFileAssist.kt",
+        "integrations/bil/ClassicReaderFileAssist.kt",
+        "integrations/bil/docs/classic-reader-file-v1.md"
+      ],
+      "acceptance": [
+        "Method/Class/relatedClasses与现有locator相同业务语义",
+        "显式profile保留singleton/构造样本行为及副作用验证，不把未知变无匹配"
+      ],
+      "required_environment": "BIL complete checkout and Android toolchain",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration56.md",
+        "docs/evidence/iteration57.md",
+        "docs/evidence/iteration59.md",
+        "docs/evidence/iteration62.md",
+        "docs/evidence/iteration63.md",
+        "docs/evidence/iteration64.md",
+        "docs/evidence/iteration65.md",
+        "docs/evidence/iteration67.md",
+        "docs/evidence/iteration68.md",
+        "docs/evidence/iteration74.md",
+        "docs/evidence/iteration75.md",
+        "docs/evidence/iteration76.md",
+        "docs/evidence/iteration78.md",
+        "docs/evidence/iteration112.md",
+        "docs/evidence/iteration115.md",
+        "docs/evidence/iteration125.md",
+        "docs/evidence/iteration126.md",
+        "docs/evidence/iteration128.md",
+        "docs/evidence/iteration131.md",
+        "docs/evidence/iteration146.md",
+        "docs/evidence/iteration150.md",
+        "docs/evidence/iteration152.md",
+        "docs/evidence/iteration164.md",
+        "docs/evidence/iteration174.md",
+        "docs/evidence/iteration175.md",
+        "docs/evidence/iteration178.md",
+        "docs/evidence/iteration186.md",
+        "docs/evidence/iteration209.md",
+        "docs/evidence/iteration218.md",
+        "docs/evidence/iteration221.md",
+        "docs/evidence/iteration228.md"
+      ],
+      "blockers": [],
+      "implementation_note": "迭代56新增默认画质 Kotlin façade 和有界文件 APK 来源；受控 JVM/DEX、固定 ZIP 差分与两份真实 APK 空加载器只读扫描通过，真实绑定、全部规则、Android/ART、签名及原子快照仍未完成。 迭代57新增故事画质文件 façade；受控 JVM/DEX、真实 JNI、归档上限与证据伪造拒绝通过，真实 BIL 绑定及 Android/ART 仍未完成。 迭代59故事画质使用v18 AAR类与同源Windows JNI通过固定样本回归；9.17/9.14真实APK空加载器只读扫描各1候选、1未解析，不证明真实BIL绑定或Android/ART。 迭代62新增故事资源文件入口和DEFAULT单归档raw bag扫描；默认角色展开、真实BIL绑定和Android/ART仍未完成。 迭代63增加DEFAULT同owner policy/resource及一层reader受限展开，保留归档和嵌套上限；非常规invoke返回不完整，direct基线、缓存合并、业务选择、真实BIL及Android/ART仍未完成。 迭代64接入三路受限角色选择，查询Unknown与locator列表跳过显式区分；direct baseline、缓存验证/合并、真实BIL安装和Android/ART仍未完成。 迭代65接入受限direct基线、缓存身份重绑定和同loader身份检查的角色合并；真实偏好运行时、旧缓存持久化、反射工具等价、BIL/Android/ART仍未完成。 迭代67接入受限偏好结构检查及显式激活；仅自建夹具执行单例/构造器并验证16/80/127，旧副作用时序、真实偏好/BIL与Android/ART仍未验收。 迭代68以第66轮AAR类及同源Windows JNI回归故事偏好和基线固定夹具；未运行真实BIL或Android/ART。 迭代74新增实验性 Sponsor run caller 反射物化和逐来源/调用者构造类配对，含逐归档32、物化后标准调用点128及relatedClasses去重32边界；同名不同字节加载器反例表明反射绑定成功不证明来源。特殊调用保守不完整；旧 DexKit 完整等价、Sponsor 角色联验、真实BIL与Android/ART仍未完成。 迭代75新增实验性 Sponsor run/continuation、wrapper、seek 与 scope 顺序选择及结构验证；静态字段读取必须显式 opt-in，未证明的父接口 getter 覆盖返回 Unknown。wrapper/scope 查询完整性和来源标识由调用方声明，不能证明 ClassLoader 真实来源；旧引擎副作用完全等价、真实BIL和Android/ART仍未完成。 迭代76接入故事verified-members窄profile与受控迁移；真实scope/loader/native build依赖可信attestor，旧业务/ART与原子来源仍未验收。 迭代78新增实验性 Sponsor wrapper/scope 候选生产与 RUN 三规则逐归档交错，按 Class 身份去重 scope 上限并保留 occurrence；custom 与 polymorphic 保守未知，scope 的初筛漏候选 custom 样本为结构改造 DEX 不证明 ART 合法。旧引擎语义 parity、真实来源/完整 scope 仍依赖调用方声明；真实BIL与Android/ART未验收。 迭代112保留 PLAYER_SPEED_MENU 受控角色选择隔离原型：仅检查成员声明、同loader身份、32上限、角色唯一与live/compact条件；factory/adapter业务与来源依赖调用方可信声明，未进入正式库，真实BIL、ART、原副作用时序与完整验收未完成。 迭代115新增 PLAYER_END_PAGE_MERGER 独立文件辅助原型；受信来源及范围声明、旧逐档原始匹配/物化计数、自建 loader 和持续文件修改反例已覆盖；File.path 别名独立、父类声明不符保守拒绝、真实 BIL/ART 及业务接入未完成。 迭代125增加 BLOCK_UPDATE 受控文件辅助与叶选择，自建 D8/JVM/Windows JNI 和独立字节对照通过；来源始终 UNVERIFIED，真实 BIL、Android/ART、完整业务和完整验收仍未完成。首次 CLI 进程未启动（WinError 5），仅有人工摘要，未重试。 迭代126修复默认画质共享反射解析器：声明查找遇到异常时仅 NoSuchMethodException 允许继续；其它 Exception/LinkageError 保守未解析，两个 façade 固定自建JVM/D8与Windows JNI覆盖 NoClassDefFoundError，非全部访问异常或真实BIL/ART验收。 迭代128新增受控 COMMENT_REPLY_MAPPER 文件辅助：按冻结顺序在声明范围内物化并选唯一 owner 方法组；自建 D8/JVM 和迭代127同源 Windows JNI 固定样本通过。v13/v14 仅固定样本对照，48 条实际输出逐项核验未覆盖缺行；loader/来源、真实 BIL、完整评论拓扑及 ART 未验。 迭代131接入经典评论NATIVE/KOTLIN两家族受控文件辅助源码（逐APK双遍、原始cap、普通调用/条件delegate、反射ABI和单owner）；按用户要求统一验证后做。原固定样本只证明iteration129，旧oracle漏洞及special façade缺项明确保留，新核心/真实BIL/ART未验。 迭代146接通Advanced四profile实体/metadata同步及Job，完整高级见证；单source+method_ref calls接口已Android复制值接线。主机编译和小连通通过；use图/完整ABI/R8/ART仍未支持或未验，旧入口不放宽。 迭代150统一33计划分派、运行时发现/接受与实际L0/迁移使用方接入；单caller迁移、当前attestor、最终transition及cached优先已修。JAR和有限2规则/优先级样本通过；完整33业务/副作用/Android与真实BIL验收未完成。 迭代152预解算11规则受控桥进入实际miss路径；默认fallback，独立显式producer完整枚举政策后仍做当前绑定/attestor/业务验证。producer接受不写普通L0且最终缓存映射抑制一致，有限自建连通/只读复核通过；完整矩阵与设备未验。 迭代164 BIL预解算桥显式接入resource-split，含DEX时仍遍历/验证/绑定；单规则自建producer包与JVM/JNI、回退/attestor/L0样本通过，真实BIL/ART和完整矩阵未验。 迭代174修复可信预解算将缺失/非零Unknown及不完整producer误作完成的缺口：严格核对实际字段、全scope/访问数和可选profile；历史有效包及26反例主机对照通过，完整枚举依赖显式producer信任，ART未验。 迭代175修复DIRECT无可复用证明仍写FOUND及L0候选解码拒绝阻断回退：业务成功/持久写入分离，真实IO损坏仍失败；有限JVM/旧预解算样本通过，与174门禁合并后待同源重验。 迭代178 Story请求组先逐分支重绑定/attest，已计划失败不得作为未计划null发布完整共享角色；保留具体错误及独立DIRECT等优先级，自建host样本通过，真实BIL/ART未验。 迭代186对齐当前BIL终页merger ABI：允许static并拒绝synthetic，固定JVM正反例通过；真实DEX袋与设备未验。 迭代209修正终页专用runtime候选袋压缩及无效非空候选误报缺失；真实APK/DexKit/设备未验。 迭代218修复评论映射当前ReplyInfo主/备用类型、完整raw methods及避免虚构raw classes；增加显式默认关闭owner守卫，20/33候选、余13、生产启用0，真实DexKit袋/拓扑/设备未验。 迭代221保留三类旧JVM构造签名；旧对象rawMethodsAvailable=false、专用投影Incomplete且不写MISSING，旧二进制与新路径主机样本通过；非完整ABI/设备证明。 迭代228经典评论native/kotlin保留原始callee袋、拒绝缺袋并按当前宿主选择排序，保留旧JVM签名，22/33候选guard、余11、生产0；真实DexKit袋/设备/性能未验。"
+    },
+    {
+      "id": "P2-06",
+      "phase": "P2",
+      "title": "迁移缓存状态与attempt恢复",
+      "status": "in_progress",
+      "workstream": "bil",
+      "depends_on": [
+        "P2-05"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "integrations/bil/tests/cache_state_matrix/",
+        "integrations/bil/patches/state-mapping/"
+      ],
+      "acceptance": [
+        "rich outcome到旧接口/缓存的转移逐项测试；Partial不写MISSING",
+        "完整L0/空计划零native扫描；marker先于昂贵准备，manual reset/源变化恢复通过"
+      ],
+      "required_environment": "BIL JVM tests; device for cold/warm observation",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration68.md",
+        "docs/evidence/iteration70.md",
+        "docs/evidence/iteration71.md",
+        "docs/evidence/iteration73.md",
+        "docs/evidence/iteration76.md",
+        "docs/evidence/iteration123.md",
+        "docs/evidence/iteration150.md",
+        "docs/evidence/iteration152.md",
+        "docs/evidence/iteration175.md",
+        "docs/evidence/iteration204.md"
+      ],
+      "blockers": [],
+      "implementation_note": "迭代68新增受限rich状态映射及注入式marker编排，640状态组合和恢复路径经受控JVM替身验证；尚不保存候选值，未实现真实持久化、BIL接线、跨进程和设备验收。 迭代70增加实验性文件锁、追加世代、提交事务及reset-pending/代际，固定Windows进程中断与旧二进制测试通过；旧BIL格式迁移、真实接线、掉电及Android/设备验收仍未完成。 迭代71新增旧BIL schema62/rule80严格子集和marker只读识别；旧诊断仅待重验，不导入FOUND/MISSING，强身份、真实BIL迁移/接线和设备验收仍未完成。 迭代73新增调用方可信verifier驱动的旧缓存显式重验迁移，marker/未知阻断并按强身份提交；真实BIL verifier/接线、外部原子来源、Android/设备和生产迁移仍未完成。 迭代76接入故事verified-members窄profile与受控迁移；真实scope/loader/native build依赖可信attestor，旧业务/ART与原子来源仍未验收。 迭代123增加opt-in guarded lookup：负项需复验，读前后核对调用方声明并拒绝重入/变化；不认证来源，无法检测未报告变化/ABA，旧入口和落盘格式不变，真实BIL/ART仍未验。 迭代150统一33计划分派、运行时发现/接受与实际L0/迁移使用方接入；单caller迁移、当前attestor、最终transition及cached优先已修。JAR和有限2规则/优先级样本通过；完整33业务/副作用/Android与真实BIL验收未完成。 迭代152预解算11规则受控桥进入实际miss路径；默认fallback，独立显式producer完整枚举政策后仍做当前绑定/attestor/业务验证。producer接受不写普通L0且最终缓存映射抑制一致，有限自建连通/只读复核通过；完整矩阵与设备未验。 迭代175修复DIRECT无可复用证明仍写FOUND及L0候选解码拒绝阻断回退：业务成功/持久写入分离，真实IO损坏仍失败；有限JVM/旧预解算样本通过，与174门禁合并后待同源重验。 使用较早同源AAR/JNI联合回归174预计算及175 DIRECT/L0，仍需最新核心和真实业务设备验证。"
+    },
+    {
+      "id": "P2-07",
+      "phase": "P2",
+      "title": "完成独立CLI CI差分使用方",
+      "status": "in_progress",
+      "workstream": "integration",
+      "depends_on": [
+        "P2-01",
+        "P1-10"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "cli/diff/",
+        "examples/ci-apk-diff/",
+        "tests/integration/portable_consumer/"
+      ],
+      "acceptance": [
+        "无Android/BIL依赖构建并运行非BILfixture，定义/引用差分正确",
+        "新split/外部引用解析变化/同名多定义/预算失败有明确输出与退出码"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration35.md",
+        "docs/evidence/iteration36.md",
+        "docs/evidence/iteration39.md",
+        "docs/evidence/iteration148.md",
+        "docs/evidence/iteration159.md",
+        "docs/evidence/iteration161.md",
+        "docs/evidence/iteration172.md"
+      ],
+      "blockers": [],
+      "implementation_note": " 新增独立静态差分工具，比较声明/引用、来源 occurrence、flags 与方法体存在性；迭代35时不比较字节码或推断运行时解析。 静态差分新增可选 raw code_item 指纹，规范化 debug_info_off；字节比较不证明语义等价或运行时解析。 CI 差分可在完整成功后原子写输出；符号链接实测和并发写入、崩溃持久性未验证。 迭代148配套命令路由统一交付入口，diff可保留全新扫描workspace，有限metadata verify有严格形状/类型/资源门控；1正例/unsupported反例及同输入diff连通通过。QueryID/运行时与全profile/CI专项未验。 迭代159配套verify新增独立有界raw SourceSet元数据核验，独立声明输入/顺序/scope，重算身份和有限查询证据；重复来源/错误slot/incomplete连通通过。scope未认证，QueryID、APK、指令与运行时不核验，完整验收未完成。 迭代161独立verify扩展有限APK/资源分片，多DEX数值顺序与来源身份、所选条目局部头/长度/CRC；stored/deflate和损坏/重复/非规范/descriptor固定样本通过。范围不含ZIP64/完整ZIP、签名及运行时，完整验收未完成。 迭代172可选跨来源精确符号引用候选和occurrence集合差分；默认输出不变，新增split/多定义/incomplete/独立class-field oracle与预算样本通过，不推断运行时解析；完整P2-07未验。"
+    },
+    {
+      "id": "P2-08",
+      "phase": "P2",
+      "title": "完成跨使用方独立证据核验",
+      "status": "in_progress",
+      "workstream": "validation",
+      "depends_on": [
+        "P2-04",
+        "P2-07",
+        "P1-11"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "tools/evidence_verifier/",
+        "tests/integration/cross_consumer/"
+      ],
+      "acceptance": [
+        "C/Kotlin/CLI共同静态语义与独立golden一致；不能只复读自产缓存",
+        "唯一/不存在证据核验覆盖相关范围；共享组件的独立性边界记录"
+      ],
+      "required_environment": "host and JVM",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration41-summary.json",
+        "work/iteration41/cross-consumer/summary.json",
+        "docs/evidence/iteration43.md",
+        "docs/evidence/iteration46.md",
+        "docs/evidence/iteration48.md",
+        "docs/evidence/iteration50.md",
+        "docs/evidence/iteration122.md",
+        "docs/evidence/iteration124.md",
+        "docs/evidence/iteration127.md",
+        "docs/evidence/iteration129.md",
+        "docs/evidence/iteration130.md",
+        "docs/evidence/iteration136.md",
+        "docs/evidence/iteration148.md",
+        "docs/evidence/iteration159.md",
+        "docs/evidence/iteration161.md"
+      ],
+      "blockers": [],
+      "implementation_note": "迭代41合入并运行实际最终AAR类与同源Windows JNI、新建C消费者和CLI的六组method-v1对照；独立Python字节oracle复核完整/不完整scope的枚举、唯一、零/多候选与Exists，伪造flags及部分范围否定控制被拒绝。额外19组Kotlin/CLI与14个旧profile对照通过。仅固定单DEX子集，C/JNI共享核心；多来源完整证据及全QueryIR、Android/ART与前置验收仍未完成。 迭代43使用本轮实际AAR与同源CLI、C核心重跑六组和两项伪造控制，范围仍为单DEX方法查询。 补充两个重复/不同 raw DEX 数据集的14组 C/Kotlin/CLI 查询、独立字节与身份验证；APK及完整跨使用方验收仍未完成。 迭代48补充存储和压缩多DEX APK的10组跨C/Kotlin/CLI查询及独立字节来源验证，覆盖损坏CRC和伪造控制；C/JNI共享core，完整范围及Android/ART未完成。 迭代50 C/Job 和宿主 Kotlin/JNI 分别验证 v16 受控样本，字节 oracle 核对；并非全部跨使用方、全部源码或 Android/ART 验收。 迭代122在同一自建四 DEX APK snapshot 联测观察桥与 caller 字段图的 occurrence/路径；C、CLI、JNI 共享核心，独立字节 oracle 仅覆盖字段图固定夹具，来源桥并非独立来源认证，完整跨使用方验收未完成。 迭代124以独立原始 DEX 字节核对 caller/字段定义、正向路径和外部闭包并拒绝伪造，C/CLI/JNI 仍共享核心；样本与 Android 设备均有限，完整跨使用方证据未完成。 迭代127增加显式 v20 类注解静态反射标志模型和见证，保守 Unknown；固定 DEX/主机 JNI、C、预算/取消、双 ABI 静态审计与 R8 样本通过，完整 Q05、真实来源、Android/ART、BIL 和全部验收仍未完成。 ASan 首次因缺运行库无法启动，设置路径后通过；构建工具哈希首次采集于构建中，隐式工具行为未完整追踪。 迭代129新增显式 type_uses v21，七opcode checked事实、source-local caller/target_ref 关系及 C/CLI/Kotlin/JNI 和 Job 定向验证；设备/ART、完整关系和本任务全验收仍未完成。 迭代130新增直接 method_defs 的 using_types 与字符串/调用/字段同方法组合，空量词保留布尔恒等且须显式能力；定向 C/CLI/Kotlin/JNI/Job、双ABI静态和R8宿主样本通过；空量词独立C consumer、完整图组合、设备/ART及本任务全验收未完成。 迭代136接通展开同步/Job及typed Kotlin/Java有界wire，保留行、路径、前沿和独立外层证明。Java/Kotlin/同头Windows JNI编译与少量连通通过；原始JSON支持实体组合。新AAR/Android/ABI/R8与专项统一后做，Job scope精确索引列表尚未提供而显式标未知。 迭代148配套命令路由统一交付入口，diff可保留全新扫描workspace，有限metadata verify有严格形状/类型/资源门控；1正例/unsupported反例及同输入diff连通通过。QueryID/运行时与全profile/CI专项未验。 迭代159配套verify新增独立有界raw SourceSet元数据核验，独立声明输入/顺序/scope，重算身份和有限查询证据；重复来源/错误slot/incomplete连通通过。scope未认证，QueryID、APK、指令与运行时不核验，完整验收未完成。 迭代161独立verify扩展有限APK/资源分片，多DEX数值顺序与来源身份、所选条目局部头/长度/CRC；stored/deflate和损坏/重复/非规范/descriptor固定样本通过。范围不含ZIP64/完整ZIP、签名及运行时，完整验收未完成。"
+    },
+    {
+      "id": "P2-09",
+      "phase": "P2",
+      "title": "运行完整BIL规则与绑定对照",
+      "status": "in_progress",
+      "workstream": "bil",
+      "depends_on": [
+        "P0-09",
+        "P2-05",
+        "P2-06",
+        "P2-08"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "benchmarks/bil/full-rules/",
+        "integrations/bil/tests/device_runner/"
+      ],
+      "acceptance": [
+        "设备runner参数化A/B/C和base+split，真实执行33规则相关计划",
+        "记录实际测试/skip/角色/Origin，绑定失败不伪装兼容；指定LSPosed流程另测"
+      ],
+      "required_environment": "Android devices and exact APK corpus",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration162.md",
+        "docs/evidence/iteration168.md",
+        "docs/evidence/integration-supplement-20261102.md",
+        "docs/evidence/iteration205.md",
+        "docs/evidence/iteration213.md",
+        "docs/evidence/iteration214.md",
+        "docs/evidence/iteration227.md"
+      ],
+      "blockers": [],
+      "implementation_note": "迭代162新增按33规则及有序base/split参数化A/B/C批量对照运行器，来源变化、失败、skip、未知绑定或角色保守不可比较；实际C接统一runtime，A/B须宿主注入。自建A/B与C DIRECT、两来源和JSONL主机连通，不代表设备/ART/真实BIL/DexKit、全业务或性能验收。 迭代168增加BIL测试宿主内DexAssistEngine接口A/B桥，一次实际resolveAll、33枚举映射、描述符和保守完整性/角色声明；按当前BIL接口复制源码与自建engine编译连通，未运行真实DexKit/BIL/设备或正式基准。 当前BIL runtime配合同源AAR类/JNI完成预计算28例和DIRECT/L0来源保护的自建宿主回归；不等于真实33规则或设备/ART。 迭代205基于final3同源Android类与Windows JNI重建适配器，28例预计算与DIRECT/L0自建主机回归通过；不证明真实设备、来源认证及33规则。 迭代213使用符号v3的同源AAR/JNI重建当前BIL runtime，预计算、DIRECT/L0、终页和已编译OGV guard固定主机样本通过，非真实BIL/设备或完整33规则。 迭代214以当前BIL runtime及符号v3 SDK重新编译并运行18条显式guard的自建方法主机样本；不证明真实DexKit袋/设备/ART。 迭代227以v23 v5 SDK重编当前BIL runtime及19条显式guard；固定预计算/缓存/终页/评论/旧JVM兼容样本通过，不证明真实BIL/ART/设备及完整DexKit等价。"
+    },
+    {
+      "id": "P3-01",
+      "phase": "P3",
+      "title": "冻结SQL catalog并实现保守虚表",
+      "status": "in_progress",
+      "workstream": "sql",
+      "depends_on": [
+        "P2-01",
+        "P2-07"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "adapters/sqlite/",
+        "docs/contracts/sql-v1.md"
+      ],
+      "acceptance": [
+        "refs/defs/sites行粒度及NULL明确；SQLite可关闭不污染Android核心",
+        "默认不omit/不消费排序/不LIMIT下推，与普通SQLite物化fixture等价"
+      ],
+      "required_environment": "host and pinned SQLite",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration26.md",
+        "docs/evidence/iteration27.md",
+        "docs/evidence/iteration29.md",
+        "docs/evidence/iteration30.md",
+        "docs/evidence/iteration31.md",
+        "docs/evidence/iteration32.md",
+        "docs/evidence/iteration33.md",
+        "docs/evidence/iteration34.md",
+        "docs/evidence/iteration35.md",
+        "docs/evidence/iteration37.md",
+        "docs/evidence/iteration38.md",
+        "docs/evidence/iteration43.md",
+        "docs/evidence/iteration55.md",
+        "docs/evidence/iteration134.md",
+        "docs/evidence/iteration147.md",
+        "docs/evidence/iteration166.md"
+      ],
+      "blockers": [],
+      "implementation_note": "work/iteration27/sqlite-bounded-v3-draft含内部参数/执行预算、prepare前authorizer、函数白名单与TEMP_STORE=3；SQLite总账本、auto-extension隔离、完整catalog/取消/并发/生产提交仍未完成，不公开。 work/iteration29/sqlite-field-draft增加field_refs/field_defs及两来源SQL物化对照，Debug/ASan定向通过；仅内部草稿，完整catalog、统一账本、auto-extension隔离和生产提交仍未完成。 work/iteration30/sqlite-class-draft增加type_refs/class_defs和独立字节/普通表对照；仍为内部草稿，完整catalog和统一账本等未完成。 work/iteration31/sqlite-sites-draft新增三类静态使用点，Debug/ASan各4/4；逐次扫描限额、SQLite总内存、auto-extension、并发和生产提交仍未完成。 Windows MSVC 草稿测试私有 SQLite 的 auto-extension、VFS 和日志隔离；基于 iteration31 核心，不是生产提交或跨平台资源隔离。 Windows 私有 SQLite 草稿新增 string_values，修复前导 BOM 被吞；未配对代理项明确失败，完整 catalog、资源总账和生产提交未完成。 Windows 私有 SQLite 草稿新增 snapshot、inputs、sources 只读目录；保留 occurrence 与原始字节 hex，scope_complete=false 仍拒绝，非生产。 新增内部范围化 SQL 会话与原子结果，incomplete 来源带 Partial 标签；SQL 内存账本、完整 catalog 和生产协议未完成。 可选桌面私有 SQLite 草稿新增一次性共享硬堆限额与计数；不覆盖 Engine、单会话及进程 RSS，总体协议与跨平台验收仍未完成。 桌面草稿可选单语句累计使用点扫描工作/记录限额；不限制瞬时内存或全部 SQLite 工作，生产 SQL 与跨平台验收未完成。 内部 SQL 草稿新增有界 NULL/INTEGER/TEXT 多参数绑定并同步本轮核心，生产验收未完成。 迭代55将桌面私有 SQLite 适配器接入主工程默认关闭的实验性选项；Windows 双模式各25项、普通构建与 Android 启用拒绝通过，完整 catalog、跨平台及生产验收未完成。 迭代134接通逻辑DEX目录、类型使用点、原始MUTF-8 BLOB/UTF16长度，BLOB参数结果贯通提交/分页/驻留/JSONL，colUsed进入访问计划；旧v22核心Debug及5查询烟测通过，合并核心专项统一后做，完整S01–S11未验。 迭代147主CLI sql一次性严格发布、参数、SourceSet/raw/APK/resource和驻留来源/scope/额度连通，private heap可显式对齐；Release与6检查通过。profile时间阶段区分，完整S01-S11/压力/性能未完成。 迭代166将既有identity equality/IN以默认关闭选项接一次性/同步/后台驻留；有限NULL/重复/参数与EXPLAIN连通通过，完整S01–S09和性能未验。"
+    },
+    {
+      "id": "P3-02",
+      "phase": "P3",
+      "title": "实现SQL约束投影与IN下推",
+      "status": "in_progress",
+      "workstream": "sql",
+      "depends_on": [
+        "P3-01"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "adapters/sqlite/planning/",
+        "tests/sql/pushdown/"
+      ],
+      "acceptance": [
+        "S01-S09通过；只用usable约束，实际参数xFilter绑定",
+        "all-at-once IN保留NULL/bag，粗筛保留residual；xBestIndex无昂贵隐式prepare"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration39.md",
+        "docs/evidence/iteration40.md",
+        "docs/evidence/iteration55.md",
+        "docs/evidence/iteration77.md",
+        "docs/evidence/iteration79.md",
+        "docs/evidence/iteration134.md",
+        "docs/evidence/iteration166.md"
+      ],
+      "blockers": [],
+      "implementation_note": " 内部桌面草稿可选元数据 source_index/ordinal 整数粗筛与 SQLite 残余判断；IN 可能逐值探测，完整下推与验收未完成。 SQL 草稿增加 opt-in all-at-once IN 下推及回退，与本轮47项核心源码同步；完整下推及生产验收未完成。 迭代55将已有可选约束和 IN 原型随默认关闭适配器接入；全部 S01–S09 与生产验收未完成。 迭代77增加默认关闭的桌面元数据rowid INTEGER等值粗筛及SQLite残余，Windows Debug/ASan定向差分通过；完整S01–S09、跨平台与生产验收未完成。 迭代79补充S01–S09有限普通表差分与逐项缺口审计；不实现colUsed下推，全部S01–S09、跨平台与生产验收未完成。 迭代134接通逻辑DEX目录、类型使用点、原始MUTF-8 BLOB/UTF16长度，BLOB参数结果贯通提交/分页/驻留/JSONL，colUsed进入访问计划；旧v22核心Debug及5查询烟测通过，合并核心专项统一后做，完整S01–S11未验。 迭代166将既有identity equality/IN以默认关闭选项接一次性/同步/后台驻留；有限NULL/重复/参数与EXPLAIN连通通过，完整S01–S09和性能未验。"
+    },
+    {
+      "id": "P3-03",
+      "phase": "P3",
+      "title": "实现严格SQL提交与分页",
+      "status": "in_progress",
+      "workstream": "sql",
+      "depends_on": [
+        "P3-02",
+        "P1-09"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "adapters/sqlite/result_commit/",
+        "tests/sql/failure_and_cursor/"
+      ],
+      "acceptance": [
+        "S10-S11及COUNT/NOT EXISTS失败注入通过",
+        "provisional到final有协议；结果预算/spool/游标期限明确，无无界缓存"
+      ],
+      "required_environment": "host",
+      "optional_capability": false,
+      "evidence": [
+        "work/iteration41/sql-validation/consolidated/summary.json",
+        "docs/evidence/iteration43.md",
+        "docs/evidence/iteration45.md",
+        "docs/evidence/iteration47.md",
+        "docs/evidence/iteration55.md",
+        "docs/evidence/iteration80.md",
+        "docs/evidence/iteration134.md",
+        "docs/evidence/iteration147.md",
+        "docs/evidence/iteration153.md",
+        "docs/evidence/iteration155.md"
+      ],
+      "blockers": [],
+      "implementation_note": "迭代41合入内部严格提交后内存分页游标，终页后期限检查优先于EOF，失败不改变输出或位置；SQL草稿同步当前主库核心，Debug/ASan各17项全套SQL测试及8项编译拒绝、DLL/符号隔离检查通过。仍无公开接口、streaming/spool、统一内存账本或全部生产P3-03验收，迭代41时聚合取消仅覆盖执行前，不能标done。 SQL 严格游标支持多参数绑定；真实绑定中途 OOM 不提交结果及恢复经过 Windows 测试。 内部草稿新增同步 provisional 行回调和终态协议；调用方副作用不可回滚，真实 finalize 失败及重入未验证。 SQL 内部草稿增加可选单会话存活游标与保留逻辑字节共享配额；不覆盖临时查询、已复制页或 RSS。 迭代55将严格提交/有界游标实验性源码随适配器接入；完整 S10–S11、所有取消/故障与生产验收未完成。 迭代80补充使用点收集器第六检查点COUNT/NOT EXISTS取消、注入分配失败、严格结果与provisional失败终态；S11为既有固定测试回归，不代表系统OOM、磁盘spool或生产验收。 迭代134接通逻辑DEX目录、类型使用点、原始MUTF-8 BLOB/UTF16长度，BLOB参数结果贯通提交/分页/驻留/JSONL，colUsed进入访问计划；旧v22核心Debug及5查询烟测通过，合并核心专项统一后做，完整S01–S11未验。 迭代147主CLI sql一次性严格发布、参数、SourceSet/raw/APK/resource和驻留来源/scope/额度连通，private heap可显式对齐；Release与6检查通过。profile时间阶段区分，完整S01-S11/压力/性能未完成。 迭代153只校准已有验证入口：Q09排序屏障注册，SQL provisional负例由BLOB换为REAL且原失败断言保留；尚未执行，不计为验收通过。 迭代155同源Windows Debug/ASan各7项通过，含Q09排序屏障和SQL provisional失败终态；每配置其余218项未执行，不能外推完整验收。"
+    },
+    {
+      "id": "P3-04",
+      "phase": "P3",
+      "title": "实现驻留会话与统一profile",
+      "status": "in_progress",
+      "workstream": "sql",
+      "depends_on": [
+        "P3-03",
+        "P2-01"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "cli/session/",
+        "docs/contracts/profile-v1.md",
+        "adapters/mcp/"
+      ],
+      "acceptance": [
+        "prepare/first/warm/close与索引保留可观测；取消不毁完整shared数据",
+        "有界任务/结果队列；MCP可选且final状态不会丢失"
+      ],
+      "required_environment": "host; MCP optional",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration44.md",
+        "docs/evidence/iteration48.md",
+        "docs/evidence/iteration49.md",
+        "docs/evidence/iteration51.md",
+        "docs/evidence/iteration52.md",
+        "docs/evidence/iteration54.md",
+        "docs/evidence/iteration55.md",
+        "docs/evidence/iteration81.md",
+        "docs/evidence/iteration83.md",
+        "docs/evidence/iteration134.md",
+        "docs/evidence/functional-host-build-20261102.md",
+        "docs/evidence/functional-host-build-20261102-v2.md",
+        "docs/evidence/iteration145.md",
+        "docs/evidence/iteration147.md",
+        "docs/evidence/iteration157.md",
+        "docs/evidence/iteration166.md"
+      ],
+      "blockers": [],
+      "implementation_note": " 桌面SQL草稿增加默认关闭的语句阶段统计，包含真实绑定OOM；不代表完整驻留缓存或生产SQL。 迭代48新增桌面隔离草稿的单槽预编译复用，参数清除和普通表对照通过；语句与SQL文本驻留缓存，非生产SQL或完整驻留会话。 迭代49为桌面 SQL 单槽草稿增加不关闭会话的缓存显式释放；定向覆盖领取后取消与合成行复制分配失败，不是完整故障覆盖或生产驻留会话。 迭代51新增同步单线程 SQL 有界驻留队列草稿，预留终态及显式确认，重复 open 的非空 out 会拒绝；非后台服务、持久队列或生产 SQL。 迭代51 SQL 驻留草稿基于迭代52前核心，使用前需重基并重验；仍非生产 SQL。 迭代54将 SQL 隔离草稿重基 v17，新增单线程有界 JSON Lines 驻留 CLI，覆盖无损64位、宽路径、关闭耗时及保留终态；未完成生产 SQL、MCP、后台并发或非 Windows 验收。 迭代55将单线程 JSON Lines 驻留 CLI 接入默认关闭桌面选项；非后台/MCP/跨进程恢复或生产 SQL，完整验收未完成。 迭代81新增内部单worker有界后台队列，固定主机线程/故障测试及旧CLI回归通过；析构放弃未确认终态，逻辑限额不涵盖SQLite/RSS，MCP、持久恢复与生产验收仍未完成。 迭代83接通桌面CLI显式后台模式，重基迭代82并通过Windows固定进程/旧协议回归；stdout断线和进程终止不持久，MCP、跨平台及生产验收仍未完成。 迭代134接通逻辑DEX目录、类型使用点、原始MUTF-8 BLOB/UTF16长度，BLOB参数结果贯通提交/分页/驻留/JSONL，colUsed进入访问计划；旧v22核心Debug及5查询烟测通过，合并核心专项统一后做，完整S01–S11未验。 迭代145新增无snapshot计划视图/CLI explain、计划与运行profile外层及source+method_ref单方法完整调用C入口；Release和有限连通通过。SQL profile映射、Android接线及全ABI/取消/特殊域专项待后续。 迭代147主CLI sql一次性严格发布、参数、SourceSet/raw/APK/resource和驻留来源/scope/额度连通，private heap可显式对齐；Release与6检查通过。profile时间阶段区分，完整S01-S11/压力/性能未完成。 迭代157驻留final补desktop-sql profile_v1映射，旧profile/reuse不变，prepare/step未观察为null、stmt内存为近似值；Release与1固定fixture的同步首次/复用/取消/失败及后台样本通过，完整生命周期/跨平台/生产验收仍未完成。 迭代166将既有identity equality/IN以默认关闭选项接一次性/同步/后台驻留；有限NULL/重复/参数与EXPLAIN连通通过，完整S01–S09和性能未验。"
+    },
+    {
+      "id": "P3-05",
+      "phase": "P3",
+      "title": "完成桌面可比基准与复用验收",
+      "status": "in_progress",
+      "workstream": "benchmark",
+      "depends_on": [
+        "P3-04",
+        "P0-08",
+        "P2-08"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "benchmarks/desktop/",
+        "docs/evidence/desktop-sql.md"
+      ],
+      "acceptance": [
+        "一次性与驻留分开；DexSQL仅跑版本和语义对齐子集",
+        "实际结果驱动后续步骤，错误不能计性能pass；不将桌面结果代入BIL"
+      ],
+      "required_environment": "host; optional fixed DexSQL binary and comparable corpus",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration149.md"
+      ],
+      "blockers": [],
+      "implementation_note": "迭代149实际桌面SQL one-shot/resident runner固定构件/语料/完整rows及资源包络，保留原始记录和独立门禁；修正首次身份检查计时对称及传输收束。仅自建1组连通，未做正式性能/DexSQL比较或接受，不将桌面结果代入BIL。"
+    },
+    {
+      "id": "P4-01",
+      "phase": "P4",
+      "title": "实现版本化持久事实缓存",
+      "status": "in_progress",
+      "workstream": "cache",
+      "depends_on": [
+        "P2-08",
+        "P1-11"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/cache/",
+        "docs/contracts/cache-format-v1.md"
+      ],
+      "acceptance": [
+        "相对offset/边界/校验/必需段/版本兼容明确，故障与中断安全",
+        "完整分片才发布；缓存损坏可重建，F12通过"
+      ],
+      "required_environment": "host",
+      "optional_capability": true,
+      "evidence": [
+        "docs/evidence/iteration139.md",
+        "docs/evidence/iteration141.md",
+        "docs/evidence/functional-host-build-20261102.md",
+        "docs/evidence/functional-host-build-20261102-v2.md",
+        "docs/evidence/iteration163.md",
+        "docs/evidence/iteration167.md",
+        "docs/evidence/iteration169.md",
+        "docs/evidence/iteration173.md",
+        "docs/evidence/iteration177.md",
+        "docs/evidence/iteration204.md"
+      ],
+      "blockers": [],
+      "implementation_note": " 迭代139实现持久方法分片与Evaluator实际命中、完整有序来源域resolve_method正负缓存；唯一完整发布/OS写锁/坏片重建。Release与4场景连通通过；完整L1/通用负依赖、使用点/expand全面复用和F12/资源/跨平台验收未完成。 迭代141显式provider接通四类use扫描、出入向expand和反向索引构建，4对真实冷/热查询保持候选/逻辑work并命中缓存。默认关闭；041绕过旧持久键，完整L1/通用负依赖与专项未完成。 迭代163可选声明SnapshotId进入独立v2解析域，覆盖资源分片/包装变化并保留原物理事实复用；有限Release/真实静态快照身份连通，输入身份未经认证、APK自动对接及完整增量/并发验收未完成。 迭代167新增默认关闭独立桌面SourceSet缓存工具，同一已打开快照供身份/事实，资源变化使解析域失效，旧CLI兼容；有限Release连通通过，生产C ABI/Android/完整故障及性能未验。 迭代169修正167 SourceSet工具按展开DEX误传input_slots，显式scope在多DEX/资源组合可能漏项；现按原始输入映射，固定多DEX/空资源/code split与native对照通过。 迭代173新增默认关闭的独立桌面持久事实缓存C ABI，绑定同Engine真实快照，句柄串行/关闭和结果保活；Release/C/四线程有限样本通过，无Job、Android或完整F12验收。 迭代177增加通用Android显式opt-in持久method-v1同步会话，绑定真实Snapshot/SourceSet，默认不链接；旧候选双ABI/R8及最终Java/主机JNI有限连通，174与最终Java后须同源重建，设备/ART未验。 最终源码Android opt-in持久缓存双ABI构建和部分静态检查通过，opt-in R8、ART/设备及真实文件系统行为未验。"
+    },
+    {
+      "id": "P4-02",
+      "phase": "P4",
+      "title": "实现增量与负依赖失效",
+      "status": "in_progress",
+      "workstream": "cache",
+      "depends_on": [
+        "P4-01",
+        "P2-01"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/cache/dependencies/",
+        "tests/integration/incremental/"
+      ],
+      "acceptance": [
+        "新增/移除/排序改变source与unresolved变resolved均正确失效",
+        "资源重打包且DEX相同可复用facts，不能据此复用旧唯一/绑定判断"
+      ],
+      "required_environment": "host",
+      "optional_capability": true,
+      "evidence": [
+        "docs/evidence/iteration139.md",
+        "docs/evidence/iteration141.md",
+        "docs/evidence/iteration163.md",
+        "docs/evidence/iteration167.md",
+        "docs/evidence/iteration169.md",
+        "docs/evidence/iteration173.md",
+        "docs/evidence/iteration177.md"
+      ],
+      "blockers": [],
+      "implementation_note": " 迭代139实现持久方法分片与Evaluator实际命中、完整有序来源域resolve_method正负缓存；唯一完整发布/OS写锁/坏片重建。Release与4场景连通通过；完整L1/通用负依赖、使用点/expand全面复用和F12/资源/跨平台验收未完成。 迭代141显式provider接通四类use扫描、出入向expand和反向索引构建，4对真实冷/热查询保持候选/逻辑work并命中缓存。默认关闭；041绕过旧持久键，完整L1/通用负依赖与专项未完成。 迭代163可选声明SnapshotId进入独立v2解析域，覆盖资源分片/包装变化并保留原物理事实复用；有限Release/真实静态快照身份连通，输入身份未经认证、APK自动对接及完整增量/并发验收未完成。 迭代167新增默认关闭独立桌面SourceSet缓存工具，同一已打开快照供身份/事实，资源变化使解析域失效，旧CLI兼容；有限Release连通通过，生产C ABI/Android/完整故障及性能未验。 迭代169修正167 SourceSet工具按展开DEX误传input_slots，显式scope在多DEX/资源组合可能漏项；现按原始输入映射，固定多DEX/空资源/code split与native对照通过。 迭代173新增默认关闭的独立桌面持久事实缓存C ABI，绑定同Engine真实快照，句柄串行/关闭和结果保活；Release/C/四线程有限样本通过，无Job、Android或完整F12验收。 迭代177增加通用Android显式opt-in持久method-v1同步会话，绑定真实Snapshot/SourceSet，默认不链接；旧候选双ABI/R8及最终Java/主机JNI有限连通，174与最终Java后须同源重建，设备/ART未验。"
+    },
+    {
+      "id": "P4-03",
+      "phase": "P4",
+      "title": "实现离线预解算包",
+      "status": "in_progress",
+      "workstream": "cache",
+      "depends_on": [
+        "P4-02",
+        "P2-04"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "tools/precompute/",
+        "docs/contracts/precompute-v1.md",
+        "bindings/android/dexmeguviz-android/src/main/java/io/github/jichuo1/dexmeguviz/precompute/"
+      ],
+      "acceptance": [
+        "精确身份、规则/profile、角色与证据验真，未知版本走明确路径",
+        "完整定位扫描避免但hash/局部验证/绑定仍计时；包认证策略与内容一致性分开"
+      ],
+      "required_environment": "host; device for BIL hit-path acceptance",
+      "optional_capability": true,
+      "evidence": [
+        "docs/evidence/iteration140.md",
+        "docs/evidence/iteration151.md",
+        "docs/evidence/iteration152.md",
+        "docs/evidence/iteration164.md",
+        "docs/evidence/iteration174.md"
+      ],
+      "blockers": [],
+      "implementation_note": " 迭代140实现有界离线候选包生成/消费、独立期望规则/查询/角色/有序来源绑定及局部实体/use/hop字节复核；修复域校验和生产输出捕获限额，4类连通与2反例通过。不证明producer全域决策/发行认证/runtime，APK/边界/设备专项未完成。 迭代151接纯JVM局部消费和有序来源/身份/字节证书，生产类JAR与4规则连通通过；前置分配及ZIP目录/名称/uint32序号上限已补。无native加载或producer执行，不认证/不证明全域决策；AAR/设备和全边界专项未完成。 迭代152预解算11规则受控桥进入实际miss路径；默认fallback，独立显式producer完整枚举政策后仍做当前绑定/attestor/业务验证。producer接受不写普通L0且最终缓存映射抑制一致，有限自建连通/只读复核通过；完整矩阵与设备未验。 迭代164 BIL预解算桥显式接入resource-split，含DEX时仍遍历/验证/绑定；单规则自建producer包与JVM/JNI、回退/attestor/L0样本通过，真实BIL/ART和完整矩阵未验。 迭代174修复可信预解算将缺失/非零Unknown及不完整producer误作完成的缺口：严格核对实际字段、全scope/访问数和可选profile；历史有效包及26反例主机对照通过，完整枚举依赖显式producer信任，ART未验。"
+    },
+    {
+      "id": "P4-04",
+      "phase": "P4",
+      "title": "实现候选方法CFG",
+      "status": "in_progress",
+      "workstream": "analysis",
+      "depends_on": [
+        "P1-06",
+        "P2-08"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/analysis/cfg/",
+        "tests/native/cfg/"
+      ],
+      "acceptance": [
+        "分支/payload/异常边合法且scope完整；结构可达不宣称路径可行",
+        "按候选触发，基础扫描不默认承担CFG成本"
+      ],
+      "required_environment": "host",
+      "optional_capability": true,
+      "evidence": [
+        "work/iteration41/core-validation/summary.json",
+        "docs/evidence/iteration43.md",
+        "docs/evidence/iteration143.md"
+      ],
+      "blockers": [],
+      "implementation_note": "迭代41合入内部按需普通CFG，保留goto/if、switch各键与默认边、结构可达及落空缺口；含try的方法明确Unsupported，不建模异常分派或ART。主库Debug/ASan各127项完整CTest含CFG独立字节对照通过，非全路径证明；异常边、公共接口、前置依赖及全部P4-04验收未完成。 增加显式开启的保守 try/catch handler 边，原默认拒绝保持；不代表异常类型分派或 ART 验收。 迭代143显式保守寄存器模式扩展object/wide/字段/数组/转换/浮点，未精确值Unknown；异常handler合并entry和逐指令后状态，提供桌面入口。Release与2样本/2默认拒绝通过；重叠wide/全指令/异常/故障/ART专项未完成。"
+    },
+    {
+      "id": "P4-05",
+      "phase": "P4",
+      "title": "实现有限常量与use-def分析",
+      "status": "in_progress",
+      "workstream": "analysis",
+      "depends_on": [
+        "P4-04"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/analysis/dataflow/",
+        "docs/contracts/dataflow-v1.md"
+      ],
+      "acceptance": [
+        "lattice/溢出/别名/未知调用策略固定，golden与反例通过",
+        "输出假设和证据，不能用近似图覆盖精确事实"
+      ],
+      "required_environment": "host",
+      "optional_capability": true,
+      "evidence": [
+        "docs/evidence/iteration44.md",
+        "docs/evidence/iteration45.md",
+        "docs/evidence/iteration143.md",
+        "docs/evidence/functional-host-build-20261102-v2.md"
+      ],
+      "blockers": [],
+      "implementation_note": " 增加内部按需有限32位常量与单一静态定义PC分析；未建模指令、try和调用拒绝，不代表完整use-def或ART。 显式开启 opaque invoke 后按字记录参数读取并对 move-result 置 Unknown；不建模调用/堆/ART，完整分析仍未完成。 迭代143显式保守寄存器模式扩展object/wide/字段/数组/转换/浮点，未精确值Unknown；异常handler合并entry和逐指令后状态，提供桌面入口。Release与2样本/2默认拒绝通过；重叠wide/全指令/异常/故障/ART专项未完成。"
+    },
+    {
+      "id": "P4-06",
+      "phase": "P4",
+      "title": "实现可解释结构候选排序",
+      "status": "in_progress",
+      "workstream": "analysis",
+      "depends_on": [
+        "P4-04",
+        "P2-08"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/analysis/correspondence/",
+        "tests/integration/cross_version_candidates/"
+      ],
+      "acceptance": [
+        "寄存器规范化与结构摘要有已标注正反例，分数不冒充概率",
+        "候选不能直接写生产Hook缓存，仍需精确验真"
+      ],
+      "required_environment": "host; labeled cross-version fixtures",
+      "optional_capability": true,
+      "evidence": [
+        "docs/evidence/iteration138.md",
+        "docs/evidence/functional-host-build-20261102.md",
+        "docs/evidence/functional-host-build-20261102-v2.md"
+      ],
+      "blockers": [],
+      "implementation_note": "迭代138实现内部寄存器规范化、保守CFG结构摘要、4分量排序和opt-in桌面工具，使用PMR/工作/token/候选限额与取消，不写Hook缓存。Release独立构建及自建寄存器改号/常量变化样本通过；引用符号及payload内容未全部纳入模型，跨版本标注与全量专项未完成。"
+    },
+    {
+      "id": "P4-07",
+      "phase": "P4",
+      "title": "实现实验DEX041容器",
+      "status": "in_progress",
+      "workstream": "native",
+      "depends_on": [
+        "P1-11",
+        "P0-05"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "src/format/dex041/",
+        "tests/fixtures/dex041/"
+      ],
+      "acceptance": [
+        "container/header双基址和共享池/后续数据的边界、摘要与生命周期正确",
+        "实验capability/缓存schema隔离，不改变稳定035-040语义"
+      ],
+      "required_environment": "host and independently constructed 041 corpus",
+      "optional_capability": true,
+      "evidence": [
+        "docs/evidence/iteration144.md",
+        "docs/evidence/functional-host-build-20261102-v2.md"
+      ],
+      "blockers": [],
+      "implementation_note": "迭代144实现显式041枚举/双基址/shared bytes/logical occurrence/C API及CLI，默认标准入口拒绝。早期3项连通，v3修复SQL拒绝、ZIP证据位、checksum拒绝，最终构建待做。部分合法共享布局/高级profile/其他前端及041缓存键仍有限制；完整格式/生命周期/ART专项未完成。"
+    },
+    {
+      "id": "P4-08",
+      "phase": "P4",
+      "title": "按热点验证SIMD压缩布局和PGO",
+      "status": "planned",
+      "workstream": "performance",
+      "depends_on": [
+        "P2-01",
+        "P0-08"
+      ],
+      "conditional_dependencies": {},
+      "deliverables": [
+        "benchmarks/ablations/",
+        "docs/decisions/optimization-records/"
+      ],
+      "acceptance": [
+        "只有profile支持的热点引入；标量对照及完整prepare+query成本记录",
+        "libdeflate/Roaring/SIMD/PGO不预设收益或重复计功；无收益保留简单路径"
+      ],
+      "required_environment": "measured target platform and representative corpus",
+      "optional_capability": true,
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "P5-01",
+      "phase": "P5",
+      "title": "核验ABI格式与支持矩阵",
+      "status": "in_progress",
+      "workstream": "validation",
+      "depends_on": [
+        "P2-03",
+        "P2-08"
+      ],
+      "conditional_dependencies": {
+        "persistent_cache": [
+          "P4-01"
+        ],
+        "experimental_041": [
+          "P4-07"
+        ]
+      },
+      "deliverables": [
+        "tests/abi/compatibility/",
+        "docs/support-matrix.md"
+      ],
+      "acceptance": [
+        "C ABI新旧消费者、两个ARM ABI与至少一个host真实验证",
+        "开启持久格式/041等时补其兼容gate；基础SDK不等待关闭的实验模块"
+      ],
+      "required_environment": "host and Android build/runtime environments",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration47.md",
+        "docs/evidence/source-support-matrix-20261102.md",
+        "docs/evidence/iteration155.md",
+        "docs/evidence/iteration156.md",
+        "docs/evidence/iteration173.md",
+        "docs/evidence/iteration179.md",
+        "docs/evidence/iteration182.md",
+        "docs/evidence/iteration185.md",
+        "docs/evidence/integration-20261102-final.md",
+        "docs/evidence/iteration219.md",
+        "docs/evidence/iteration220.md",
+        "docs/evidence/iteration221.md",
+        "docs/evidence/iteration222.md",
+        "docs/evidence/iteration227.md"
+      ],
+      "blockers": [],
+      "implementation_note": " 实际 AAR 在固定 R8 配置下分别生成 classfile 与 DEX；Windows JVM JNI调用和49项DEX签名/代码体检查通过，未证明 Android/ART 或所有消费者配置。 按正式149源码建立支持矩阵并同步README，明确C/CLI与JNI支持形状及构建/运行证据边界；不代替ABI/平台统一验收。 迭代155同源Windows Debug/ASan各7项通过，含Q09排序屏障和SQL provisional失败终态；每配置其余218项未执行，不能外推完整验收。 迭代156基于当前同源AAR/JNI执行17项固定主机检查通过，包括AAR静态、JNI/Java/Kotlin、binder与R8；首次JniJobTest夹具错配失败已保留并按冻结fixture显式修正，设备/ART和全部接口/故障验收未完成。 迭代173新增默认关闭的独立桌面持久事实缓存C ABI，绑定同Engine真实快照，句柄串行/关闭和结果保活；Release/C/四线程有限样本通过，无Job、Android或完整F12验收。 迭代179增加与BIL无关的单方法facts C ABI，按需一次解码并复制字符串/字段/数值/调用/类型/指令；Release与C固定样本通过，Android/ART和真实DexKit兼容/性能未验。 迭代182增加通用方法参数C ABI：静态prototype类型及可用debug名称，缺定义/体/debug/NO_INDEX分开；Release C及两ABI语法样本通过，Android与DexKit完整兼容/性能未验。 迭代185通用C ABI读取本地类/字段/方法/参数注解，保留元素与嵌套值原始编码；D8自建/独立dexdump/C限额及生命周期样本通过，typed值、Android/ART及完整DexKit兼容未验。 当前合并参数/注解接口的双ABI AAR及Windows JNI同源固定主机检查通过，包含R8；未覆盖实际Android/ART、全部接口、所有ABI或BIL。 迭代219用旧/新BIL runtime javap确认三个Candidates旧公开JVM构造器描述符缺失，旧二进制链接有回归风险；待兼容修复和旧编译/新运行验证，任务仍进行。 迭代220增加有界Java17公开类声明表JAR/AAR比较；旧/新BIL jar的三个构造器回归被检出、隔离修复jar静态表不再缺失；非完整JVM/Android ABI认证。 迭代221保留三类旧JVM构造签名；旧对象rawMethodsAvailable=false、专用投影Incomplete且不写MISSING，旧二进制与新路径主机样本通过；非完整ABI/设备证明。 迭代222对比迭代211和216 AAR的解析278个Java17类文件，其中public类受检声明未发现退化；不覆盖Kotlin metadata、继承解析、行为、ART及设备。 迭代227以v23 v5 SDK重编当前BIL runtime及19条显式guard；固定预计算/缓存/终页/评论/旧JVM兼容样本通过，不证明真实BIL/ART/设备及完整DexKit等价。 迭代231组合scope opcode及流式导出的双ARM AAR/JNI/R8有限主机检查通过，有界公开声明表未见退化；非完整ABI/ART证明。 迭代232当前组合SDK与BIL适配器14项有限主机回归通过，真实BIL/ART与性能未验。 迭代234/236组合双ABI AAR/JNI/R8固定主机检查通过；迭代238新类晚于该构建。 迭代258当前核心/Android组合AAR/JNI/R8有限主机计划经两次路径纠错续跑完成；非完整ABI/ART证明。 迭代263范围批处理组合AAR/JNI/R8主机检查经两次路径纠错续跑通过；新入口未在设备运行。"
+    },
+    {
+      "id": "P5-02",
+      "phase": "P5",
+      "title": "核验并发取消与资源压力",
+      "status": "planned",
+      "workstream": "validation",
+      "depends_on": [
+        "P1-11",
+        "P2-03",
+        "P2-07"
+      ],
+      "conditional_dependencies": {
+        "persistent_cache": [
+          "P4-01",
+          "P4-02"
+        ],
+        "advanced_analysis": [
+          "P4-04",
+          "P4-05"
+        ]
+      },
+      "deliverables": [
+        "tests/integration/stress/",
+        "docs/evidence/resource-lifecycle.md"
+      ],
+      "acceptance": [
+        "close/cancel/queue/backpressure/Batch保留账户和分配故障通过",
+        "真实延迟分布、owned/RSS/PSS各自记录；依赖预算覆盖没有遗漏声明"
+      ],
+      "required_environment": "host; devices for Android resource acceptance",
+      "optional_capability": false,
+      "evidence": [],
+      "blockers": []
+    },
+    {
+      "id": "P5-03",
+      "phase": "P5",
+      "title": "运行预注册完整性能比较",
+      "status": "planned",
+      "workstream": "benchmark",
+      "depends_on": [
+        "P2-09",
+        "P5-02",
+        "P0-08"
+      ],
+      "conditional_dependencies": {
+        "persistent_cache": [
+          "P4-01",
+          "P4-02"
+        ],
+        "precompute": [
+          "P4-03"
+        ]
+      },
+      "deliverables": [
+        "benchmarks/results/release-candidate/",
+        "docs/decisions/performance-go-no-go.md"
+      ],
+      "acceptance": [
+        "A/B/C共同语义/计时包络和原始数据可重算；报告A-B/A-C/B-C",
+        "正确性、warm、前台/尾部与预登记净价值通过或诚实不通过，不事后挑指标",
+        "按用户要求，在同设备、相同APK、规则语义及资源边界下实测并证明性能优势；未测不能报告优于DexKit。"
+      ],
+      "required_environment": "representative Android devices and exact corpus",
+      "optional_capability": false,
+      "evidence": [],
+      "blockers": [],
+      "implementation_note": " 用户明确要求通用复用、DexKit依赖全量退出与同条件兼容/性能优势；用户进一步将APK输入到实际业务查询结果小于2秒定为目标，需跨应用评估，冷与可复用缓存分开报告；该目标目前未验收。 迭代282通用可信APK并行SDK在B站与系统界面完成主机静态对照，完整业务绑定与Android两秒尚未验证。 迭代283用户放行后单台设备倍速业务验证通过，但APK校验到选择35.966秒，超过2秒；迭代285另一次设备分段SHA1.462秒、测试loader16.206秒、扫描35.257秒，非相同计时；迭代289按需单倍速业务设备通过，总27.596秒、已有loader后查询10.219秒，均超2秒；混合规则未验。 迭代290延迟摘要候选单次真机业务通过，总26.654秒、已有loader后查询9.314秒，仍超2秒；单次数据不能证明稳定收益。 迭代291原生输入版单次真机业务通过，总24.466秒、已有loader后查询7.483秒，仍超2秒；无受控重复测量。 迭代268同设备独立DexKit基准3次约1.1秒查询；新引擎单次约120秒、来源试点约287秒，但loader/范围/计时不等价，未满足受控A/B/C或优胜验收。 迭代269单设备真实9.14倍速分段通过：33次native open约41秒、方法/反射查询约29秒，计时嵌套且非DexKit对照。 迭代270 RAW摘要复用在固定真实APK的Windows JNI短样本中缩短open，工作区构建及来源检查通过；Android实测和完整同条件比较仍未进行。 迭代271隔离BIL融合扫描及摘要优化包已构建，对照断言已打包，迭代272本版单设备对照报 ORIGIN_UNPROVEN/QUERY_FAILED，请求约106.6秒，未到结果对照；不能声称达标。 迭代273构造器来源修复在真实APK静态/JVM替身复现旧拒绝新通过，实机根因与性能仍待验。 迭代274修复版实机复测进程崩溃且无受检诊断标签，原因未明，不能以ADB退出码0记为通过。 迭代276诊断包复现进程崩溃，最后可见 LOADER_BEGIN；该PID系统退出记录为 FORCE STOP，记录所指进程当前为 brevent_server 且生命周期覆盖事件；具体触发原因未知。 迭代277通用JNI减少一次native副本并加入显式大DEX限额；BIL自适应ZIP与按需类型核验隔离组合构建通过，端到端及设备性能未验。"
+    },
+    {
+      "id": "P5-04",
+      "phase": "P5",
+      "title": "完成BIL生产配置替换候选",
+      "status": "in_progress",
+      "workstream": "bil",
+      "depends_on": [
+        "P5-01",
+        "P5-03",
+        "P2-06"
+      ],
+      "conditional_dependencies": {
+        "precompute": [
+          "P4-03"
+        ]
+      },
+      "deliverables": [
+        "integrations/bil/patches/production-candidate/",
+        "docs/migration/bil-release-gate.md"
+      ],
+      "acceptance": [
+        "生产runtime classpath和APK不再含DexKit，测试对照隔离保留",
+        "状态/恢复/业务热路径及回滚方案验证；实际切换按会话授权",
+        "交付SDK及BIL的直接/传递/测试构建依赖与APK/native产物不残留DexKit；历史和外部基准对照独立隔离，不进入交付依赖图。"
+      ],
+      "required_environment": "BIL complete checkout plus passed device gates",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration181.md",
+        "docs/evidence/iteration183.md",
+        "docs/evidence/iteration188.md",
+        "docs/evidence/iteration189.md",
+        "docs/evidence/iteration204.md",
+        "docs/evidence/iteration207.md",
+        "docs/evidence/iteration210.md",
+        "docs/evidence/iteration218.md",
+        "docs/evidence/iteration228.md"
+      ],
+      "blockers": [],
+      "implementation_note": "迭代181在隔离候选提供33规则同批实验/回退及无旧引擎C_ONLY框架；仅画质1项内置投影审核，其他32项和旧调用方Incomplete语义仍未完成，过渡fallback不等于DexKit退出。实际BIL依赖、产物及设备/性能均未替换或验收。 迭代183增加8条基于当前BIL popup/brand/home选择器的逐条opt-in guard，连同画质9条候选，其余24未审；默认不启用，静态bag/真实设备和DexKit退出未证明。 迭代188增加Words/终页/三项Home显式guard，共14/33候选guard、19未审，默认0启用；当前选择器源码+合成JVM样本不证明真实DexKit袋/设备/性能。 迭代189补充PEGASUS显式guard，共15/33、余18无guard、生产启用0；原始袋、设备、性能和真实替换仍未验。 15/33候选guard、生产启用0；真实BIL仍依赖DexKit，原始bag、业务、设备及全面退出未完成。 迭代207保存BLOCK_UPDATE已物化原始候选袋并补充显式默认关闭守卫，合计16/33、余17无守卫、生产启用0；真实DexKit候选袋/设备/性能未证。 迭代210三条OGV以当前BIL真实选择器复核，仅原始袋投影；现19/33候选、余14、生产启用0，真实DexKit袋/渲染/设备/性能未验。 迭代218修复评论映射当前ReplyInfo主/备用类型、完整raw methods及避免虚构raw classes；增加显式默认关闭owner守卫，20/33候选、余13、生产启用0，真实DexKit袋/拓扑/设备未验。 迭代228经典评论native/kotlin保留原始callee袋、拒绝缺袋并按当前宿主选择排序，保留旧JVM签名，22/33候选guard、余11、生产0；真实DexKit袋/设备/性能未验。 迭代237搜索页投递/状态增加默认关闭显式guard及完整角色比较；共24/33候选、9无guard、生产0，真实DexKit袋/设备/性能未验。 迭代239保留Story资源原始方法袋并增加仅资源角色、默认关闭guard；共25/33候选、8无guard、生产0，真实DexKit袋/设备/性能未验。 迭代242增加Story默认画质仅同owner受限guard；共26/33候选、7无guard、生产0，真实DexKit袋/设备/性能未验。 迭代244增加显式副作用双门控的主页语义guard；共27/33候选、6无guard、生产0。Story MATCH调用边与防重放证据不足未合入；真实BIL/ART/性能未验。 迭代246增加双副作用门控关注流guard；共28/33候选、5无guard、生产0，真实BIL/ART/性能未验。 迭代248增加倍速单adapter受限guard并双重副作用门控；共29/33候选、4无guard、生产0，真实BIL/ART/性能未验。 迭代252增加Sponsor三规则同批重扫/验证/整体回退候选；29单规则guard+3条同批路径，Story MATCH待证，生产0；额外扫描成本、真实BIL/ART/性能未验。 迭代255增加Story DEFAULT+MATCH受限同批事务；33规则均有候选路径但部分受限/同批，生产0；真实BIL/ART/性能未验。 迭代264隔离BIL完成C_ONLY接线/构建与依赖检查，首次真实9.14设备倍速仪器测试 QUERY_FAILED；真实main未修改，问题定位及性能优化中。 迭代266单台设备fix2目录3/3通过，真实9.14倍速扫描后guard拒绝且单次请求约145秒；实际业务、跨DEX来源和性能未验。 迭代284倍速/默认画质/终页合并三规则共享单次流水，受限主机替身与隔离Selector接线检查通过，真实Android与完整混合业务性能未验。 迭代267隔离BIL speed3真实9.14设备倍速单项通过，accepted_unverified/单次约120秒；跨DEX来源、Hook、全业务和性能对照未验。"
+    },
+    {
+      "id": "P5-05",
+      "phase": "P5",
+      "title": "整理可复现发布候选",
+      "status": "in_progress",
+      "workstream": "release",
+      "depends_on": [
+        "P5-01",
+        "P2-07"
+      ],
+      "conditional_dependencies": {
+        "desktop_sql": [
+          "P3-05"
+        ],
+        "precompute": [
+          "P4-03"
+        ]
+      },
+      "deliverables": [
+        "dist/",
+        "THIRD_PARTY_NOTICES",
+        "docs/getting-started.md",
+        "docs/reproducibility.md"
+      ],
+      "acceptance": [
+        "AAR/CLI/头文件与版本/摘要/许可证/依赖锁齐全",
+        "示例与文档命令对真实候选执行；许可证/坐标未确认则候选状态明确"
+      ],
+      "required_environment": "actual release build environments",
+      "optional_capability": false,
+      "evidence": [
+        "docs/evidence/iteration154.md",
+        "docs/evidence/iteration176.md",
+        "docs/evidence/iteration187.md",
+        "docs/evidence/iteration214.md",
+        "docs/evidence/iteration223.md",
+        "docs/evidence/iteration225.md",
+        "docs/evidence/iteration226.md"
+      ],
+      "blockers": [],
+      "implementation_note": "迭代154补充同源输入、工具链、依赖锁、构件哈希及候选许可边界说明；仅文档准备，当前构建与验证尚进行，未声称最终候选、逐字节复现或发布验收。 迭代176新增本地未认证候选包生成与只读hash/文件树核验工具，限量、禁止覆盖、许可待定；自建样本连通，真实同源产物、示例及发布验收待完成。 迭代187将182独立参数公共头列为候选包必需，避免默认C导出缺头；合成连通通过，真实同源产物与发布门禁待完成。 迭代214组装符号v3 AAR和新桌面源码的本地候选，重叠生产输入95项一致，AAR快照后测试/fixture变更单列；仅完整性核验未认证、项目许可未定，非发布或完整替换。 迭代223组装成员接口216的AAR与对应桌面本地候选，受检95项共同生产输入一致，附带审计工具/文档快照后新增说明；完整性非认证、许可待定，非正式发布或完整替换。 迭代225组装v23 v5 Android与桌面本地候选，95项重叠生产输入一致、选定Android输入无漂移，完整性非认证、许可待定，非发布或完整替换。 迭代226更新复用接口/支持矩阵与实际构件、设备证据边界；不改变交付或验收状态。 迭代231组合AAR早于当前本地候选包更新；旧迭代225候选不含scope及流式接口，非当前源码交付。 迭代233组装组合scope/流式AAR及桌面本地未认证候选，95项共同生产输入一致、额外测试单列；项目许可和正式发布待定。 迭代234源码晚于迭代233候选，须重新构建打包后才能包含异步Job。 迭代236注解匹配源码晚于迭代233候选，需组合重建。 迭代240组装迭代234/236本地未认证候选，95项共同生产输入一致；不含迭代238/240接口及BIL，许可待定。 迭代245核心及公共头晚于迭代236本地候选，须同源重建。 迭代247桥及迭代245核心晚于现有本地候选，需同源组合构建。 迭代250核心、公共头与Android桥晚于现有候选，需同源组合重建。 迭代251 Android异步桥晚于现有候选，需同源组合重建。 迭代253核心晚于本地候选，需同源组合重建。 迭代254 Android v25桥晚于本地候选，需同源组合重建。 迭代256多方法批量接口晚于现有候选，需同源组合重建。 迭代257核心及范围Job晚于现有候选，需同源组合重建。 迭代258当前源码组合AAR已生成，现有本地候选尚未更新；需同源桌面/候选包完整性核对。 迭代259当前Android/桌面15项本地未认证候选组装，97项共同生产输入一致，桌面未执行；许可证和正式发布未定。 迭代262范围批量入口晚于迭代259本地候选，需重新同源构建。"
+    },
+    {
+      "id": "P5-06",
+      "phase": "P5",
+      "title": "独立终审与最终交接",
+      "status": "planned",
+      "workstream": "coordination",
+      "depends_on": [
+        "P5-04",
+        "P5-05"
+      ],
+      "conditional_dependencies": {
+        "desktop_sql": [
+          "P3-05"
+        ],
+        "experimental_041": [
+          "P4-07"
+        ],
+        "advanced_analysis": [
+          "P4-04",
+          "P4-05",
+          "P4-06"
+        ]
+      },
+      "deliverables": [
+        "docs/evidence/final-acceptance.md",
+        "PROJECT_STATUS.json"
+      ],
+      "acceptance": [
+        "逐profile核对已启用能力的gate和未验证范围，复用/回滚/性能无矛盾",
+        "更新台账与经验；外部发布和远端变更不绕过实际授权"
+      ],
+      "required_environment": "review evidence and required deployment permissions",
+      "optional_capability": false,
+      "evidence": [],
+      "blockers": [],
+      "implementation_note": " 用户明确要求通用复用、DexKit依赖全量退出与同条件兼容/性能优势；该目标目前未验收。"
+    }
+  ]
+}

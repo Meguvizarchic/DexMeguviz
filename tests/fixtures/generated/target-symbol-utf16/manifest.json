@@ -1,0 +1,23 @@
+{
+  "fixtures": {
+    "nul-high-d800.dex": {
+      "sha256": "20b71ba9dba5f265ca8f2a847ce007d3bd153b004f3faf21aadef72eb4396530",
+      "bytes": 608,
+      "target_index": 10,
+      "pcs": [
+        0,
+        2
+      ]
+    },
+    "nul-high-d801.dex": {
+      "sha256": "7c1c5ac05f0234cf7aecd04c1b1b90df6550f0fdab9221cb1c9c9b252b65a193",
+      "bytes": 608,
+      "target_index": 10,
+      "pcs": [
+        0,
+        2
+      ]
+    }
+  },
+  "scope": "authored modified UTF-8 static strings, no ART or runtime claim"
+}

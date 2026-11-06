@@ -1,0 +1,15 @@
+#include "dexmeguviz/dexmeguviz.h"
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define CHECK(x) do{if(!(x)){fprintf(stderr,"C scoped errors line %d: %s\n",__LINE__,#x);return 1;}}while(0)
+static unsigned char* readfile(const char* p,long* n){FILE* f=fopen(p,"rb");unsigned char* b;if(!f)return NULL;if(fseek(f,0,SEEK_END)||(*n=ftell(f))<=0||fseek(f,0,SEEK_SET)){fclose(f);return NULL;}b=malloc((size_t)*n);if(!b||fread(b,1,(size_t)*n,f)!=(size_t)*n){fclose(f);free(b);return NULL;}fclose(f);return b;}
+static int one(dmg_engine* e,dmg_snapshot* s,const char* text,dmg_status expected,int limit){dmg_query* q=NULL;dmg_result* out=(dmg_result*)(uintptr_t)1;dmg_error err={0};dmg_relation_info_v2 info={0};CHECK(dmg_query_compile_json(e,(const uint8_t*)text,strlen(text),&q,&err)==DMG_OK);CHECK(dmg_query_execute(s,q,&out,&err)==expected);if(expected==DMG_OK){CHECK(out&&dmg_result_get_relation_info_v2(out,&info,sizeof(info))==DMG_OK);if(limit)CHECK(info.execution_status==DMG_BUDGET_EXCEEDED&&info.reason==DMG_RESULT_LIMIT&&info.candidates_count==1);dmg_result_release(out);}else CHECK(out==NULL);dmg_query_release(q);return 0;}
+int main(int argc,char** argv){dmg_engine* e=NULL;dmg_snapshot* s=NULL;dmg_error err={0};dmg_engine_stats before={0},after={0};unsigned char *good,*bad;long gn,bn;CHECK(argc==3);good=readfile(argv[1],&gn);bad=readfile(argv[2],&bn);CHECK(good&&bad&&dmg_engine_create(NULL,&e,&err)==DMG_OK&&dmg_engine_get_stats(e,&before)==DMG_OK);
+ {dmg_source_spec spec={sizeof(spec),DMG_ABI_VERSION,DMG_INPUT_RAW_DEX,0,good,(uint64_t)gn,"one","raw-dex",NULL};dmg_source_set_options opts={sizeof(opts),DMG_ABI_VERSION,"android-jni",0,64,16u<<20};CHECK(dmg_snapshot_open_sources(e,&spec,1,&opts,&s,&err)==DMG_OK);}
+ CHECK(one(e,s,"{\"schema_version\":1,\"scope\":{\"slots\":[\"missing\"]},\"relation\":{\"op\":\"scan\",\"relation\":\"invoke_sites\"}}",DMG_SOURCE_MISMATCH,0)==0);
+ CHECK(one(e,s,"{\"schema_version\":1,\"scope\":{\"slots\":[\"one\"]},\"relation\":{\"op\":\"scan\",\"relation\":\"invoke_sites\"},\"max_work\":1}",DMG_BUDGET_EXCEEDED,0)==0);
+ CHECK(one(e,s,"{\"schema_version\":1,\"scope\":{\"slots\":[\"one\"]},\"relation\":{\"op\":\"scan\",\"relation\":\"invoke_sites\"},\"max_results\":1}",DMG_OK,1)==0);dmg_snapshot_release(s);s=NULL;
+ {dmg_source_spec spec={sizeof(spec),DMG_ABI_VERSION,DMG_INPUT_RAW_DEX,0,bad,(uint64_t)bn,"bad","raw-dex",NULL};dmg_source_set_options opts={sizeof(opts),DMG_ABI_VERSION,"android-jni",0,64,16u<<20};CHECK(dmg_snapshot_open_sources(e,&spec,1,&opts,&s,&err)==DMG_OK);}
+ CHECK(one(e,s,"{\"schema_version\":1,\"scope\":{\"slots\":[\"bad\"]},\"relation\":{\"op\":\"scan\",\"relation\":\"invoke_sites\"}}",DMG_CORRUPT_INPUT,0)==0);dmg_snapshot_release(s);CHECK(dmg_engine_get_stats(e,&after)==DMG_OK&&before.owned_bytes==after.owned_bytes&&before.scratch_bytes==after.scratch_bytes&&before.result_bytes==after.result_bytes);dmg_engine_release(e);free(good);free(bad);puts("PASS scoped C missing/budget/limit/corrupt atomic and ledger");return 0;}

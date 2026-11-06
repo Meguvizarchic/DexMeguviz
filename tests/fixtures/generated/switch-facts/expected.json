@@ -1,0 +1,31 @@
+{
+  "sha256": "c99e0594c79d5309533b4071286d6cf4b8a6a9edd01c70376546ff04a7ec3d38",
+  "code_offset": 244,
+  "cases": [
+    [
+      0,
+      8,
+      -1,
+      6
+    ],
+    [
+      0,
+      8,
+      0,
+      6
+    ],
+    [
+      3,
+      16,
+      -2147483648,
+      6
+    ],
+    [
+      3,
+      16,
+      2147483647,
+      6
+    ]
+  ],
+  "scope": "original DEX byte layout; not runtime control flow or execution"
+}

@@ -1,0 +1,49 @@
+{
+  "sha256": "87c9340db46e00cad9573951d6e39ccdb1514993adc6d10626e22890e41f5cf1",
+  "code_offset": 244,
+  "cases": [
+    [
+      0,
+      2,
+      40,
+      "unconditional"
+    ],
+    [
+      2,
+      5,
+      41,
+      "unconditional"
+    ],
+    [
+      5,
+      9,
+      42,
+      "unconditional"
+    ],
+    [
+      9,
+      12,
+      50,
+      "conditional"
+    ],
+    [
+      12,
+      9,
+      56,
+      "conditional"
+    ],
+    [
+      14,
+      14,
+      42,
+      "unconditional"
+    ],
+    [
+      17,
+      14,
+      59,
+      "conditional"
+    ]
+  ],
+  "scope": "encoded branch destinations; not reachability or runtime control flow"
+}

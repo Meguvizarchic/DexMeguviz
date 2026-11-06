@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "review_scope": "Seven existing Windows entries only. This is an explicit reviewed execution allowlist, not a completeness claim or permission to run all CTest.",
+  "common_reviewed_sources": {
+    "CMakeLists.txt": "68b1d04e2e8460a5370d70fe58e671a06bb317bccbc35e966158220e66803f11",
+    "cmake/dependencies.cmake": "4c037abb5d9dc898f8e7db6244ee94a8f26e948148f0135b7e53015419b1a73b",
+    "cmake/sqlite-desktop.cmake": "9c6119af238c577827777b08aa8a37191723f85a2ad41305650f73947dd6bfeb",
+    "cmake/fuzz.cmake": "8274f8e94aa2cac1881ead76af25cb308bf53c96a0eb6609d32754bee073f34d"
+  },
+  "tests": {
+    "native_core": {
+      "targets": [
+        "dmg_native_tests"
+      ],
+      "command": [
+        "native",
+        "dmg_native_tests",
+        "{source}/tests/fixtures/generated/minimal.dex"
+      ],
+      "cleanup": "none",
+      "timeout_seconds": 300,
+      "reviewed_sources": {
+        "tests/native/core_tests.cpp": "ab8f182134fa995ab4d70af6be137522a20510040ed88371e650e846e9aca2a3"
+      }
+    },
+    "allocation_failure": {
+      "targets": [
+        "dmg_fault_tests"
+      ],
+      "command": [
+        "native",
+        "dmg_fault_tests",
+        "{source}/tests/fixtures/generated/minimal.dex"
+      ],
+      "cleanup": "none",
+      "timeout_seconds": 300,
+      "reviewed_sources": {
+        "tests/native/core_tests.cpp": "ab8f182134fa995ab4d70af6be137522a20510040ed88371e650e846e9aca2a3"
+      }
+    },
+    "q09_sorted_gate": {
+      "targets": [
+        "dmg_q09_sorted_gate_tests"
+      ],
+      "command": [
+        "native",
+        "dmg_q09_sorted_gate_tests",
+        "{source}/tests/fixtures/generated/use_relations/two-invokes.dex"
+      ],
+      "cleanup": "none",
+      "timeout_seconds": 300,
+      "reviewed_sources": {
+        "tests/native/q09_sorted_gate_tests.cpp": "1a95a53c11b900796b11d41cc0eb92f0bbf649099456fb424e59084712403dfb",
+        "src/execution/reference/relational.inc": "67ac371ca87301704146ad70b31eba9079333ae33f8689ba7594ed7caa01f290",
+        "src/execution/reference/evaluate.cpp": "a9f86c2136799bebe96b1f9a9ba11923315d2f1c5997492bb140d34812ae38ae",
+        "src/c_api/job.cpp": "57e1da59b8a62b2ce3d2b0fea3e211f965db465ba0aa9089c3aff3064860e48e"
+      }
+    },
+    "sqlite_provisional": {
+      "targets": [
+        "dmg_sqlite_provisional_tests"
+      ],
+      "command": [
+        "native",
+        "dmg_sqlite_provisional_tests",
+        "{source}/tests/fixtures/generated/method_facts/method-uses.dex"
+      ],
+      "cleanup": "none",
+      "timeout_seconds": 300,
+      "reviewed_sources": {
+        "tests/sql/failure_and_cursor/provisional_tests.cpp": "def87d557a1a92c3f4be45f863b519f60cecfa8877a8617742f8647b744b5ced",
+        "tests/sql/session_probe.hpp": "a56792560a26c6d27b6bfa953224de7cb66a84df5a6a47ccd04a19a93bfdb126",
+        "adapters/sqlite/method_tables.cpp": "b7fad9b740a77a303f93101c4283450d07447356a1b5c4195c78fe6e3f82250d"
+      }
+    },
+    "sqlite_header_consumer": {
+      "targets": [
+        "dmg_sqlite_header_consumer"
+      ],
+      "command": [
+        "native",
+        "dmg_sqlite_header_consumer"
+      ],
+      "cleanup": "none",
+      "timeout_seconds": 300,
+      "reviewed_sources": {
+        "tests/sql/header_consumer.cpp": "a55cac8fd089e15cb56d359c1f9dcd12747c7fac1254e6f107d6524207b53db2"
+      }
+    },
+    "source_lifetime": {
+      "targets": [
+        "dmg_source_lifetime_tests"
+      ],
+      "command": [
+        "native",
+        "dmg_source_lifetime_tests",
+        "{source}/tests/fixtures/generated/minimal.dex"
+      ],
+      "cleanup": "own-temporary-directory",
+      "timeout_seconds": 300,
+      "reviewed_sources": {
+        "tests/native/source_lifetime_tests.cpp": "941d139ac110d744b09a0350c5073c8e32e953097734469cd2f424837076205f"
+      }
+    },
+    "cli_integration": {
+      "targets": [
+        "dexmeguviz"
+      ],
+      "command": [
+        "python",
+        "{source}/tools/test_driver.py",
+        "--cli",
+        "{target:dexmeguviz}",
+        "--root",
+        "{source}"
+      ],
+      "cleanup": "own-temporary-directory",
+      "timeout_seconds": 300,
+      "reviewed_sources": {
+        "tools/test_driver.py": "659d2993e331144d23001251f3b964ccf7e0f7054f8e499e6095dea605af69c2",
+        "tools/evidence_verifier/verify.py": "4c6f8ffb2caf3c95e08ff6583e0f5d236ceab6178a0a7706ab9e5439289aeb0d",
+        "tests/fixtures/manifest.json": "a01ccd1f81b1956f68c0c83039b9fe27c2fdc8f224259ea99c69e34c2e824d92",
+        "tests/fixtures/queries/declaration-cases.json": "f4a5619c1ac822acffe29ac23cd84e425ca8a707371c702435bd96ef13584118"
+      }
+    }
+  },
+  "cleanup_notes": {
+    "source_lifetime": "Root reviewed local UCRT tmpfile implementation: Windows temporary directory, exclusive create, delete only successfully created temporary handle on close. Runner redirects TEMP/TMP/TMPDIR to a newly created per-attempt directory. No fixture/old-file removal in this test.",
+    "cli_integration": "TemporaryDirectory is beneath the new source snapshot/build/test-work; generated query/APK files belong to that directory. The script invokes only the same-build CLI with bounded existing inspect/query checks. No denied caller-relation CLI/campaign."
+  },
+  "permanent_exclusions": [
+    "All coverage-guided fuzz; filtered BoundedExpand/v5 campaign under any renamed/copied/rebuilt guise.",
+    "<LOCAL_PATH> and substitutes intended to bypass that denial.",
+    "Old arbitrary executable paths, unreviewed test commands, all-target/clean builds, unfiltered CTest, device/BIL operations."
+  ]
+}

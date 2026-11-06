@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "source": "authored exact-length symbol variant, never engine output",
+  "expected_late_sort_winner": "zzzzzz",
+  "sha256": "43897a26eac20c8c0b44af308ff77b7b956e2a66f8907d15c0fde23470921cda"
+}

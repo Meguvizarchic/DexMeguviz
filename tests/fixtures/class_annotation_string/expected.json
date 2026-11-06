@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "scope": "project-authored Java fixtures compiled by JDK 17 and D8; metadata and source-local index controls, not ART",
+  "a": {
+    "source_sha256": "972ff27ca3bcb067d869d02c34d29523a596c1ed894a42db96801da614c86855",
+    "dex_sha256": "816194bedfb134df16b3adc7699451a9e823ecdd8de4892320d783f1cf952c4c",
+    "collision_string_index": 22,
+    "collision_string_mutf8_hex": "61616161"
+  },
+  "b": {
+    "source_sha256": "2e61ed03fc759d823bd3e0c1c5669b6686bef6257a63457b2deaf4dcee46f455",
+    "dex_sha256": "598d8d14cef542ee4273a2a66b1cdb6b6c0754825e425bedc3f9cc61bf3f874e",
+    "collision_string_index": 22,
+    "collision_string_mutf8_hex": "62626262"
+  },
+  "shared_values": [
+    "empty",
+    "U+96EA",
+    "surrogate_pair_D83D_DE00",
+    "unpaired_D800",
+    "a_NUL_b"
+  ]
+}

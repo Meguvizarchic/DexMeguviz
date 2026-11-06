@@ -1,0 +1,6 @@
+{
+  "file": "interface-a-bad-super.dex",
+  "sha256": "1e69fe4c6c7f7f23b8b4188ff09f56f76f6e92a10991ea0730c927f265d1a560",
+  "generator": "tests/fixtures/generators/generate_nonstandard_interface.py",
+  "scope": "post-build synthetic malformed interface superclass; static path only"
+}

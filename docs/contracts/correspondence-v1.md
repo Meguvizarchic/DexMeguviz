@@ -1,0 +1,13 @@
+# 内部结构候选排序 v1
+
+`analysis::correspondence::summarize`在调用方指定单个方法及同一不可变DEX/Facts后，复用checked decoder与包含保守异常边的CFG。它按参数字序固定参数寄存器身份，局部寄存器按首次出现分配规范编号，并保留wide的两个字；规范化move/const/goto及range等等价编码形状。摘要保留规范opcode、操作数寄存器关系、整数/浮点原始literal位、块顺序、分支边及switch key。payload不是可执行指令，未使用局部寄存器不影响编号。
+
+这是结构模型，不是语义等价：字符串/类型/字段/调用目标的符号内容、array payload元素以及catch类型的具体descriptor目前不进入序列（保留catch-all/typed及编码次序）。输入符号被重命名时可保留结构分量，但也可能使不相关方法获得相同结构摘要。exception边沿用保守过近似，不推断路径可行或ART合法性；ordinary_flow_complete单独输出。
+
+`rank`接受显式source_index、method_ordinal及Summary。0至10000分由4项组成：规范序列完全相同5500、opcode直方图交并比最多2000、边类型直方图交并比最多2000、完整prototype相同500。直方图均为空时该项为2000。每项单独返回，按总分降序、source_index和method_ordinal升序确定性排列。分数不是概率、可信度或业务接受决定；即使10000也必须重新核对精确规则和运行时目标，不能自动写Hook缓存。
+
+分片/持久化不在本接口内。向量/字符串使用调用方PMR；摘要有独立decode/graph/summary工作及token限额和取消，排序有候选数/比较工作限额。目标源身份由调用方保持，局部ordinal不能跨来源使用。无体方法不作为排名候选，reference无体明确拒绝。
+
+桌面工具通过DMG_BUILD_CORRESPONDENCE_TOOL显式启用，参数为reference.dex、reference方法ordinal、candidates.dex；只读原始DEX，输出两份SHA、模型版本、候选ordinal、摘要及评分分项。每文件64MiB上限，512MiB计费PMR、总token/工作及候选上限，异常不输出成功候选JSON；这些不是进程RSS或耗时保证。工具不加载或执行宿主代码，不改Android默认行为。
+
+本轮仅Windows Release编译及自建const/return样本连通：原始与寄存器改号同分10000，常量变化4500。尚无真实跨版本标注语料、所有opcode/alias/异常路径专项、ABI或设备验收；P4-06保持in_progress。

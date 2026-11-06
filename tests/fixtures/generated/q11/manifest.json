@@ -1,0 +1,105 @@
+{
+  "fixtures": {
+    "early.dex": {
+      "sha256": "2c842eaddb4f7b505acfad875c433b24ac4b415df19c760893a83d9284c909fe",
+      "methods": [
+        [
+          "alpha",
+          "()V"
+        ],
+        [
+          "middle",
+          "()V"
+        ],
+        [
+          "middle",
+          "(I)V"
+        ]
+      ],
+      "definition_refs": [
+        0,
+        2,
+        1
+      ],
+      "code_offsets": [
+        300,
+        320,
+        340
+      ],
+      "declarations": [
+        362,
+        366,
+        370
+      ],
+      "class_data": 358,
+      "map": 376,
+      "strings": [
+        "I",
+        "Ljava/lang/Object;",
+        "Lq11/Sort;",
+        "V",
+        "VI",
+        "alpha",
+        "middle"
+      ],
+      "types": [
+        "I",
+        "Ljava/lang/Object;",
+        "Lq11/Sort;",
+        "V"
+      ],
+      "bytes": 512
+    },
+    "late.dex": {
+      "sha256": "d169c51725b9520a685f878e344af1a3e09c5a4b0b447ec2c731054e14e1baa2",
+      "methods": [
+        [
+          "middle",
+          "()V"
+        ],
+        [
+          "middle",
+          "(I)V"
+        ],
+        [
+          "zzzzzz",
+          "()V"
+        ]
+      ],
+      "definition_refs": [
+        0,
+        1,
+        2
+      ],
+      "code_offsets": [
+        300,
+        320,
+        340
+      ],
+      "declarations": [
+        362,
+        366,
+        370
+      ],
+      "class_data": 358,
+      "map": 376,
+      "strings": [
+        "I",
+        "Ljava/lang/Object;",
+        "Lq11/Sort;",
+        "V",
+        "VI",
+        "middle",
+        "zzzzzz"
+      ],
+      "types": [
+        "I",
+        "Ljava/lang/Object;",
+        "Lq11/Sort;",
+        "V"
+      ],
+      "bytes": 512
+    }
+  },
+  "scope": "project-original DEX; static sorting only, no ART or runtime binding"
+}

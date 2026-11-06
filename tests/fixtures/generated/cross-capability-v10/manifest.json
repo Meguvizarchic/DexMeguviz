@@ -1,0 +1,17 @@
+{
+  "fixtures": {
+    "child.dex": {
+      "sha256": "50df04d1cef8cea702be31e57d89dde37e7cca7a4f5ccce9816b3b771538a631",
+      "bytes": 484
+    },
+    "contract.dex": {
+      "sha256": "bae0456d8f8011ba74ead803f5c6d819f5de0e789539c3efd1f4ca19e6c46e5b",
+      "bytes": 340
+    },
+    "object.dex": {
+      "sha256": "8a3a3177fe1e1c608f695a47453f40adeb6e4e56a55631483d1074facae91512",
+      "bytes": 248
+    }
+  },
+  "scope": "Static DEX cross-capability fixture; no ART/runtime claim"
+}

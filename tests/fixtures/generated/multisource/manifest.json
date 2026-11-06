@@ -1,0 +1,882 @@
+{
+  "schema_version": 1,
+  "profile": "synthetic-multisource-metadata-fixtures-v1",
+  "license": "Project-original; distribution license pending owner decision",
+  "independence": "Artificial source model and Python stdlib ZIP/DEX generator, not engine output or cache",
+  "not_android_installable": true,
+  "generator_dependency": {
+    "path": "tests/fixtures/generators/generate_dex.py",
+    "sha256": "2d83ec270c56a6232360957cba3cd5200143571e6d12858d06905f3327d1903b"
+  },
+  "files": [
+    {
+      "path": "raw-a.dex",
+      "sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+      "bytes": 448
+    },
+    {
+      "path": "raw-a-copy.dex",
+      "sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+      "bytes": 448
+    },
+    {
+      "path": "raw-b.dex",
+      "sha256": "f0598ae1758ace8b1345d01bdb1ac237d271d431b1f633b6b65fc7835ceb9543",
+      "bytes": 448
+    },
+    {
+      "path": "reverse-stored.apk",
+      "sha256": "7700016d146fccea06af2a3e1ada7ce7a80b18d85dbbcd6f76a3fc60ad9350c2",
+      "bytes": 1792
+    },
+    {
+      "path": "reverse-deflate.apk",
+      "sha256": "9f642f00cdbf46949079c417755846bb03a2843b118b35d1c1eba4b4d83d8662",
+      "bytes": 1236
+    },
+    {
+      "path": "resource-only.apk",
+      "sha256": "cc40a323a644bdb171431693957b9fae5fb7d202ba5148e165bc723fb76052be",
+      "bytes": 159
+    },
+    {
+      "path": "one-corrupt-dex.apk",
+      "sha256": "6001483cd848e329bfc3c4518cf6d9028eafc32907ad38ee17e9e314c0a356b9",
+      "bytes": 1109
+    },
+    {
+      "path": "bad-crc.apk",
+      "sha256": "b149caaeaea408321afabe6f9651acbf67795a150d442cf5fada27ee5f805b6f",
+      "bytes": 1792
+    },
+    {
+      "path": "duplicate-entry.apk",
+      "sha256": "5221d260b3513f749dd79008ae1d88a54162fc8f8b63918cad959b3c2a500702",
+      "bytes": 1114
+    },
+    {
+      "path": "classes1-only.apk",
+      "sha256": "e8e56d02bfd02926d1f28a3d879b49ee74c11a044a6271ef080a7e61d5a2c03d",
+      "bytes": 570
+    },
+    {
+      "path": "classes01-only.apk",
+      "sha256": "bd0300257d9f128c79421c62d96c63851987bd13e5e0e5c3e03c9c5c808d0e8f",
+      "bytes": 572
+    },
+    {
+      "path": "noncanonical-with-canonical.apk",
+      "sha256": "ca9a3be543a98f23c8604954aad08aaadb9c5da304178b9f5492caf848576029",
+      "bytes": 1666
+    }
+  ],
+  "manual_method_model": {
+    "definitions": [
+      {
+        "method_index": 1,
+        "owner": "Lsample/Example;",
+        "name": "locate",
+        "prototype": "()V",
+        "access_flags": 1025,
+        "code_offset": 0
+      },
+      {
+        "method_index": 2,
+        "owner": "Lsample/Example;",
+        "name": "second",
+        "prototype": "()V",
+        "access_flags": 265,
+        "code_offset": 0
+      }
+    ],
+    "external_reference": {
+      "method_index": 0,
+      "owner": "Ljava/lang/Object;",
+      "name": "external",
+      "prototype": "()V",
+      "is_definition": false
+    }
+  },
+  "cases": [
+    {
+      "id": "single_complete",
+      "inputs": [
+        {
+          "path": "raw-a.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        }
+      ],
+      "scope_complete": true,
+      "expected_load_status": "Complete",
+      "expected_occurrences": [
+        {
+          "input_index": 0,
+          "entry_name": null,
+          "central_index": null,
+          "dex_sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+          "version": "035",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 0
+        }
+      ],
+      "queries": [
+        {
+          "id": "one_is_unique_in_complete_scope",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {
+              "name": {
+                "op": "exact",
+                "value": "locate"
+              }
+            },
+            "intent": "unique",
+            "max_results": 100
+          },
+          "matching_count": 1,
+          "decision": "ProvenTrue",
+          "reason": "None"
+        }
+      ]
+    },
+    {
+      "id": "numeric_order_stored",
+      "inputs": [
+        {
+          "path": "reverse-stored.apk",
+          "kind": "apk",
+          "allow_no_dex": false
+        }
+      ],
+      "scope_complete": true,
+      "expected_load_status": "Complete",
+      "expected_occurrences": [
+        {
+          "input_index": 0,
+          "entry_name": "classes.dex",
+          "central_index": 3,
+          "dex_sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+          "version": "035",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 0
+        },
+        {
+          "input_index": 0,
+          "entry_name": "classes2.dex",
+          "central_index": 2,
+          "dex_sha256": "f0598ae1758ace8b1345d01bdb1ac237d271d431b1f633b6b65fc7835ceb9543",
+          "version": "037",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 1
+        },
+        {
+          "input_index": 0,
+          "entry_name": "classes10.dex",
+          "central_index": 0,
+          "dex_sha256": "ba670ff08a87906ba2ca5528fd96b4dcc3c99ca314d070757d2ab12705a6c1cf",
+          "version": "040",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 2
+        }
+      ],
+      "queries": [
+        {
+          "id": "enumerate_six_definitions",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {},
+            "intent": "enumerate",
+            "max_results": 100
+          },
+          "matching_count": 6,
+          "decision": "NotApplicable",
+          "reason": "None"
+        }
+      ]
+    },
+    {
+      "id": "numeric_order_deflate",
+      "inputs": [
+        {
+          "path": "reverse-deflate.apk",
+          "kind": "apk",
+          "allow_no_dex": false
+        }
+      ],
+      "scope_complete": true,
+      "expected_load_status": "Complete",
+      "expected_occurrences": [
+        {
+          "input_index": 0,
+          "entry_name": "classes.dex",
+          "central_index": 3,
+          "dex_sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+          "version": "035",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 0
+        },
+        {
+          "input_index": 0,
+          "entry_name": "classes2.dex",
+          "central_index": 2,
+          "dex_sha256": "f0598ae1758ace8b1345d01bdb1ac237d271d431b1f633b6b65fc7835ceb9543",
+          "version": "037",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 1
+        },
+        {
+          "input_index": 0,
+          "entry_name": "classes10.dex",
+          "central_index": 0,
+          "dex_sha256": "ba670ff08a87906ba2ca5528fd96b4dcc3c99ca314d070757d2ab12705a6c1cf",
+          "version": "040",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 2
+        }
+      ],
+      "queries": [
+        {
+          "id": "same_descriptor_three_occurrences",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {
+              "name": {
+                "op": "exact",
+                "value": "locate"
+              }
+            },
+            "intent": "unique",
+            "max_results": 100
+          },
+          "matching_count": 3,
+          "decision": "ProvenFalse",
+          "reason": "Ambiguous"
+        }
+      ]
+    },
+    {
+      "id": "identical_bytes_two_slots",
+      "inputs": [
+        {
+          "path": "raw-a.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        },
+        {
+          "path": "raw-a-copy.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        }
+      ],
+      "scope_complete": true,
+      "expected_load_status": "Complete",
+      "expected_occurrences": [
+        {
+          "input_index": 0,
+          "entry_name": null,
+          "central_index": null,
+          "dex_sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+          "version": "035",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 0
+        },
+        {
+          "input_index": 1,
+          "entry_name": null,
+          "central_index": null,
+          "dex_sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+          "version": "035",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 1
+        }
+      ],
+      "queries": [
+        {
+          "id": "same_descriptor_is_two_occurrences",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {
+              "name": {
+                "op": "exact",
+                "value": "locate"
+              }
+            },
+            "intent": "unique",
+            "max_results": 100
+          },
+          "matching_count": 2,
+          "decision": "ProvenFalse",
+          "reason": "Ambiguous"
+        },
+        {
+          "id": "external_is_reference_only",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {
+              "name": {
+                "op": "exact",
+                "value": "external"
+              }
+            },
+            "intent": "unique",
+            "max_results": 100
+          },
+          "matching_count": 0,
+          "decision": "ProvenFalse",
+          "reason": "NoMatch"
+        }
+      ]
+    },
+    {
+      "id": "same_path_two_slots",
+      "inputs": [
+        {
+          "path": "raw-a.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        },
+        {
+          "path": "raw-a.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        }
+      ],
+      "scope_complete": true,
+      "expected_load_status": "Complete",
+      "expected_occurrences": [
+        {
+          "input_index": 0,
+          "entry_name": null,
+          "central_index": null,
+          "dex_sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+          "version": "035",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 0
+        },
+        {
+          "input_index": 1,
+          "entry_name": null,
+          "central_index": null,
+          "dex_sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+          "version": "035",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 1
+        }
+      ],
+      "queries": [
+        {
+          "id": "same_descriptor_is_two_occurrences",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {
+              "name": {
+                "op": "exact",
+                "value": "locate"
+              }
+            },
+            "intent": "unique",
+            "max_results": 100
+          },
+          "matching_count": 2,
+          "decision": "ProvenFalse",
+          "reason": "Ambiguous"
+        },
+        {
+          "id": "external_is_reference_only",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {
+              "name": {
+                "op": "exact",
+                "value": "external"
+              }
+            },
+            "intent": "unique",
+            "max_results": 100
+          },
+          "matching_count": 0,
+          "decision": "ProvenFalse",
+          "reason": "NoMatch"
+        }
+      ]
+    },
+    {
+      "id": "different_dex_same_local_ids",
+      "inputs": [
+        {
+          "path": "raw-a.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        },
+        {
+          "path": "raw-b.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        }
+      ],
+      "scope_complete": true,
+      "expected_load_status": "Complete",
+      "expected_occurrences": [
+        {
+          "input_index": 0,
+          "entry_name": null,
+          "central_index": null,
+          "dex_sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+          "version": "035",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 0
+        },
+        {
+          "input_index": 1,
+          "entry_name": null,
+          "central_index": null,
+          "dex_sha256": "f0598ae1758ace8b1345d01bdb1ac237d271d431b1f633b6b65fc7835ceb9543",
+          "version": "037",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 1
+        }
+      ],
+      "queries": [
+        {
+          "id": "same_descriptor_is_two_occurrences",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {
+              "name": {
+                "op": "exact",
+                "value": "locate"
+              }
+            },
+            "intent": "unique",
+            "max_results": 100
+          },
+          "matching_count": 2,
+          "decision": "ProvenFalse",
+          "reason": "Ambiguous"
+        },
+        {
+          "id": "external_is_reference_only",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {
+              "name": {
+                "op": "exact",
+                "value": "external"
+              }
+            },
+            "intent": "unique",
+            "max_results": 100
+          },
+          "matching_count": 0,
+          "decision": "ProvenFalse",
+          "reason": "NoMatch"
+        }
+      ]
+    },
+    {
+      "id": "input_order_then_numeric_order",
+      "inputs": [
+        {
+          "path": "raw-b.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        },
+        {
+          "path": "reverse-stored.apk",
+          "kind": "apk",
+          "allow_no_dex": false
+        },
+        {
+          "path": "raw-a.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        }
+      ],
+      "scope_complete": true,
+      "expected_load_status": "Complete",
+      "expected_occurrences": [
+        {
+          "input_index": 0,
+          "entry_name": null,
+          "central_index": null,
+          "dex_sha256": "f0598ae1758ace8b1345d01bdb1ac237d271d431b1f633b6b65fc7835ceb9543",
+          "version": "037",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 0
+        },
+        {
+          "input_index": 1,
+          "entry_name": "classes.dex",
+          "central_index": 3,
+          "dex_sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+          "version": "035",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 1
+        },
+        {
+          "input_index": 1,
+          "entry_name": "classes2.dex",
+          "central_index": 2,
+          "dex_sha256": "f0598ae1758ace8b1345d01bdb1ac237d271d431b1f633b6b65fc7835ceb9543",
+          "version": "037",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 2
+        },
+        {
+          "input_index": 1,
+          "entry_name": "classes10.dex",
+          "central_index": 0,
+          "dex_sha256": "ba670ff08a87906ba2ca5528fd96b4dcc3c99ca314d070757d2ab12705a6c1cf",
+          "version": "040",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 3
+        },
+        {
+          "input_index": 2,
+          "entry_name": null,
+          "central_index": null,
+          "dex_sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+          "version": "035",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 4
+        }
+      ],
+      "queries": [
+        {
+          "id": "enumerate_ten_definitions",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {},
+            "intent": "enumerate",
+            "max_results": 100
+          },
+          "matching_count": 10,
+          "decision": "NotApplicable",
+          "reason": "None"
+        }
+      ]
+    },
+    {
+      "id": "resource_split_allowed",
+      "inputs": [
+        {
+          "path": "raw-a.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        },
+        {
+          "path": "resource-only.apk",
+          "kind": "apk",
+          "allow_no_dex": true
+        }
+      ],
+      "scope_complete": true,
+      "expected_load_status": "Complete",
+      "expected_occurrences": [
+        {
+          "input_index": 0,
+          "entry_name": null,
+          "central_index": null,
+          "dex_sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+          "version": "035",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 0
+        }
+      ],
+      "queries": [
+        {
+          "id": "resource_slot_does_not_invent_code",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {
+              "name": {
+                "op": "exact",
+                "value": "locate"
+              }
+            },
+            "intent": "unique",
+            "max_results": 100
+          },
+          "matching_count": 1,
+          "decision": "ProvenTrue",
+          "reason": "None"
+        }
+      ]
+    },
+    {
+      "id": "resource_split_not_allowed",
+      "inputs": [
+        {
+          "path": "raw-a.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        },
+        {
+          "path": "resource-only.apk",
+          "kind": "apk",
+          "allow_no_dex": false
+        }
+      ],
+      "scope_complete": true,
+      "expected_load_status": "CorruptInput",
+      "expected_occurrences": [],
+      "queries": []
+    },
+    {
+      "id": "incomplete_scope",
+      "inputs": [
+        {
+          "path": "raw-a.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        }
+      ],
+      "scope_complete": false,
+      "expected_load_status": "Complete",
+      "expected_occurrences": [
+        {
+          "input_index": 0,
+          "entry_name": null,
+          "central_index": null,
+          "dex_sha256": "dd0e9527dda007481637b6b43393a8239635e85fa006b452092dcc064c3e456f",
+          "version": "035",
+          "method_definition_count": 2,
+          "method_reference_count": 3,
+          "source_index": 0
+        }
+      ],
+      "queries": [
+        {
+          "id": "zero_is_undetermined",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {
+              "name": {
+                "op": "exact",
+                "value": "external"
+              }
+            },
+            "intent": "unique",
+            "max_results": 100
+          },
+          "matching_count": 0,
+          "decision": "Undetermined",
+          "reason": "SourceScopeIncomplete"
+        },
+        {
+          "id": "one_is_undetermined",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {
+              "name": {
+                "op": "exact",
+                "value": "locate"
+              }
+            },
+            "intent": "unique",
+            "max_results": 100
+          },
+          "matching_count": 1,
+          "decision": "Undetermined",
+          "reason": "SourceScopeIncomplete"
+        },
+        {
+          "id": "two_disprove_unique",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {},
+            "intent": "unique",
+            "max_results": 100
+          },
+          "matching_count": 2,
+          "decision": "ProvenFalse",
+          "reason": "Ambiguous"
+        },
+        {
+          "id": "exists_zero_undetermined",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {
+              "name": {
+                "op": "exact",
+                "value": "external"
+              }
+            },
+            "intent": "exists",
+            "max_results": 100
+          },
+          "matching_count": 0,
+          "decision": "Undetermined",
+          "reason": "SourceScopeIncomplete"
+        },
+        {
+          "id": "exists_witness_true",
+          "query": {
+            "schema_version": 1,
+            "relation": "method_defs",
+            "where": {
+              "name": {
+                "op": "exact",
+                "value": "locate"
+              }
+            },
+            "intent": "exists",
+            "max_results": 100
+          },
+          "matching_count": 1,
+          "decision": "ProvenTrue",
+          "reason": "Witness"
+        }
+      ]
+    },
+    {
+      "id": "one-corrupt-dex",
+      "inputs": [
+        {
+          "path": "raw-a.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        },
+        {
+          "path": "one-corrupt-dex.apk",
+          "kind": "apk",
+          "allow_no_dex": false
+        }
+      ],
+      "scope_complete": true,
+      "expected_load_status": "CorruptInput",
+      "expected_occurrences": [],
+      "queries": []
+    },
+    {
+      "id": "bad-crc",
+      "inputs": [
+        {
+          "path": "raw-a.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        },
+        {
+          "path": "bad-crc.apk",
+          "kind": "apk",
+          "allow_no_dex": false
+        }
+      ],
+      "scope_complete": true,
+      "expected_load_status": "CorruptInput",
+      "expected_occurrences": [],
+      "queries": []
+    },
+    {
+      "id": "duplicate-entry",
+      "inputs": [
+        {
+          "path": "raw-a.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        },
+        {
+          "path": "duplicate-entry.apk",
+          "kind": "apk",
+          "allow_no_dex": false
+        }
+      ],
+      "scope_complete": true,
+      "expected_load_status": "CorruptInput",
+      "expected_occurrences": [],
+      "queries": []
+    },
+    {
+      "id": "classes1-only",
+      "inputs": [
+        {
+          "path": "raw-a.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        },
+        {
+          "path": "classes1-only.apk",
+          "kind": "apk",
+          "allow_no_dex": false
+        }
+      ],
+      "scope_complete": true,
+      "expected_load_status": "CorruptInput",
+      "expected_occurrences": [],
+      "queries": []
+    },
+    {
+      "id": "classes01-only",
+      "inputs": [
+        {
+          "path": "raw-a.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        },
+        {
+          "path": "classes01-only.apk",
+          "kind": "apk",
+          "allow_no_dex": false
+        }
+      ],
+      "scope_complete": true,
+      "expected_load_status": "CorruptInput",
+      "expected_occurrences": [],
+      "queries": []
+    },
+    {
+      "id": "noncanonical-with-canonical",
+      "inputs": [
+        {
+          "path": "raw-a.dex",
+          "kind": "dex",
+          "allow_no_dex": false
+        },
+        {
+          "path": "noncanonical-with-canonical.apk",
+          "kind": "apk",
+          "allow_no_dex": false
+        }
+      ],
+      "scope_complete": true,
+      "expected_load_status": "CorruptInput",
+      "expected_occurrences": [],
+      "queries": []
+    }
+  ]
+}

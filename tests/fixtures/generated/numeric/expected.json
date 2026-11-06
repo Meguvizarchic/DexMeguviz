@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "sha256": "45493d9c18a659507a1929467be3420bba23e408f906641d253da59d73c92699",
+  "source_sha256": "8262d2b338e54a7965111b4cec1ef9e628ada9795ad2f6a555d717a2ba9546bc",
+  "code_units": [
+    61458,
+    22,
+    65534,
+    21,
+    32768,
+    26,
+    10,
+    14
+  ],
+  "description": "Project-original static code-item; raw literal encodings, not ART validity."
+}

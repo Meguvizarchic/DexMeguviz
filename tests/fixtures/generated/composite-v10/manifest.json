@@ -1,0 +1,7 @@
+{
+  "sha256": "ae071f078b042f7455c69c7044bed82209faff9bdb5c807bd9088da458ac3d63",
+  "code_offset": 444,
+  "invoke_pc": 0,
+  "numeric_pc": 3,
+  "scope": "static synthetic input; no runtime or verifier claim"
+}

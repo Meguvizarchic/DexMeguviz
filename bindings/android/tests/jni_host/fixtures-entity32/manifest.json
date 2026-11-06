@@ -1,0 +1,17 @@
+{
+  "sha256": "2b2736d4e9feb01f7c7a8d5e70633fe8f72cdf92b18d294367f6f6068d059016",
+  "bytes": 436,
+  "generator_sha256": "fe20d2e471999897bcadee7b70438636397d16cd0e2b4c11b39d3fe041353ddc",
+  "empty_string": "",
+  "nul_utf16": [
+    38634,
+    55357,
+    56832,
+    0,
+    116,
+    97,
+    105,
+    108
+  ],
+  "scope": "authored metadata; no ART claim"
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "source": "generated/use_relations/string-normal-jumbo.dex",
+  "source_sha256": "65373dc14bb0b19b3fb4ae8fd236e83befbfee4b69b74e3a8d4a8b7db2637c04",
+  "fixture": "string-utf16-v12.dex",
+  "fixture_sha256": "67e58385794f6bc1f8fe56a30bbcb4a4eb973e26b4e6449a52ed0c671668292a",
+  "bytes": 608,
+  "target_index": 10,
+  "utf16_units": [
+    117,
+    115,
+    101,
+    100,
+    55357,
+    56832,
+    120
+  ],
+  "instruction_pcs": [
+    0,
+    2
+  ],
+  "scope": "Project-original static DEX; no ART or runtime claim"
+}

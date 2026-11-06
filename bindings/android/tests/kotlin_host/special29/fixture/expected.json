@@ -1,0 +1,32 @@
+{
+  "classes": {
+    "Lflags/Ordinary;": 1,
+    "Lflags/Final;": 17
+  },
+  "methods": [
+    [
+      "Lflags/Final;",
+      "beta"
+    ],
+    [
+      "Lflags/Ordinary;",
+      "<clinit>"
+    ],
+    [
+      "Lflags/Ordinary;",
+      "<init>"
+    ],
+    [
+      "Lflags/Ordinary;",
+      "alpha"
+    ]
+  ],
+  "code_offsets": [
+    356,
+    376,
+    396,
+    416
+  ],
+  "sha256": "f3cf5a3b20041d69508b6841ab46b9e8f7168862bf7d34d2afbb70127eda49a7",
+  "scope": "authored metadata and query fixture; no Android runtime or ART verifier claim"
+}

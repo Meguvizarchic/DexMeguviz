@@ -1,0 +1,1 @@
+public class ManyOdd { public static void method(){try{System.nanoTime();}catch(RuntimeException e){System.currentTimeMillis();}catch(Error e){System.nanoTime();}finally{System.nanoTime();}} }

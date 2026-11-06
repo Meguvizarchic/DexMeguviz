@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "specification": "https://source.android.com/docs/core/runtime/dex-format",
+  "license": "Project-original; distribution license pending owner decision",
+  "classes": [
+    {
+      "name": "Ljava/lang/Object;",
+      "type_id": 7,
+      "definition_offset": 252,
+      "access_flags": 1,
+      "superclass_type": 4294967295,
+      "interfaces": [],
+      "class_data_offset": 0,
+      "annotations_offset": 0,
+      "static_values_offset": 0
+    },
+    {
+      "name": "Lcatalog/InterfaceA;",
+      "type_id": 4,
+      "definition_offset": 284,
+      "access_flags": 1537,
+      "superclass_type": 7,
+      "interfaces": [],
+      "class_data_offset": 0,
+      "annotations_offset": 0,
+      "static_values_offset": 0
+    },
+    {
+      "name": "Lcatalog/InterfaceB;",
+      "type_id": 5,
+      "definition_offset": 316,
+      "access_flags": 1537,
+      "superclass_type": 7,
+      "interfaces": [],
+      "class_data_offset": 0,
+      "annotations_offset": 0,
+      "static_values_offset": 0
+    },
+    {
+      "name": "Lcatalog/Base;",
+      "type_id": 2,
+      "definition_offset": 348,
+      "access_flags": 1,
+      "superclass_type": 7,
+      "interfaces": [
+        5,
+        4
+      ],
+      "class_data_offset": 607,
+      "annotations_offset": 628,
+      "static_values_offset": 625
+    },
+    {
+      "name": "Lcatalog/Child;",
+      "type_id": 3,
+      "definition_offset": 380,
+      "access_flags": 1025,
+      "superclass_type": 2,
+      "interfaces": [
+        4
+      ],
+      "class_data_offset": 615,
+      "annotations_offset": 0,
+      "static_values_offset": 0
+    }
+  ],
+  "fields": [
+    {
+      "field_ref_index": 1,
+      "access_flags": 9,
+      "declaration_offset": 611,
+      "owner_type": 2,
+      "owner": "Lcatalog/Base;",
+      "name": "shared"
+    },
+    {
+      "field_ref_index": 0,
+      "access_flags": 1,
+      "declaration_offset": 613,
+      "owner_type": 2,
+      "owner": "Lcatalog/Base;",
+      "name": "instanceField"
+    },
+    {
+      "field_ref_index": 2,
+      "access_flags": 1,
+      "declaration_offset": 619,
+      "owner_type": 3,
+      "owner": "Lcatalog/Child;",
+      "name": "shared"
+    }
+  ],
+  "external_field_ref_index": 3,
+  "method_declaration_offset": 621,
+  "files": [
+    {
+      "path": "definitions.dex",
+      "expected": "valid",
+      "sha256": "e1059582b6c893690880403d00f6b5be8dfceb7be282793e2117bdf15b14e77a",
+      "bytes": 804
+    },
+    {
+      "path": "duplicate-class.dex",
+      "expected": "CorruptInput",
+      "sha256": "5013c355c911db46c1e3a402ea2255b5a40ce806f03264e85f3a3baa5f4c1fc7",
+      "bytes": 804
+    },
+    {
+      "path": "duplicate-interface.dex",
+      "expected": "CorruptInput",
+      "sha256": "0601eaaf5e606ee0d51373609efab4c1f42b3cb78231c51772be491a2f7e4228",
+      "bytes": 804
+    },
+    {
+      "path": "wrong-static-group.dex",
+      "expected": "CorruptInput",
+      "sha256": "1de6f0b4669681044999b673eaf1ad8a52028104bdac4d4c75e40f7a4520be79",
+      "bytes": 804
+    },
+    {
+      "path": "wrong-field-owner.dex",
+      "expected": "CorruptInput",
+      "sha256": "ad6219229a908b70d484d9ec3ccf46151c5e9c6e5b9c0fcb89d09bdd3d5c089a",
+      "bytes": 804
+    },
+    {
+      "path": "duplicate-field.dex",
+      "expected": "CorruptInput",
+      "sha256": "b45f7cf15bce5db0acdab551d04bf14864b8ef95772873520e58840e4095b8ac",
+      "bytes": 804
+    }
+  ],
+  "scope": "Definition directory and checked metadata offsets; annotation/static-value contents and runtime types not verified"
+}

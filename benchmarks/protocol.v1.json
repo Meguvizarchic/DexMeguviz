@@ -1,0 +1,501 @@
+{
+  "schema_version": 1,
+  "protocol_id": "bil-abc-net-value-v1",
+  "task_id": "P0-08",
+  "status": "draft_requires_environment_selection",
+  "prepared_on": "2026-10-26",
+  "formal_runner_ready": false,
+  "formal_C_results_observed": false,
+  "finalized_at_utc": null,
+  "rule_manifest": {
+    "path": "integrations/bil/rules/manifest.v1.json",
+    "sha256": "6cf7aac0e661130c4bfaf6e6ea34fd19f03f84fac4c34b31fbea173d1e5050c3",
+    "enum_count": 33
+  },
+  "comparison": {
+    "A": {
+      "definition": "Pinned BIL actual DexKit 2.3.0 usage: one shared resolveAll session, one bridge per distinct archive, all planned queries before closing that bridge",
+      "forbidden_distortion": "Do not rebuild a bridge per query or disable real current shortcuts to inflate A cost"
+    },
+    "B": {
+      "definition": "DexKit with reviewed planner/lifetime/materialization optimizations, exactly the same source scope, 33-rule semantics, runtime profiles and accepted product projection as A",
+      "patch_required": true
+    },
+    "C": {
+      "definition": "DexMeguviz with the identical product request, source set, runtime profile, outcome and resource envelope",
+      "required_correctness": "Full enabled-rule positive/negative/cardinality/partial and origin-aware verification gates before performance acceptance"
+    },
+    "contrasts": [
+      [
+        "A",
+        "B"
+      ],
+      [
+        "A",
+        "C"
+      ],
+      [
+        "B",
+        "C"
+      ]
+    ],
+    "attribution": "A-to-B optimizer savings cannot be counted as C engine savings; report all three contrasts. Optimization effects are already included in totals and are not added again.",
+    "common_projection": "Canonical accepted Method/Class/role-group descriptors and statuses after the same runtime verifier; preserve relatedClasses associations and side-effect profile. A/B lack of PC evidence must not be filled with invented native PC evidence.",
+    "additional_C_evidence": "C fact/source/PC golden verification is a separate correctness gate. Independently derived A/B PC evidence is labelled with the deriving tool and its cost."
+  },
+  "run_identity": {
+    "BIL_commit": "984b96dff1c09f355449d973a10be46b68fa27a2",
+    "rule_manifest_sha256": "6cf7aac0e661130c4bfaf6e6ea34fd19f03f84fac4c34b31fbea173d1e5050c3",
+    "common_projection_schema_sha256": null,
+    "runtime_verifier_profile_sha256": null,
+    "expected_projection_sha256_by_case": null,
+    "APK_sources_ordered": null,
+    "backend_builds": {
+      "A": null,
+      "B": null,
+      "C": null
+    },
+    "B_optimization_patch_sha256": null,
+    "toolchain_and_dependency_lock_sha256": null,
+    "device": null,
+    "OS_build": null,
+    "ABI": null,
+    "page_size_bytes": null,
+    "thread_count": null,
+    "controlled_budget_bytes": null,
+    "feature_flags": null,
+    "enabled_capabilities": null,
+    "foreground_script_sha256": null,
+    "cache_reset_and_verification_script_sha256": null,
+    "runner_sha256": null,
+    "measurement_clock_and_instrumentation_sha256": null,
+    "power_temperature_policy": null,
+    "OS_page_cache_observation_policy": null,
+    "LSPosed_module_and_host_identity": null
+  },
+  "required_before_run": [
+    "/finalized_at_utc",
+    "/rule_manifest/sha256",
+    "/run_identity/rule_manifest_sha256",
+    "/run_identity/common_projection_schema_sha256",
+    "/run_identity/runtime_verifier_profile_sha256",
+    "/run_identity/expected_projection_sha256_by_case",
+    "/run_identity/APK_sources_ordered",
+    "/run_identity/backend_builds/A",
+    "/run_identity/backend_builds/B",
+    "/run_identity/backend_builds/C",
+    "/run_identity/B_optimization_patch_sha256",
+    "/run_identity/toolchain_and_dependency_lock_sha256",
+    "/run_identity/device",
+    "/run_identity/OS_build",
+    "/run_identity/ABI",
+    "/run_identity/page_size_bytes",
+    "/run_identity/thread_count",
+    "/run_identity/controlled_budget_bytes",
+    "/run_identity/feature_flags",
+    "/run_identity/enabled_capabilities",
+    "/run_identity/foreground_script_sha256",
+    "/run_identity/cache_reset_and_verification_script_sha256",
+    "/run_identity/runner_sha256",
+    "/run_identity/measurement_clock_and_instrumentation_sha256",
+    "/run_identity/power_temperature_policy",
+    "/run_identity/OS_page_cache_observation_policy",
+    "/run_identity/LSPosed_module_and_host_identity",
+    "/gates/L0_absolute_regression_tolerance_ms",
+    "/gates/warm_absolute_regression_tolerance_ms",
+    "/gates/foreground_p95_absolute_regression_tolerance_ms",
+    "/gates/post_close_residual_tolerance_bytes"
+  ],
+  "input_binding": {
+    "APK_sources_ordered": "Each base/split occurrence records slot, package, versionName/versionCode, byte length, SHA256 and immutable intake revision; duplicate bytes in distinct slots remain distinct occurrences.",
+    "backend_builds": "Each records source commit, dirty patch SHA256 or explicit clean marker, binary/APK/AAR SHA256, build flags and toolchain lock identity.",
+    "device": "Explicit chosen serial alias/model/SOC/RAM, ABI, OS build and page size; no identifier is inferred from a connected device without selection.",
+    "identity_rule": "Every raw record carries SHA256 of canonical run_identity and its exact backend build identity. Changes create a new protocol/campaign; do not pool across identity changes."
+  },
+  "sampling": {
+    "paired_triplets_per_case": 30,
+    "pair_definition": "One block contains A, B, C on the same exact inputs and restored case state; 30 blocks yield 30 matched pairs for each contrast.",
+    "run_order_seed": 20261026,
+    "run_order_algorithm": "Five copies of the six A/B/C permutations, shuffled once with Python random.Random(seed); explicit 30-order schedule below is authoritative.",
+    "run_order": [
+      [
+        "B",
+        "A",
+        "C"
+      ],
+      [
+        "A",
+        "C",
+        "B"
+      ],
+      [
+        "C",
+        "A",
+        "B"
+      ],
+      [
+        "A",
+        "B",
+        "C"
+      ],
+      [
+        "B",
+        "A",
+        "C"
+      ],
+      [
+        "B",
+        "A",
+        "C"
+      ],
+      [
+        "A",
+        "C",
+        "B"
+      ],
+      [
+        "B",
+        "A",
+        "C"
+      ],
+      [
+        "A",
+        "C",
+        "B"
+      ],
+      [
+        "C",
+        "B",
+        "A"
+      ],
+      [
+        "B",
+        "C",
+        "A"
+      ],
+      [
+        "C",
+        "A",
+        "B"
+      ],
+      [
+        "B",
+        "C",
+        "A"
+      ],
+      [
+        "A",
+        "B",
+        "C"
+      ],
+      [
+        "C",
+        "B",
+        "A"
+      ],
+      [
+        "C",
+        "A",
+        "B"
+      ],
+      [
+        "C",
+        "A",
+        "B"
+      ],
+      [
+        "C",
+        "B",
+        "A"
+      ],
+      [
+        "A",
+        "B",
+        "C"
+      ],
+      [
+        "C",
+        "B",
+        "A"
+      ],
+      [
+        "A",
+        "B",
+        "C"
+      ],
+      [
+        "B",
+        "A",
+        "C"
+      ],
+      [
+        "C",
+        "B",
+        "A"
+      ],
+      [
+        "A",
+        "B",
+        "C"
+      ],
+      [
+        "B",
+        "C",
+        "A"
+      ],
+      [
+        "C",
+        "A",
+        "B"
+      ],
+      [
+        "B",
+        "C",
+        "A"
+      ],
+      [
+        "A",
+        "C",
+        "B"
+      ],
+      [
+        "A",
+        "C",
+        "B"
+      ],
+      [
+        "B",
+        "C",
+        "A"
+      ]
+    ],
+    "warmup_triplets_per_case": 5,
+    "warmup_policy": "Fixed 5 pre-measurement triplets, retained as phase=warmup and never pooled with measured samples. Cold/native and L0 state reset is re-established after warmup.",
+    "warm_queries_per_snapshot": 10,
+    "foreground_frames_minimum_per_run": 1000,
+    "tail_metric": "Per-run frame p95 from the entire complete scripted capture; compare paired per-run p95 values, not IID individual frames.",
+    "p99": "Not a release gate in v1. Report unverified; adding a p99 claim requires a new preregistration before observing the affected formal C data.",
+    "pooling": "Never pool devices, APK identities, ABI, page sizes, modes, budgets or feature configurations. One campaign fixes one run_identity; each case reports separately.",
+    "warmup_run_order": "Use the first five entries of the explicit run_order table in order, with phase=warmup and triplet_id 1..5; reset case state before each member."
+  },
+  "cases": {
+    "cold_adaptation": {
+      "required": true,
+      "primary": true,
+      "state": "Business result cache miss; native library/engine/snapshot unopened. OS page cache recorded separately, never called cold disk merely because app was force-stopped."
+    },
+    "full_L0_hit": {
+      "required": true,
+      "primary": false,
+      "state": "Complete verified business cache hit. No native scan load, whole-APK hash, source open, scan or index build is allowed on this path."
+    },
+    "snapshot_warm_query": {
+      "required": true,
+      "primary": false,
+      "state": "Existing immutable open snapshot; identical 10 query executions per run; retain individual timings, report their median plus full request accounting."
+    },
+    "foreground_adaptation": {
+      "required": true,
+      "primary": false,
+      "state": "The same cold adaptation executes concurrently with the selected repeatable foreground script; entire capture and all frame samples retained."
+    },
+    "persistent_fact_hit": {
+      "required": false,
+      "required_if_capability": "persistent_facts",
+      "primary": false,
+      "state": "Only enabled after the persistent capability passes correctness. Cache identity/version/validation cost remains in prepare and full_task; disabled is not pass."
+    }
+  },
+  "timing_envelopes": {
+    "clock": "Monotonic elapsed clock specified and locked in instrumentation identity; wall-clock timestamps only correlate evidence.",
+    "prepare_ms": "Admission marker immediately before expensive preparation through query-ready state, including needed native load, strong identity/hash, immutable snapshot/copy, ZIP decompression, structural validation and required indexes.",
+    "first_answer_ms": "Cumulative admission-marker-to-first-business-accepted-result time, including needed runtime verification and conversion; cannot report a raw candidate as accepted answer.",
+    "warm_query_ms": "Median of the 10 retained warm_query_samples_ms on an already open snapshot, including query, required business verification and public-result conversion; no hidden prepare cost may migrate here.",
+    "full_task_ms": "Admission marker to successful committed product outcome plus required cache persistence and synchronous job/source cleanup. Include native load, identity, parse, planned queries, business verification, conversion and required persistence uniformly in A/B/C. Necessary close/release is included.",
+    "close_ms": "The required synchronous cleanup subinterval inside full_task; shared resident engine lifetime policy must be identical and separately labelled. Report post-close residual separately.",
+    "post_close_residual": "Owned allocation ledger and observed PSS/RSS recorded before request, at peak, immediately after close and through fixed 1000ms post-close observation; residual time is not silently used to defer required cleanup.",
+    "nonadditivity": "first_answer is cumulative and phase timers may overlap; do not add phase speedups or timer values to manufacture total savings."
+  },
+  "metrics": {
+    "primary_time": "full_task_ms",
+    "primary_memory": "observed_incremental_peak_pss_bytes",
+    "memory_definition": "Target host process only; maximum observed PSS during full_task minus median of 31 pre-admission PSS samples, clamped at zero. Sample at fixed 10ms cadence for every backend and retain timestamped samples/missed-sample counters. This is an observed sampled peak, not exact instantaneous allocator high water.",
+    "separate_required_measurements": [
+      "controlled_owned_bytes_current_and_peak",
+      "RSS_and_PSS_baseline_peak_after_close",
+      "CPU_time_ms",
+      "input_read_bytes",
+      "decompressed_bytes",
+      "decoded_code_units",
+      "index_build_count",
+      "native_scan_load_count",
+      "whole_APK_hash_count",
+      "source_open_count",
+      "scan_count",
+      "JNI_batch_count",
+      "post_close_residual_bytes",
+      "frame_times_ms",
+      "process_temperature_power_state"
+    ],
+    "budget_scope": "Owned allocator budget, address space, dependency allocations and observed RSS/PSS are distinct. State covered and excluded dependency allocations; no implicit reserve increase."
+  },
+  "statistics": {
+    "estimator": "geometric_mean_of_paired_ratios",
+    "formula": "For each complete valid triplet, log(metric_to/metric_from); exponentiate the arithmetic mean across 30 paired blocks. Pairwise absolute-difference gates use mean(to-from).",
+    "bootstrap": {
+      "method": "paired_block_percentile",
+      "replicates": 10000,
+      "confidence": 0.95,
+      "seed": 20261027,
+      "resampling_unit": "triplet_id within one case; all backends stay paired",
+      "quantile_rule": "linear interpolation at (n-1)*q on sorted bootstrap estimates"
+    },
+    "descriptive": [
+      "per-backend median",
+      "paired ratio point estimate and 95% CI",
+      "paired absolute difference and 95% CI for absolute-tolerance gates",
+      "valid pairs, attempted records, missing/failed/excluded/warmup counts"
+    ],
+    "zero_denominator": "Time must be positive; zero baseline memory means ratio not estimable, never infinity or a fabricated win. Absolute memory values remain visible.",
+    "multiple_routes": "Time and memory diagnostics use separate 95% confidence intervals; B-to-C thresholds and strict A-to-C time and memory superiority are required for overall acceptance. No joint familywise 95% coverage claim is made; thresholds cannot be invented or retuned after C results. Every required L0, warm and foreground case must also demonstrate strict C superiority against A and B; no familywise coverage claim is made."
+  },
+  "decision_routes": {
+    "acceptance_rule": "time_and_memory_all_required_scenarios_v3",
+    "time_primary": {
+      "contrast": [
+        "B",
+        "C"
+      ],
+      "case": "cold_adaptation",
+      "metric": "full_task_ms",
+      "minimum_reduction": 0.15,
+      "pass_if_ratio_CI_upper_at_most": 0.85
+    },
+    "memory_alternative": {
+      "contrast": [
+        "B",
+        "C"
+      ],
+      "case": "cold_adaptation",
+      "metric": "observed_incremental_peak_pss_bytes",
+      "minimum_reduction": 0.25,
+      "pass_if_ratio_CI_upper_at_most": 0.75,
+      "time_regression_maximum": 0.05,
+      "pass_if_time_ratio_CI_upper_at_most": 1.05
+    },
+    "decision": "Correctness, lifecycle, reuse, complete-L0, warm and foreground gates must all pass. Report both diagnostics independently; overall acceptance requires both B-to-C primary time and memory thresholds, and both A-to-C time and memory 95% CI upper bounds strictly below 1. A memory-only result cannot compensate for a failed primary time threshold. In each required L0, warm and foreground case, paired C-minus-A and C-minus-B time-difference 95% CI upper bounds must be strictly below zero; equality or missing evidence fails. Existing absolute tolerances remain separately checked.",
+    "A_to_C_strict_superiority": {
+      "contrast": ["A", "C"],
+      "case": "cold_adaptation",
+      "metrics": ["full_task_ms", "observed_incremental_peak_pss_bytes"],
+      "pass_if_ratio_CI_upper_strictly_below": 1.0
+    },
+    "auxiliary_strict_superiority": {
+      "contrasts": ["A_to_C", "B_to_C"],
+      "cases": {
+        "full_L0_hit": "full_task_ms",
+        "snapshot_warm_query": "warm_query_ms",
+        "foreground_adaptation": "foreground_frame_p95_ms"
+      },
+      "pass_if_difference_CI_upper_strictly_below_ms": 0.0
+    },
+    "A_to_C_exploratory_targets": {
+      "full_uncached_p50_reduction": 0.25,
+      "incremental_peak_memory_reduction": 0.3,
+      "acceptance_gate": false
+    }
+  },
+  "gates": {
+    "correctness": "All attempted formal records must be complete=true, status=ok, correctness_passed=true and accepted product projection SHA256 equal to independently frozen expected projection for the case. Any semantic error blocks this scope.",
+    "minimum_valid_pairs_per_required_case": 30,
+    "maximum_failed_or_excluded_or_missing_formal_records": 0,
+    "L0_zero_counters": [
+      "native_scan_load_count",
+      "whole_APK_hash_count",
+      "source_open_count",
+      "scan_count",
+      "index_build_count"
+    ],
+    "L0_absolute_regression_tolerance_ms": null,
+    "warm_absolute_regression_tolerance_ms": null,
+    "foreground_p95_absolute_regression_tolerance_ms": null,
+    "post_close_residual_tolerance_bytes": null,
+    "absolute_tolerance_policy": "Set numerical absolute tolerances before formal C data, based on timer resolution/product requirements or A/B-only calibration. No post-result adjustment. Use upper paired mean-difference CI against the tolerance.",
+    "external_gate_evidence_required": [
+      "runtime_binding_and_33_rule_correctness",
+      "resource_lifecycle_cancel_close",
+      "BIL_and_portable_consumer_semantic_reuse"
+    ],
+    "external_gate_policy": "Matched immutable evidence identity is necessary; analyzer does not manufacture these gates from timing data. Missing evidence keeps overall acceptance unverified.",
+    "absolute_regression_contrasts": [
+      "A_to_C",
+      "B_to_C"
+    ]
+  },
+  "failures_exclusions_stopping": {
+    "retain_all": "Append-only raw records, including warmups, partial/error/cancelled/timeout runs and environmental exclusions. Never overwrite or delete a slow/failing row.",
+    "invalid_performance_samples": "Exclude failed/incomplete/incorrect members and their whole triplet from successful-only estimates, but retain all attempt and failure counts. Any formal failure/exclusion/missing record blocks acceptance of the 30-triplet campaign.",
+    "allowed_environmental_exclusion_reasons": [
+      "predeclared_temperature_or_power_violation",
+      "foreground_script_interrupted",
+      "OS_or_process_interruption",
+      "instrumentation_capture_incomplete",
+      "source_identity_changed"
+    ],
+    "forbidden_exclusions": [
+      "statistical_outlier",
+      "slow_result",
+      "unfavorable_backend",
+      "correctness_failure_hidden_as_environment"
+    ],
+    "stop": "Fixed 30 measured triplets per case; no optional stopping at significance. Stop immediately on source/build drift, semantic mismatch, crash, budget breach or invalid safety/thermal condition; preserve partial campaign and failure reason.",
+    "rerun": "No replacement of selected rows inside a campaign. After an identified fix or condition change, register a new campaign linked to the old one and rerun all 30 triplets for every affected case; retain failed campaign. Unchanged slow results alone are not rerun justification."
+  },
+  "raw_schema": {
+    "top_level": [
+      "schema_version",
+      "data_kind",
+      "campaign_id",
+      "protocol_sha256",
+      "identity",
+      "records",
+      "external_gate_evidence"
+    ],
+    "data_kind": "real for actual captured runs; synthetic_control is always excluded from performance acceptance",
+    "record_fields": [
+      "case",
+      "phase",
+      "triplet_id",
+      "backend",
+      "order_position",
+      "identity_sha256",
+      "backend_build_identity",
+      "complete",
+      "status",
+      "correctness_passed",
+      "projection_sha256",
+      "metrics",
+      "counters",
+      "environment_valid",
+      "exclusion_reason",
+      "warm_query_samples_ms",
+      "foreground_frame_times_ms",
+      "foreground_capture_complete"
+    ],
+    "metrics": [
+      "prepare_ms",
+      "first_answer_ms",
+      "warm_query_ms",
+      "full_task_ms",
+      "close_ms",
+      "observed_incremental_peak_pss_bytes",
+      "post_close_residual_bytes"
+    ],
+    "external_gate_record": "Each named gate is {status:passed, complete:true, identity_sha256, evidence_path, sha256}. evidence_path is relative to the raw file directory; analyzer rehashes the existing JSON evidence and verifies its identity/status/complete fields. A matched file is input evidence, not proof the analyzer ran the external gate."
+  },
+  "current_limitations": [
+    "No target device, exact APK campaign, A/B/C binary set, baseline B patch, foreground script or complete runtime gate evidence selected.",
+    "Absolute L0/warm/foreground/residual limits remain null and require selection before formal results.",
+    "P0-08 is in_progress; fixed statistical and relative-threshold draft is not final run authorization or a runnable formal benchmark runner."
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "object.dex": {
+    "bytes": 272,
+    "sha256": "a536177d1c752cf9bde498d2cb348401ff3035ebf6d5aec9dcb45cf225b8f920"
+  },
+  "child.dex": {
+    "bytes": 440,
+    "sha256": "8e9f9487fc73899c49573adc5aeaee1cb7175b68e9166ded45bf3214fcae137b"
+  },
+  "child-own.dex": {
+    "bytes": 440,
+    "sha256": "54cf0a5f17c85b613496f7bc1d01c9ddfd0f4283a1d6121b4747e0cdac8dc84c"
+  },
+  "child-own-static.dex": {
+    "bytes": 440,
+    "sha256": "00eef7948b4d5272e6575fe8c10c4676adabcd27b40f333266d9b397985f0019"
+  },
+  "child-invalid-flags.dex": {
+    "bytes": 440,
+    "sha256": "ee79711f13fb7593c5937f1144d81cdfa3935a1fc8750fca89e9743e31099445"
+  },
+  "child-different-type.dex": {
+    "bytes": 460,
+    "sha256": "5825451df1c864fce7f4daa73312b19622e53c3f7b577c4c09b57a2a2321ab9d"
+  },
+  "child-interface.dex": {
+    "bytes": 484,
+    "sha256": "713fd536e8584e57fdcf433d8382eafdb139445f99ef11c94c10b9bf7c4b3251"
+  },
+  "parent.dex": {
+    "bytes": 344,
+    "sha256": "14060995de68f20b9cab97ae45a72ffe689aa5beef80632b5fc1ed17ce161331"
+  },
+  "parent-static.dex": {
+    "bytes": 344,
+    "sha256": "770a926da4196242d1be8a7e078c5ba7164bd3f46fde7dc1a4fb939ed72dfa7f"
+  },
+  "parent-cycle.dex": {
+    "bytes": 288,
+    "sha256": "f6cf6f91badbe41f132a68f5e672a5037e8a1f6c870048973004b65ac1c3444f"
+  },
+  "interface.dex": {
+    "bytes": 344,
+    "sha256": "9db8f9ef67d56dbe252e11de375b07e73c6b3a3d3122c33b1905f233974ec528"
+  },
+  "interface-bad.dex": {
+    "bytes": 344,
+    "sha256": "afb6366784eb0a635074a7f8d98e03c88b2a3799e912af15655526c0990eb43b"
+  },
+  "interface-empty.dex": {
+    "bytes": 296,
+    "sha256": "8b7cfdb2a642590546166dab25014e96d3421a37126feb531e0a9d468014de37"
+  }
+}

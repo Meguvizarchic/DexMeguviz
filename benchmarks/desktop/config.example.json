@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "protocol_id": "desktop-sql-observations-v1",
+  "campaign_id": "replace_with_new_campaign_id",
+  "data_kind": "desktop_observations",
+  "formal_runner_ready": false,
+  "finalized_at_utc": null,
+  "base_protocol": {
+    "path": "../protocol.v1.json",
+    "sha256": null
+  },
+  "builds": {
+    "one_shot": {
+      "path": null,
+      "sha256": null,
+      "source_revision": null,
+      "toolchain_identity": null,
+      "build_flags": null
+    },
+    "resident": {
+      "path": null,
+      "sha256": null,
+      "source_revision": null,
+      "toolchain_identity": null,
+      "build_flags": null
+    }
+  },
+  "inputs": [
+    {
+      "path": null,
+      "sha256": null,
+      "role": "base"
+    }
+  ],
+  "scope_complete": false,
+  "limits": {
+    "input_mib": 32,
+    "owned_mib": 512,
+    "sqlite_heap_mib": 128,
+    "max_rows": 10000,
+    "max_result_bytes": 1048576,
+    "max_progress_intervals": 10000,
+    "workflow_timeout_seconds": 120
+  },
+  "cases": [
+    {
+      "id": "case1",
+      "sql": {
+        "path": null,
+        "sha256": null
+      },
+      "params": {
+        "path": null,
+        "sha256": null
+      },
+      "expected": {
+        "path": null,
+        "sha256": null
+      },
+      "comparison": "ordered"
+    }
+  ],
+  "sampling": {
+    "measured_rounds": 30,
+    "warmup_rounds": 5,
+    "queries_per_snapshot": 10,
+    "order": [
+      [
+        "one_shot",
+        "resident"
+      ],
+      [
+        "resident",
+        "one_shot"
+      ],
+      [
+        "one_shot",
+        "resident"
+      ],
+      [
+        "one_shot",
+        "resident"
+      ],
+      [
+        "one_shot",
+        "resident"
+      ],
+      [
+        "one_shot",
+        "resident"
+      ],
+      [
+        "resident",
+        "one_shot"
+      ],
+      [
+        "one_shot",
+        "resident"
+      ],
+      [
+        "resident",
+        "one_shot"
+      ],
+      [
+        "resident",
+        "one_shot"
+      ],
+      [
+        "resident",
+        "one_shot"
+      ],
+      [
+        "one_shot",
+        "resident"
+      ],
+      [
+        "resident",
+        "one_shot"
+      ],
+      [
+        "one_shot",
+        "resident"
+      ],
+      [
+        "resident",
+        "one_shot"
+      ],
+      [
+        "one_shot",
+        "resident"
+      ],
+      [
+        "one_shot",
+        "resident"
+      ],
+      [
+        "resident",
+        "one_shot"
+      ],
+      [
+        "one_shot",
+        "resident"
+      ],
+      [
+        "resident",
+        "one_shot"
+      ],
+      [
+        "one_shot",
+        "resident"
+      ],
+      [
+        "one_shot",
+        "resident"
+      ],
+      [
+        "resident",
+        "one_shot"
+      ],
+      [
+        "one_shot",
+        "resident"
+      ],
+      [
+        "resident",
+        "one_shot"
+      ],
+      [
+        "one_shot",
+        "resident"
+      ],
+      [
+        "resident",
+        "one_shot"
+      ],
+      [
+        "resident",
+        "one_shot"
+      ],
+      [
+        "resident",
+        "one_shot"
+      ],
+      [
+        "resident",
+        "one_shot"
+      ]
+    ]
+  },
+  "environment": {
+    "host_selection": null,
+    "power_temperature_policy": null,
+    "os_page_cache_policy": null,
+    "measurement_clock": "Python perf_counter_ns; separate native microsecond counters",
+    "host_fingerprint": null
+  },
+  "runner_files": {
+    "runner.py": null,
+    "process.py": null
+  },
+  "gates": {
+    "correctness": {
+      "path": null,
+      "sha256": null
+    },
+    "lifecycle": {
+      "path": null,
+      "sha256": null
+    }
+  }
+}

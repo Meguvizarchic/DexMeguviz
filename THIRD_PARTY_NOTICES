@@ -1,0 +1,16 @@
+DexMeguviz production dependencies approved by the user on 2026-10-26:
+miniz 3.1.2, MIT: third_party/miniz/LICENSE and upstream-lock.json.
+SQLite 3.54.1, public-domain library code: third_party/sqlite/UPSTREAM-NOTICE.txt
+and upstream-lock.json. SQLite is optional, disabled by default and desktop-only.
+Upstream sources remain unmodified. Pinned archives and extracted file hashes are recorded.
+The C++ standard library and compiler/platform runtimes are supplied by the build toolchain.
+Python standard-library tooling is used for fixture generation and independent verification.
+
+DEX implementation references the published Android Open Source Project format specification:
+https://source.android.com/docs/core/runtime/dex-format
+No AOSP implementation source was copied.
+SHA-256 is an original scalar algorithm implementation, verified with fixed vectors and hashlib.
+
+The original supplied engineering material is preserved under references/engineering-pack;
+its third-party links are references, not vendored code.
+Project and original-fixture distribution licenses are pending the owner's decision.
