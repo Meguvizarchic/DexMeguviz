@@ -1,4 +1,35 @@
-<p><img src="docs/brand/DexMeguviz.svg" width="96" alt="DexMeguviz 图标"></p>
+<div align="center">
+
+<img src="docs/brand/DexMeguviz.svg" width="96" height="96" alt="DexMeguviz">
+
+# DexMeguviz
+
+**独立 C++20 DEX 查询工程（公开脱敏副本）**
+
+C ABI · 桌面 CLI · Android Java / Kotlin 绑定
+
+<br>
+
+[![License](https://img.shields.io/badge/license-Apache--2.0-00AEEC?style=flat-square&labelColor=2d3a55)](LICENSE)
+[![Language](https://img.shields.io/badge/lang-C%2B%2B-DEA584?style=flat-square&labelColor=2d3a55)](https://github.com/Meguvizarchic/DexMeguviz)
+[![Issues](https://img.shields.io/github/issues/Meguvizarchic/DexMeguviz?style=flat-square&labelColor=2d3a55)](https://github.com/Meguvizarchic/DexMeguviz/issues)
+
+[构建与入口](#构建与入口) · [通用接口补充](#通用接口补充) · [使用约定](#使用约定)
+
+</div>
+
+---
+
+<details>
+<summary><b>目录</b></summary>
+
+- [构建与入口](#构建与入口)
+- [通用接口补充](#通用接口补充)
+- [使用约定](#使用约定)
+
+</details>
+
+---
 
 > **公开脱敏副本**：本仓库由本地开发工作区按白名单导出，仅含源码、契约与状态文档、
 > 构建脚本、品牌图标和合规第三方源码。原始运行证据（`work/`、`build/`、`docs/evidence/`）、
@@ -7,8 +38,6 @@
 > [SANITIZATION.md](SANITIZATION.md)。本项目采用 Apache-2.0 许可证
 > （[LICENSE](LICENSE) / [NOTICE](NOTICE)），第三方组件见
 > [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES)。
-
-# DexMeguviz
 
 正在开发的独立C++20 DEX查询工程，提供C ABI、桌面命令行和Android Java/Kotlin接口。当前源码已包括有序raw DEX/APK来源、七类实体、按需指令事实、关系与有界展开、Job/取消、可选桌面SQL、持久事实缓存和离线候选包。完整SDK验收与真实BIL替换尚未完成。
 
