@@ -52,8 +52,10 @@
 
 `third_party/miniz`（MIT）与 `third_party/sqlite`（public domain）随源码附上，
 许可证与固定版本见各自目录及 `THIRD_PARTY_NOTICES`。AOSP 只引用公开的 DEX 格式规范，
-未复制其实现源码。**项目整体及原始夹具的分发许可证尚待所有者决定**，本仓库不擅自添加
-`LICENSE`；在决定之前请勿视为已获得再分发授权。
+未复制其实现源码。项目采用 **Apache License 2.0**（`LICENSE` / `NOTICE`），由所有者于
+2026-11-06 决定。未公开的原始二进制夹具与本地证据不在本仓库的分发范围内，其分发条款
+仍由所有者决定。`LICENSE`、`NOTICE` 与本节的文字更新是许可证确认后的后续提交，
+不属于初始导出快照，因此未列入 `SANITIZATION_MANIFEST.json` 的逐文件哈希清单。
 
 ## 已知限制
 

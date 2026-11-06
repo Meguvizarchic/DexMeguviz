@@ -1,0 +1,24 @@
+DexMeguviz
+Copyright 2026 jichuo1
+
+Licensed under the Apache License, Version 2.0 (see LICENSE). The scope of this
+public copy and its third-party components are described in THIRD_PARTY_NOTICES
+and SANITIZATION.md.
+
+Third-party components
+======================
+
+1. miniz 3.1.2 -- MIT. See third_party/miniz/LICENSE and upstream-lock.json.
+   Upstream sources are included unmodified.
+
+2. SQLite 3.54.1 -- public domain. See third_party/sqlite/UPSTREAM-NOTICE.txt
+   and upstream-lock.json. Optional, disabled by default, desktop-only.
+   Upstream sources are included unmodified.
+
+3. Android Open Source Project DEX format specification -- referenced as a
+   published format specification only; no AOSP implementation source was copied.
+
+Scope
+=====
+Local evidence, BIL integration sources, the original engineering pack and binary
+fixtures are not distributed in this public copy. See SANITIZATION.md.

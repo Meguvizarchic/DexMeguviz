@@ -13,4 +13,6 @@ SHA-256 is an original scalar algorithm implementation, verified with fixed vect
 
 The original supplied engineering material is preserved under references/engineering-pack;
 its third-party links are references, not vendored code.
-Project and original-fixture distribution licenses are pending the owner's decision.
+DexMeguviz is licensed under the Apache License, Version 2.0; see LICENSE and NOTICE.
+Original binary fixtures and local evidence are not distributed in this public copy;
+their distribution terms remain with the owner.

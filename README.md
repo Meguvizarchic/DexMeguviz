@@ -4,7 +4,8 @@
 > 构建脚本、品牌图标和合规第三方源码。原始运行证据（`work/`、`build/`、`docs/evidence/`）、
 > BIL 集成代码、工程包附件与测试二进制夹具**未公开**；文档里对这些本地路径或证据的引用
 > 只表示本机可追溯，不代表公开可复验。清洗规则、排除清单与逐文件哈希见
-> [SANITIZATION.md](SANITIZATION.md)。项目分发许可证尚待所有者决定，见
+> [SANITIZATION.md](SANITIZATION.md)。本项目采用 Apache-2.0 许可证
+> （[LICENSE](LICENSE) / [NOTICE](NOTICE)），第三方组件见
 > [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES)。
 
 # DexMeguviz
