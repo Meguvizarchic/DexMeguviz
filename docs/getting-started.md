@@ -1,51 +1,66 @@
-# 从源码使用DexMeguviz
+# 从源码使用 DexMeguviz
 
-工程仍在功能整合阶段；当前源码能力与早期保存的AAR不等同。先查看PROJECT_STATUS.json和相关合同，不将静态候选当运行时绑定或业务接受。
+本指南介绍如何从源码构建并接入 DexMeguviz 桌面工具与 Android 库。
 
-## 桌面
+## 桌面构建
 
-使用C++20工具链和CMake配置：
+使用 C++20 工具链和 CMake `3.25+` 配置与构建：
 
 ```text
 cmake -S . -B build-local -DDMG_BUILD_TESTS=OFF -DDMG_BUILD_FUZZERS=OFF -DDMG_WITH_SQLITE=ON -DDMG_WITH_PERSISTENT_FACTS=ON -DDMG_BUILD_CORRESPONDENCE_TOOL=ON
 cmake --build build-local --config Release --target dexmeguviz dexmeguviz_sql_session dexmeguviz_cache dexmeguviz_correspondence
 ```
 
-这些桌面扩展默认关闭；开启SQL或持久缓存不把它们加入Android库。查询用法见cli和docs/contracts；预解算包入口为 `python tools/precompute/package.py --help`。缓存目录须由调用方控制并信任其写者，分片摘要不是认证。结构排序分数不是概率或最终接受。
+上述桌面扩展默认关闭；在桌面端开启 SQLite 或持久化缓存不会将它们带入 Android 构建产物。查询格式详见 `cli` 源码与 `docs/contracts/`；离线预解算打包入口可通过 `python tools/precompute/package.py --help` 查看。若启用持久化缓存，缓存目录及其写入权限须由调用方控制并信任。
 
-## Android
+## Android 构建与接入
 
-构建入口为bindings/android，工具链与依赖版本以其中Gradle配置和锁定/校验文件为准。库仅提供compileOnly Kotlin标准库，宿主需自行提供已批准的2.4.21；不会将其嵌入AAR或声明传递运行时依赖。原生ABI为arm64-v8a和armeabi-v7a，minSdk27。Gradle当前要求JDK17。
+Android 构建入口位于 `bindings/android`，工具链与依赖版本以其中的 Gradle 配置和锁定文件为准：
+
+- 构建环境要求 Gradle `9.8.2`、AGP `9.4.1`、JDK `17`、NDK `30.0.16248370`、CMake `4.1.2`、`compileSdk 37.2` 与 Build Tools `37.0.0`。
+- 目标运行基线为 `minSdk 27`，输出 ABI 为 `arm64-v8a` 与 `armeabi-v7a`。
+- AAR 仅以 `compileOnly` 引用 `kotlin-stdlib:2.4.21`，不会嵌入该库或声明传递运行时依赖，宿主应用须自行提供已对齐的 Kotlin 标准库 `2.4.21`。
+
+在 `bindings/android` 目录下运行以下构建命令：
 
 ```text
 gradlew.bat :dexmeguviz-android:assembleRelease
 gradlew.bat -Pdmg.sample=true :sample:assembleDebug
 ```
 
-sample是可选Java宿主，使用自建DEX资产演示有序SourceSet和展开。示例Debug APK已在隔离快照构建；尚未安装或运行设备，构建命令不是运行时验收的声明。构建、安装和真实BIL切换分别是不同步骤。
+可选示例模块 `:sample` 为原生 Java 宿主，读取项目自建 DEX 资产演示有序 `SourceSet` 与图展开；详见 [示例应用说明](../bindings/android/sample/README.md) 与 [Android 构建切片](../bindings/android/README.md)。
 
-`NativeEngine.openRawDexSet`返回可关闭的来源集合；同步/Job查询和结果值类型位于同包。Kotlin实体算子通过GraphExpression组合；单有界展开使用GraphExpression.expand、ExpandGraphQuery与ExpandExecution。多重/嵌套展开和部分profile组合尚未实现，明确拒绝。
+`NativeEngine.openRawDexSet` 返回实现了 `AutoCloseable` 的来源集合快照；同步及 `Job` 异步查询入口均位于 `io.github.jichuo1.dexmeguviz` 包内。Kotlin 实体算子可通过 `GraphExpression` 组合，单层有界展开则使用 `GraphExpression.expand`、`ExpandGraphQuery` 与 `ExpandExecution`（多重/嵌套展开及部分不支持的 profile 组合会明确报错拒绝）：
 
 ```kotlin
-val seed = GraphExpression.scan(EntityRelation.METHOD_DEFS,
-    GraphPredicate.from(EntityPredicate.text(EntityTextField.OWNER,
-        TextOperation.EXACT, "Lexample/Entry;")))
+val seed = GraphExpression.scan(
+    EntityRelation.METHOD_DEFS,
+    GraphPredicate.from(
+        EntityPredicate.text(EntityTextField.OWNER, TextOperation.EXACT, "Lexample/Entry;")
+    )
+)
 val relation = GraphExpression.expand(ExpandQuery(seed, maxDepth = 2, minDepth = 2))
 val query = ExpandGraphQuery(GraphExpression.groupByOwner(listOf(relation)))
-// snapshot由调用方持有并在使用结束时关闭；不因结果唯一就认为业务验收通过。
+// snapshot 须由调用方持有并在使用结束后关闭
 val result = ExpandExecution.execute(snapshot, query)
 ```
 
-现有AAR、设备/ART、R8和完整ABI验收状态以项目证据为准。包消费和缓存命中仍需要读取、身份核对及必要运行时验真，不能声称零I/O或来源认证。
+## 桌面 SQL 入口
 
-## 桌面SQL入口
+在启用 `-DDMG_WITH_SQLITE=ON` 的构建中，可通过一次性命令行或 JSONL 驻留进程执行 SQLite 检索：
 
-SQLite构建可使用 `dexmeguviz sql base.apk --source split.apk --sql-file query.sql --params-file params.json --scope-incomplete`。驻留使用 `dexmeguviz_sql_session base.apk --source split.apk --scope-complete --sqlite-heap-mib 128`，随后按JSONL协议submit/run/final/ack/close，id必须使用返回的字符串。范围、参数标签和资源口径见docs/contracts/sql-cli-v1.md；不能用不同默认资源包络直接比较性能。
+- **一次性查询**：`dexmeguviz sql base.apk --source split.apk --sql-file query.sql --params-file params.json --scope-incomplete`
+- **驻留会话**：`dexmeguviz_sql_session base.apk --source split.apk --scope-complete --sqlite-heap-mib 128`，随后通过标准输入输出按 JSONL 协议发送 `submit` / `run` / `final` / `ack` / `close`（任务 `id` 须原样使用返回的字符串）。
 
-## 配套桌面命令
+作用域声明、参数类型标签及预算参数口径见 [SQL CLI 契约](contracts/sql-cli-v1.md)。比较一次性与驻留模式的性能时，须显式对齐两者的资源与内存预算包络。
 
-使用 `python -B tools/dexmeguviz.py --help` 查看native分派、保留日志的静态diff、有界metadata verify和预解算入口。支持范围及退出码见docs/contracts/desktop-commands-v1.md；该复核入口范围有限，不认证QueryID或运行时绑定。
+## 配套桌面命令与基准采集
 
-## 桌面基准原始采集
+- 运行 `python -B tools/dexmeguviz.py --help` 可查看统一路由，涵盖原生命令分派（`inspect`、`query`、`explain`、`sql`）、保留扫描日志的静态差分（`diff`）、有界元数据独立核验（`verify`）与预解算工具（`precompute`）。具体子命令边界与退出码见 [配套桌面命令 v1](contracts/desktop-commands-v1.md)。
+- `benchmarks/desktop` 提供面向固定语料的 SQL 一次性与驻留原始采集脚本；正式采集前需按对应说明完成预登记与连通性检查。
 
-benchmarks/desktop提供固定构件与语料的SQL一次性/驻留采集器。先按README预登记并预检，仅在独立正确性/生命周期门禁满足后正式采集；connectivity仅供自建小夹具连通，不产生性能接受结论，也不替代BIL A/B/C。
+## 适用范围与验证说明
+
+- 工程仍在功能整合阶段，当前源码新增能力与早期发布的 AAR 制品状态不完全等同，具体接口边界与已完成证据请先查阅 `PROJECT_STATUS.json` 与 [支持矩阵](support-matrix.md)。
+- 静态查询返回的候选、结构排序分数、分片校验与缓存命中均只反映指定静态输入内的观测结果，不构成运行时 `ClassLoader` 绑定、来源签名认证或业务验收证明；最终注入或反射前须在目标运行环境中完成绑定校验。
+- 示例构建成功、本地交叉链接或有限连通测试均各自独立于设备安装、ART 验证与真实业务场景验收。
